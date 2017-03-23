@@ -1,0 +1,38 @@
+<div class="home">
+    <div class="container-fluid text-center" >
+    <!-- Main body code here -->
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="loginContainer  col-sm-4">
+                <div class="loginContainerHeading"><div class="loginContainerHeadingText"><h3>Login</h3></div></div>
+                <div class="loginContainerContent">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Enter Username" class="form-control" ng-model="username" >
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Enter Password" class="form-control" ng-model="password" >
+                        </div>
+                        <div class="homeDropdown">
+                            <div class="form-group">
+                                <select class="form-control" id="sel1" ng-model="access">
+                                    <option selected="true" disabled="disabled" label="Select role"></option>
+                                    <option ng-repeat="accessItem in accessList"  ng-value="accessItem">{{accessItem}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger incorrect-credentials" ng-show="fail">
+                            Incorrect credentials. Try again.
+                        </div>
+                        <div class="alert alert-danger incorrect-credentials" ng-show="incomplete">
+                            Please fill out all fields first.
+                        </div>
+                        <button type="submit" class="btn btn-default"  ng-click="login()" style=" width: 100%;    margin-bottom: 40px;    margin-top: 5px;    color: #fff;    background: #8C1515;    padding: 10px;">Login</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</div>
+

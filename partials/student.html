@@ -1,0 +1,449 @@
+<div class="student">
+    <div class="credentialsContainer">
+        <div class="leftCredentialsContainer">
+            <div class="welcomeField">
+                <span class="welcomeMessage" style="font-size:14px;">Welcome, </span>
+                <span class="name">{{userData.name}}</span>
+            </div>
+        </div>
+        <div class="rightCredentialsContainer">
+            <div class="credentialsTabField ">
+                <a href="javascript:void(0)" ng-click="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="tabsContainer">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="pill" href="javascript:void(0)" data-target="#myProfile">My Profile</a></li>
+                <li><a data-toggle="pill" href="javascript:void(0)" data-target="#myPerformance">My Performance</a></li>
+                <li><a data-toggle="pill" href="javascript:void(0)" data-target="#relativePerformance">Relative Performance</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="myProfile" class="tab-pane fade in active">
+                    <div class="personalInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Personal Information</h4>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.name}}</div>
+                                    <p class="list-group-item-text">Name</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userId}}</div>
+                                    <p class="list-group-item-text">Student ID</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.dob}}</div>
+                                    <p class="list-group-item-text">Date of Birth</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userData.dep_name}}</div>
+                                    <p class="list-group-item-text">Department</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.gender}}</div>
+                                    <p class="list-group-item-text">Gender</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userData.batch}}</div>
+                                    <p class="list-group-item-text">Batch</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.father_name}}</div>
+                                    <p class="list-group-item-text">Father's Name</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userAccess}}</div>
+                                    <p class="list-group-item-text">Access</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="list-group-item-heading">{{userData.mother_name}}</div>
+                                <p class="list-group-item-text">Mother's Name</p>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="contactInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Contact Details</h4>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.phone_no}}</div>
+                                    <p class="list-group-item-text">Phone Number</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userData.email_id}}</div>
+                                    <p class="list-group-item-text">Email address</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subjectInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Enrolled Subjects (for semester {{currentSemId}})</h4>
+                            </div>
+                             <!--<div  class="list-group-item" ng-repeat="enrolledSubject in enrolledSubjectList" ng-cloak>
+                                <div class="list-group-item-heading">{{enrolledSubject}}</div>
+                            </div>-->
+                        </div>
+                    </div>
+                <!--<form>
+                        <div class="form-group">
+                            <label for="contactNumber">Contact Number</label>
+                            <input type="tel" class="form-control" id="contactNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailAddress">Email address</label>
+                            <input type="email" class="form-control" id="emailAddress">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>-->
+                </div>
+
+                <div id="myPerformance" class="tab-pane fade">
+
+                    <div class="studentDropdown">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" ng-repeat="semCode in semList" ng-click="">{{semCode}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+ <!--                   <div class="studentPerformanceTable">
+                        <table class="table table-bordered  table-hover">
+                            <thead>
+                            <tr>
+                                <th>SUBJECTS</th>
+                                <th>Quiz 1</th>
+                                <th>Quiz 2</th>
+                                <th>Quiz 3</th>
+                                <th>Quiz 4</th>
+                                <th>Assignment 1</th>
+                                <th>Assignment 2</th>
+                                <th>Assignment 3</th>
+                                <th>Assignment 4</th>
+                                <th>Assignment 5</th>
+                                <th>Lab Evaluation 1</th>
+                                <th>Lab Evaluation 2</th>
+                                <th>Project Evaluation</th>
+                                <th>MST</th>
+                                <th>EST</th>
+                                <th>GRADE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="">
+                                <td>DBMS</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>OS</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>B</td>
+                            </tr>
+                            <tr>
+                                <td>EAD</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>CN</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>MP</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>ED</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>B</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+-->
+                <div id="relativePerformance" class="tab-pane fade">
+                    <div class="studentDropdown">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" ng-repeat="semCode in semList">{{semCode}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="studentDropdown">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Subject<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)">DBMS</a></li>
+                                <li><a href="javascript:void(0)">OS</a></li>
+                                <li><a href="javascript:void(0)">EAD</a></li>
+                                <li><a href="javascript:void(0)">CN</a></li>
+                                <li><a href="javascript:void(0)">MP</a></li>
+                                <li><a href="javascript:void(0)">ED</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="studentPerformanceTable">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Sid</th>
+                                <th>Quiz1</th>
+                                <th>Quiz2</th>
+                                <th>Quiz3</th>
+                                <th>Quiz4</th>
+                                <th>Assign 1</th>
+                                <th>Assign 2</th>
+                                <th>Assign 3</th>
+                                <th>Assign 4</th>
+                                <th>Lab Evaluation1</th>
+                                <th>Lab Evaluation2</th>
+                                <th>Project Evaluation</th>
+                                <th>MST</th>
+                                <th>EST</th>
+                                <th>GRADE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Deepika</td>
+                                <td>15103065</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                          </tr>
+                            <tr>
+                                <td>Gaurav</td>
+                                <td>15103066</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>B</td>
+                            </tr>
+                            <tr>
+                                <td>Manjot</td>
+                                <td>15103067</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>Archit</td>
+                                <td>1510308</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>C</td>
+                            </tr>
+                            <tr>
+                                <td>Nikita</td>
+                                <td>15103018</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>Aarushi</td>
+                                <td>15103026</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>B</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="gradeRangeTable">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <td>A+</td>
+                                <td>A</td>
+                                <td>B+</td>
+                                <td>B</td>
+                                <td>C+</td>
+                                <td>C</td>
+                                <td>D</td>
+                                <td>F</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>Cut-off Marks</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                         </tbody>
+                        </table>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>

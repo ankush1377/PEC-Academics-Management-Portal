@@ -1,0 +1,192 @@
+/************COMMON*****************/
+
+.body{
+    background:none repeat scroll 0 0 white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    height:100% !important;
+}
+
+#wrapper{
+    background:#fff;
+    margin:0 auto;
+    width:100%;
+    overflow-x: hidden;
+}
+
+#content-wrapper{
+    float:left;
+    width:100%;
+    height:100%;
+    min-height:76vh;
+    background-color: #f8f8f8;
+    padding-bottom:10px;
+}
+
+.header{
+    float: left;
+    width: 100%;
+    background: #8C1515;
+}
+
+.headerText{
+    float: left;
+    text-align: center;
+    color: #fff;
+    font-size: 46px;
+    margin-top: 25px;
+    margin-left: -29px;}
+
+.headerLogo{
+        float: left;
+        text-align: center;
+        margin-top: -45px;
+        margin-bottom: -42px;
+            margin-left: -15px;
+}
+
+.footer{
+        bottom: 0px;
+        position: sticky;
+        float: left;
+        width: 100%;
+        background: #8C1515;
+}
+
+.copyrightText{
+    float: left;
+    color: #fff;
+    font-size: 11px;
+    padding: 6px;
+}
+
+.websiteLink{
+    float: right;
+    padding: 6px;
+    font-size: 12px;
+    color: #fff;
+}
+
+
+/************HOME*****************/
+
+.home{
+    height:76vh;
+}
+
+.loginContainer{
+    border:1px solid #ddd;
+    margin-top:120px;
+        text-align: center;
+        background: #fff;
+        padding-left:60px;
+        padding-right:60px;
+
+}
+
+.loginContainerHeading{
+    float: left;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;}
+
+.loginContainerHeadingText{
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.loginContainerContent{
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.form-group{
+    margin-bottom: 10px;
+}
+
+.incorrect-credentials{
+    font-size: 13px;
+    background: none;
+    border: none;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+
+/************STUDENT*****************/
+
+.credentialsContainer{
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    padding: 13px;
+    float: left;
+    width: 100%;
+}
+
+.credentialsTabField{
+    padding: 2px;
+}
+
+.leftCredentialsContainer{
+    float: left;
+    font-size: 18px;
+    margin-left: 100px;
+}
+
+
+.rightCredentialsContainer{
+    float: right;
+    font-size: 14px;
+    margin-right: 100px;
+}
+
+
+.left{
+    float: left;
+    width: 70%;
+}
+
+.list-group-item-text {
+     font-weight: 600;
+     font-size:13px;
+}
+
+.list-group-item:first-child {
+    padding-top: 15px;
+    background: #f8f8f8;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.tabsContainer{
+    float: left;
+    width: 100%;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 15px;
+    padding-top:20px;
+    background: #fff;
+    float: left;
+    width:100%;
+}
+
+
+.studentDropdown{
+    margin-bottom: 10px;
+    margin-right:10px;
+    float: left;
+}
+
+.btn-primary{
+    background: #8C1515;
+}
+.btn-primary:hover{
+    background: rgba(140, 21, 21, 0.70);
+}
+.btn-primary:focus{
+    background: rgba(140, 21, 21, 0.70);
+}
