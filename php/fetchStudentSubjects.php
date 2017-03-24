@@ -25,14 +25,15 @@
 	if ($subjectListResult->num_rows > 0) {
 		while($row = $subjectListResult->fetch_array(MYSQLI_ASSOC)) {
 			for ($x = 1; $x <= 7; $x++) {
-				$subjectSql = "Select * FROM subject_info WHERE sub_code = '$row[ 'subject' .  '$x' ]' ";
+				$code = $row[ "subject" .  " '$x' " ];
+				$subjectSql = "Select * FROM subject_info WHERE sub_code = '$code' ";
 				$subjectResult = $conn->query($subjectSql);
 				if ($subjectResult->num_rows > 0) {
 					$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
-					if ($x == 7)
-						$outp .= $subjectInfo["name"] . '"';
-					else
-						$outp .= $subjectInfo["name"] . '",';
+					
+					if ($outp != "") {$outp .= ",";}
+					$outp .= '{"subCode":"' . $subjectInfo["sub_code"] . '",';
+					$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
 				}
 			} 
 		}		
