@@ -93,15 +93,15 @@
                         </div>
                     </div>
                     <div class="subjectInfo">
-						<div class="alert alert-danger not-enrolled" ng-show="notEnrolled">
-							You haven't been enrolled for any subjects yet.
-						</div>
                         <div class="list-group">
                             <div  class="list-group-item">
                                 <h4 class="list-group-item-heading">Enrolled Subjects (for semester {{currentSemId}})</h4>
                             </div>
-                             <div  class="list-group-item" ng-repeat="enrolledSubject in enrolledSubjectList" ng-cloak>
+                            <div  class="list-group-item" ng-repeat="enrolledSubject in enrolledSubjectList_profile" ng-cloak>
                                 <div class="list-group-item-heading">{{enrolledSubject.subName}}</div>
+                            </div>
+                            <div class="alert alert-danger not-enrolled" ng-show="notEnrolled">
+                                You haven't been enrolled for any subjects yet.
                             </div>
                         </div>
                     </div>
@@ -120,19 +120,10 @@
 
                 <div id="myPerformance" class="tab-pane fade">
                     <div class="studentDropdown">
-<<<<<<< HEAD
                         <div class="form-group">
-                            <select class="form-control"  ng-model="selectedSem">
+                            <select class="form-control"  ng-model="selectedSem_personal" ng-options="semCode for semCode in semList">
                                 <option selected="true" disabled="disabled" label="Select semester"></option>
-                                <option ng-repeat="semCode in semList"  ng-value="semCode" >{{semCode}}</option>
                             </select>
-=======
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" ng-repeat="semCode in semList" ng-model="sem" ng-click="setMyPerformance(semCode)">{{semCode}}</a></li>
-                            </ul>
->>>>>>> origin/master
                         </div>
                     </div>
                     <div class="studentPerformanceTable">
@@ -183,32 +174,23 @@
 
 
                 <div id="relativePerformance" class="tab-pane fade">
-                    <div class="studentDropdown">
-						<div class="form-group">
-<<<<<<< HEAD
-                            <select class="form-control"  ng-model="selectedSem" ng-options="semCode for semCode in semList">
-                                <option selected="true" disabled="disabled" label="Select semester"></option>
-                            </select>
-=======
-                                <select class="form-control" id="sel1" ng-model="selectedSem">
+                    <div class="topSecion">
+                        <div class="studentDropdown">
+                            <div class="form-group">
+                                <select class="form-control"  ng-model="selectedSem_relative" ng-options="semCode for semCode in semList" ng-change="updateSubjectList(userId, selectedSem_relative)">
                                     <option selected="true" disabled="disabled" label="Select semester"></option>
-                                    <option ng-repeat="semCode in semList"  ng-value="semCode" >{{semCode}}</option>
                                 </select>
->>>>>>> origin/master
+                            </div>
                         </div>
-                    </div>
-                    <div class="studentDropdown">
-						<div class="form-group">
-<<<<<<< HEAD
-                            <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList" ng-model="selectedSubject" ng-change="getRelativeMarks(selectedSem, selectedSubject.subCode)">
-                                <option selected="true" disabled="disabled" label="Select subject"></option>
-                            </select>
-=======
-                                <select class="form-control" id="sel1" >
+                        <div class="studentDropdown">
+                            <div class="form-group">
+                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ">
                                     <option selected="true" disabled="disabled" label="Select subject"></option>
-                                    <option ng-repeat="enrolledSubject in enrolledSubjectList"  	ng-click="getRelativeMarks(semId, enrolledSubject.subCode)">{{enrolledSubject.subName}}</option>
                                 </select>
->>>>>>> origin/master
+                            </div>
+                        </div>
+                        <div class="fetchButton">
+                            <button type="button" class="btn" ng-click="getRelativeMarks(selectedSem_relative, selectedSubject.subCode)" ng-disabled="selectedSem_relative == undefined || selectedSubject == undefined">Fetch Results</button>
                         </div>
                     </div>
                     <div class="messageText">Marks list for semester {{selectedSem}}:-</div>

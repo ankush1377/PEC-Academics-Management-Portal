@@ -24,7 +24,7 @@
 	
 	if ($subjectListResult->num_rows > 0) {
 		while($row = $subjectListResult->fetch_array(MYSQLI_ASSOC)) {
-<<<<<<< HEAD
+
 			$code = $row["subject1"];
 			$subjectSql = "Select * FROM subject_info WHERE subject_code = '$code' ";
 			$subjectResult = $conn->query($subjectSql);
@@ -89,21 +89,7 @@
 				$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
 			}
 	    }
-=======
-			for ($x = 1; $x <= 7; $x++) {
-				$code = $row[ "subject" .  " '$x' " ];
-				$subjectSql = "Select * FROM subject_info WHERE sub_code = '$code' ";
-				$subjectResult = $conn->query($subjectSql);
-				if ($subjectResult->num_rows > 0) {
-					$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
-					
-					if ($outp != "") {$outp .= ",";}
-					$outp .= '{"subCode":"' . $subjectInfo["sub_code"] . '",';
-					$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
-				}
-			} 
-		}		
->>>>>>> origin/master
+
 		$outp ='{ "records" : [' . $outp . '] }';
 	}
 	else {
