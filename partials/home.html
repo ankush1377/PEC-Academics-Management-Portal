@@ -7,12 +7,15 @@
                 <div class="loginContainerHeading"><div class="loginContainerHeadingText"><h3>Login</h3></div></div>
                 <div class="loginContainerContent">
                     <form>
-                        <div class="form-group">
-                            <input type="text" placeholder="Enter Username" class="form-control" ng-model="username" >
+                        <div class="input-group">
+                        	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        	<input type="text" class="form-control"  placeholder="Enter UserId" ng-model="username">
                         </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Enter Password" class="form-control" ng-model="password" >
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                          <input  type="password" class="form-control"  placeholder="Enter Password" ng-model="password">
                         </div>
+                        <br>
                         <div class="homeDropdown">
                             <div class="form-group">
                                 <select class="form-control" id="sel1" ng-model="access">
@@ -27,7 +30,7 @@
                         <div class="alert alert-danger incorrect-credentials" ng-show="incomplete">
                             Please fill out all fields first.
                         </div>
-                        <button type="submit" class="btn btn-default"  ng-click="login()" style=" width: 100%;    margin-bottom: 40px;    margin-top: 5px;    color: #fff;    background: #8C1515;    padding: 10px;">Login</button>
+                        <button type="submit" class="btn btn-default"  ng-click="login()" style=" width: 100%;    margin-bottom: 45px;    margin-top: 5px;    color: #fff;    background: #8C1515;    padding: 10px;">Login</button>
                     </form>
                 </div>
             </div>
@@ -35,4 +38,3 @@
         </div>
     </div>
 </div>
-

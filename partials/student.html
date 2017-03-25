@@ -93,13 +93,16 @@
                         </div>
                     </div>
                     <div class="subjectInfo">
+						<div class="alert alert-danger not-enrolled" ng-show="notEnrolled">
+							You haven't been enrolled for any subjects yet.
+						</div>
                         <div class="list-group">
                             <div  class="list-group-item">
                                 <h4 class="list-group-item-heading">Enrolled Subjects (for semester {{currentSemId}})</h4>
                             </div>
-                             <!--<div  class="list-group-item" ng-repeat="enrolledSubject in enrolledSubjectList" ng-cloak>
-                                <div class="list-group-item-heading">{{enrolledSubject}}</div>
-                            </div>-->
+                             <div  class="list-group-item" ng-repeat="enrolledSubject in enrolledSubjectList" ng-cloak>
+                                <div class="list-group-item-heading">{{enrolledSubject.subName}}</div>
+                            </div>
                         </div>
                     </div>
                 <!--<form>
@@ -116,210 +119,119 @@
                 </div>
 
                 <div id="myPerformance" class="tab-pane fade">
-
                     <div class="studentDropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" ng-repeat="semCode in semList" ng-click="">{{semCode}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
- <!--                   <div class="studentPerformanceTable">
-                        <table class="table table-bordered  table-hover">
-                            <thead>
-                            <tr>
-                                <th>SUBJECTS</th>
-                                <th>Quiz 1</th>
-                                <th>Quiz 2</th>
-                                <th>Quiz 3</th>
-                                <th>Quiz 4</th>
-                                <th>Assignment 1</th>
-                                <th>Assignment 2</th>
-                                <th>Assignment 3</th>
-                                <th>Assignment 4</th>
-                                <th>Assignment 5</th>
-                                <th>Lab Evaluation 1</th>
-                                <th>Lab Evaluation 2</th>
-                                <th>Project Evaluation</th>
-                                <th>MST</th>
-                                <th>EST</th>
-                                <th>GRADE</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="">
-                                <td>DBMS</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>A</td>
-                            </tr>
-                            <tr>
-                                <td>OS</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>B</td>
-                            </tr>
-                            <tr>
-                                <td>EAD</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>A</td>
-                            </tr>
-                            <tr>
-                                <td>CN</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>C</td>
-                            </tr>
-                            <tr>
-                                <td>MP</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>A</td>
-                            </tr>
-                            <tr>
-                                <td>ED</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>B</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
--->
-                <div id="relativePerformance" class="tab-pane fade">
-                    <div class="studentDropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester<span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" ng-repeat="semCode in semList">{{semCode}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="studentDropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Subject<span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)">DBMS</a></li>
-                                <li><a href="javascript:void(0)">OS</a></li>
-                                <li><a href="javascript:void(0)">EAD</a></li>
-                                <li><a href="javascript:void(0)">CN</a></li>
-                                <li><a href="javascript:void(0)">MP</a></li>
-                                <li><a href="javascript:void(0)">ED</a></li>
-                            </ul>
+                        <div class="form-group">
+                            <select class="form-control"  ng-model="selectedSem">
+                                <option selected="true" disabled="disabled" label="Select semester"></option>
+                                <option ng-repeat="semCode in semList"  ng-value="semCode" >{{semCode}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="studentPerformanceTable">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered  table-hover">
                             <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Sid</th>
-                                <th>Quiz1</th>
-                                <th>Quiz2</th>
-                                <th>Quiz3</th>
-                                <th>Quiz4</th>
-                                <th>Assign 1</th>
-                                <th>Assign 2</th>
-                                <th>Assign 3</th>
-                                <th>Assign 4</th>
-                                <th>Lab Evaluation1</th>
-                                <th>Lab Evaluation2</th>
-                                <th>Project Evaluation</th>
-                                <th>MST</th>
-                                <th>EST</th>
-                                <th>GRADE</th>
-                            </tr>
+                                <tr>
+                                    <th>SUBJECTS</th>
+                                    <th>Quiz 1</th>
+                                    <th>Quiz 2</th>
+                                    <th>Quiz 3</th>
+                                    <th>Quiz 4</th>
+                                    <th>Assignment 1</th>
+                                    <th>Assignment 2</th>
+                                    <th>Assignment 3</th>
+                                    <th>Assignment 4</th>
+                                    <th>Assignment 5</th>
+                                    <th>Lab Evaluation 1</th>
+                                    <th>Lab Evaluation 2</th>
+                                    <th>Project Evaluation</th>
+                                    <th>MST</th>
+                                    <th>EST</th>
+                                    <th>GRADE</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Deepika</td>
-                                <td>15103065</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>A</td>
-                          </tr>
-                            <tr>
+                                <tr >
+                                    <td>DBMS</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>9</td>
+                                    <td>A</td>
+                                </tr>
+                             </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div id="relativePerformance" class="tab-pane fade">
+                    <div class="studentDropdown">
+						<div class="form-group">
+                            <select class="form-control"  ng-model="selectedSem" ng-options="semCode for semCode in semList">
+                                <option selected="true" disabled="disabled" label="Select semester"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="studentDropdown">
+						<div class="form-group">
+                            <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList" ng-model="selectedSubject" ng-change="getRelativeMarks(selectedSem, selectedSubject.subCode)">
+                                <option selected="true" disabled="disabled" label="Select subject"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="messageText">Marks list for semester {{selectedSem}}:-</div>
+                    <div class="studentPerformanceTable">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+								<tr>
+									<th>Name</th>
+									<th>Sid</th>
+									<th>Quiz1</th>
+									<th>Quiz2</th>
+									<th>Quiz3</th>
+									<th>Quiz4</th>
+									<th>Assign 1</th>
+									<th>Assign 2</th>
+									<th>Assign 3</th>
+									<th>Assign 4</th>
+									<th>Lab Evaluation1</th>
+									<th>Lab Evaluation2</th>
+									<th>Project Evaluation</th>
+									<th>MST</th>
+									<th>EST</th>
+									<th>GRADE</th>
+								</tr>
+                            </thead>
+                            <tbody>
+								<tr>
+									<td>Deepika</td>
+									<td>15103065</td>
+									<td>7</td>
+									<td>8</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>9</td>
+									<td>A</td>
+								</tr>
+								<tr>
                                 <td>Gaurav</td>
                                 <td>15103066</td>
                                 <td>7</td>
@@ -415,31 +327,31 @@
                     <div class="gradeRangeTable">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <th>Grade</th>
-                                <td>A+</td>
-                                <td>A</td>
-                                <td>B+</td>
-                                <td>B</td>
-                                <td>C+</td>
-                                <td>C</td>
-                                <td>D</td>
-                                <td>F</td>
-                            </tr>
+								<tr>
+									<th>Grade</th>
+									<td>A+</td>
+									<td>A</td>
+									<td>B+</td>
+									<td>B</td>
+									<td>C+</td>
+									<td>C</td>
+									<td>D</td>
+									<td>F</td>
+								</tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th>Cut-off Marks</th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                         </tbody>
+								<tr>
+									<th>Cut-off Marks</th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
                         </table>
                     </div>
                 </div>
