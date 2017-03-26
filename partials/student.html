@@ -193,138 +193,50 @@
                             <button type="button" class="btn" ng-click="getRelativeMarks(selectedSem_relative, selectedSubject.subCode)" ng-disabled="selectedSem_relative == undefined || selectedSubject == undefined">Fetch Results</button>
                         </div>
                     </div>
-                    <div class="messageText">Marks list for semester {{selectedSem}}:-</div>
+                    <!--<div class="messageText">Marks list for semester {{selectedSem}}:-</div>-->
                     <div class="studentPerformanceTable">
                         <table class="table table-bordered table-hover">
                             <thead>
 								<tr>
+                                    <th>SID</th>
 									<th>Name</th>
-									<th>Sid</th>
-									<th>Quiz1</th>
-									<th>Quiz2</th>
-									<th>Quiz3</th>
-									<th>Quiz4</th>
-									<th>Assign 1</th>
-									<th>Assign 2</th>
-									<th>Assign 3</th>
-									<th>Assign 4</th>
-									<th>Lab Evaluation1</th>
-									<th>Lab Evaluation2</th>
-									<th>Project Evaluation</th>
+									<th>Q1</th>
+									<th>Q2</th>
+									<th>Q3</th>
+									<th>Q4</th>
+									<th>A1</th>
+									<th>A2</th>
+									<th>A3</th>
+									<th>A4</th>
+                                    <th>A5</th>
+									<th>LE1</th>
+									<th>LE2</th>
+									<th>PE</th>
 									<th>MST</th>
 									<th>EST</th>
-									<th>GRADE</th>
+									<th>Grade</th>
 								</tr>
                             </thead>
                             <tbody>
-								<tr>
-									<td>Deepika</td>
-									<td>15103065</td>
-									<td>7</td>
-									<td>8</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>9</td>
-									<td>A</td>
+								<tr ng-repeat="studentMarks in relativeMarksList">
+                                    <td>{{studentMarks.sid}}</td>
+                                    <td>{{studentMarks.name}}</td>
+									<td>{{studentMarks.quiz1}}</td>
+									<td>{{studentMarks.quiz1}}</td>
+									<td>{{studentMarks.quiz1}}</td>
+									<td>{{studentMarks.quiz1}}</td>
+									<td>{{studentMarks.assignment1}}</td>
+									<td>{{studentMarks.assignment2}}</td>
+									<td>{{studentMarks.assignment3}}</td>
+									<td>{{studentMarks.assignment4}}</td>
+									<td>{{studentMarks.assignment5}}</td>
+									<td>{{studentMarks.lab1}}</td>
+									<td>{{studentMarks.lab2}}</td>
+									<td>{{studentMarks.project}}</td>
+									<td>{{studentMarks.mst}}</td>
+									<td>{{studentMarks.est}}</td>
+                                    <td>{{studentMarks.grade}}</td>
 								</tr>
-								<tr>
-                                <td>Gaurav</td>
-                                <td>15103066</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>B</td>
-                            </tr>
-                            <tr>
-                                <td>Manjot</td>
-                                <td>15103067</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>A</td>
-                            </tr>
-                            <tr>
-                                <td>Archit</td>
-                                <td>1510308</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>C</td>
-                            </tr>
-                            <tr>
-                                <td>Nikita</td>
-                                <td>15103018</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>A</td>
-                            </tr>
-                            <tr>
-                                <td>Aarushi</td>
-                                <td>15103026</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>9</td>
-                                <td>B</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

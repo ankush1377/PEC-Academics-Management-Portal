@@ -57,7 +57,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 //				console.log(response.data.records);
 				$scope.enrolledSubjectList_profile = response.data.records;
 				$scope.enrolledSubjectList_relative = $scope.enrolledSubjectList_profile;
-//				$scope.getRelativeMarks ($rootScope.currentSemId, $scope.enrolledSubjectList[0]['subCode']);
+				$scope.getRelativeMarks ($rootScope.currentSemId, $scope.enrolledSubjectList_relative[0]['subCode']);
 			}
 			else if (response.data.records == "0") {
 //				console.log(response.data.records);
@@ -121,7 +121,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
         		console.log("response received");
         		if (response.data.records != "0") {
         			console.log(response.data.records);
-                    
+
 //        			$scope.relativeMarksList = response.data.records;
         		}
         		else if (response.data.records == "0") {
@@ -137,7 +137,6 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 
 
 	$scope.getEnrolledSubjects ($rootScope.userId, $rootScope.currentSemId);
-//  console.log($scope.enrolledSubjectList_profile);
 
 	
 	$scope.setMyPerformance = function(semCode) {

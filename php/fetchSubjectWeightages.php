@@ -21,7 +21,7 @@
 
 
 	$subjectWeightageSql = "SELECT * FROM student_weightage WHERE sem_id = '$semId' AND subject_code = '$subCode' ";
-	$subjectWeightageResult = $conn->query($marksListSql);
+	$subjectWeightageResult = $conn->query($subjectWeightageSql);
 
 
 	if ($subjectWeightageResult->num_rows > 0) {
