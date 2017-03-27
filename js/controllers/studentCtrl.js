@@ -23,7 +23,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 //    		console.log("response received");
     		if (response.data.records != "0") {
     			$scope.subjectWeightages = response.data.records;
-    			console.log($scope.subjectWeightages[0].quiz1);
+//    			console.log($scope.subjectWeightages[0].quiz1);
     		}
     		else if (response.data.records == "0") {
 //    			console.log(response.data.records);
@@ -86,6 +86,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
     			$scope.getSubjectWeightages(semId, subjectCode);
     		}
     		else if (response.data.records == "0") {
+    		    $scope.normalizedRelativeMarksList = response.data.records;
 //    			console.log(response.data.records);
     			//no records found
     		}
@@ -151,7 +152,6 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 		updateSubjectRequest.then( function(response) {
 			if (response.data.records != "0") {
 				$scope.enrolledSubjectList_relative = response.data.records;
-//				$scope.getRelativeMarks ($rootScope.currentSemId, $scope.enrolledSubjectList[0]['subCode']);
 			}
 			else if (response.data.records == "0") {
 //				console.log(response.data.records);
@@ -182,19 +182,11 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 		myPerformanceRequest.then( function(response) {
 //			console.log(response.data);
 			if (response.data.records != "0") {
-			    $scope.studentPersonalMarks = response.data.records;
-			    $scope.getSubjectMarks(sid, semCode);
-			    var subNames = [];
-			    //var i=0;
-			    for(var item in $scope.studentPersonalMarks)
-			        subNames.push(item);
-			    for(var i=0;i<subNames.length;i++){
-			        $scope.studentPersonalMarks[subNames[i]].subName = subNames[i];
-			    }
-			    console.log($scope.studentPersonalMarks);
+			    $scope.myPerformanceList = response.data.records;
+//			    console.log($scope.myPerformanceList);
 			}
 			else if (response.data.records == "0") {
-				$scope.studentPersonalMarks = "";
+				$scope.myPerformanceList = response.data.records;
 				//no records found
 			}
 			else {

@@ -100,7 +100,7 @@
                             <div  class="list-group-item" ng-repeat="enrolledSubject in enrolledSubjectList_profile" ng-cloak>
                                 <div class="list-group-item-heading">{{enrolledSubject.subName}}</div>
                             </div>
-                            <div class="alert alert-danger not-enrolled" ng-show="notEnrolled">
+                            <div class="alert alert-danger no-records" ng-show="notEnrolled">
                                 You haven't been enrolled for any subjects yet.
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="studentPerformanceTable">
-                        <table class="table table-bordered  table-hover">
+                        <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
                             <thead >
                                 <tr >
                                     <th>Subject</th>
@@ -154,27 +154,28 @@
                                     <th>Grade</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr ng-repeat="marks in studentPersonalMarks" >
-                                    <td>{{marks.subName}}</td>
-                                    <td>{{marks.quiz1}}</td>
-                                    <td>{{marks.quiz1}}</td>
-                                    <td>{{marks.quiz1}}</td>
-                                    <td>{{marks.quiz1}}</td>
-                                    <td>{{marks.assignment1}}</td>
-                                    <td>{{marks.assignment1}}</td>
-                                    <td>{{marks.assignment1}}</td>
-                                    <td>{{marks.assignment1}}</td>
-                                    <td>{{marks.assignment1}}</td>
-                                    <td>{{marks.lab1}}</td>
-                                    <td>{{marks.lab2}}</td>
-                                    <td>{{marks.project}}</td>
-                                    <td>{{marks.mst}}</td>
-                                    <td>{{marks.est}}</td>
-                                    <td>{{marks.grade}}</td>
+                            <tbody ng-show="myPerformanceList != '0'">
+                                <tr ng-repeat="row in myPerformanceList" >
+                                    <td>{{row.subName}}</td>
+                                    <td><div ng-show="row.studentSubjectMarks['quiz1']">{{row.studentSubjectMarks['quiz1']}} / {{row.subjectMarks['quiz1']}}</div><div ng-show="!row.studentSubjectMarks['quiz1']">N/A</div></td>
+                                    <td><div ng-show="row.studentSubjectMarks['quiz2']">{{row.studentSubjectMarks['quiz2']}} / {{row.subjectMarks['quiz2']}}</div><div ng-show="!row.studentSubjectMarks['quiz2']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['quiz3']">{{row.studentSubjectMarks['quiz3']}} / {{row.subjectMarks['quiz3']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['quiz4']">{{row.studentSubjectMarks['quiz4']}} / {{row.subjectMarks['quiz4']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['assignment1']">{{row.studentSubjectMarks['assignment1']}} / {{row.subjectMarks['assignment1']}}</div><div ng-show="!row.studentSubjectMarks['assignment1']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['assignment2']">{{row.studentSubjectMarks['assignment2']}} / {{row.subjectMarks['assignment2']}}</div><div ng-show="!row.studentSubjectMarks['assignment2']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['assignment3']">{{row.studentSubjectMarks['assignment3']}} / {{row.subjectMarks['assignment3']}}</div><div ng-show="!row.studentSubjectMarks['assignment3']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['assignment4']">{{row.studentSubjectMarks['assignment4']}} / {{row.subjectMarks['assignment4']}}</div><div ng-show="!row.studentSubjectMarks['assignment4']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['assignment5']">{{row.studentSubjectMarks['assignment5']}} / {{row.subjectMarks['assignment5']}}</div><div ng-show="!row.studentSubjectMarks['assignment5']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['lab1']">{{row.studentSubjectMarks['lab1']}} / {{row.subjectMarks['lab1']}}</div><div ng-show="!row.studentSubjectMarks['lab1']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['lab2']">{{row.studentSubjectMarks['lab2']}} / {{row.subjectMarks['lab2']}}</div><div ng-show="!row.studentSubjectMarks['lab2']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
+									<td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
                                 </tr>
                              </tbody>
                         </table>
+                        <div ng-show="myPerformanceList == '0'" class="alert alert-danger no-records">No records found</div>
                     </div>
                 </div>
 
@@ -245,6 +246,7 @@
 								</tr>
                             </tbody>
                         </table>
+                        <div ng-show="normalizedRelativeMarksList == '0'" class="alert alert-danger no-records">No records found</div>
                     </div>
 <!--
                     <div class="gradeRangeTable">

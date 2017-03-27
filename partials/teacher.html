@@ -22,7 +22,7 @@
                 <li><a data-toggle="pill" href="javascript:void(0)" data-target="#assignMarks">Assign Marks</a></li>
             </ul>
 
-            <div class="tab-content">
+            <div class="tab-content" ng-cloak>
                 <div id="myProfile" class="tab-pane fade in active">
                     <div class="personalInfo">
                         <div class="list-group">
@@ -45,7 +45,7 @@
                                     <p class="list-group-item-text">Date of Birth</p>
                                 </div>
                                 <div class="right">
-                                    <div class="list-group-item-heading">{{userData.dep_code}}</div>
+                                    <div class="list-group-item-heading" >{{userData.dep_name}}</div>
                                     <p class="list-group-item-text">Department</p>
                                 </div>
                             </div>
