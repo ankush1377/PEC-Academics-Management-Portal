@@ -3,16 +3,75 @@
 pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http',function($scope,$rootScope,$location,$route,$http){
 
 
-	
 	$scope.notEnrolled = false;
-	$scope.enrolledSubjectList_profile = "";
+	var initial = 0;
+	$scope.getSubjectWeightages = function (semId, subjectCode){
+//        console.log("getRelativeMarks");
+    	var subjectWeightagesData = {
+    		"semId": semId,
+    		"subjectCode": subjectCode
+    	};
+//    	console.log(relativeMarksData);
+
+    	var subjectWeightagesRequest = $http({
+    	    method: "POST",
+    		url: "php/fetchSubjectWeightages.php",
+    		data: subjectWeightagesData
+    	});
+
+    	subjectWeightagesRequest.then( function(response) {
+//    		console.log("response received");
+    		if (response.data.records != "0") {
+    			$scope.subjectWeightages = response.data.records;
+    			console.log($scope.subjectWeightages[0].quiz1);
+    		}
+    		else if (response.data.records == "0") {
+//    			console.log(response.data.records);
+    			//no records found
+    		}
+    		else {
+
+    	    }
+        });
+//        console.log("getRelativeMarksEnds");
+    };
+	$scope.getSubjectMarks = function (semId, subjectCode){
+//        console.log("getRelativeMarks");
+    	var subjectMarksData = {
+    		"semId": semId,
+    		"subjectCode": subjectCode
+    	};
+//    	console.log(relativeMarksData);
+
+    	var subjectMarksRequest = $http({
+    	    method: "POST",
+    		url: "php/fetchSubjectMarks.php",
+    		data: subjectMarksData
+    	});
+
+    	subjectMarksRequest.then( function(response) {
+//    		console.log("response received");
+    		if (response.data.records != "0") {
+    			$scope.subjectMarks = response.data.records;
+//    			console.log($scope.normalizedRelativeMarksList);
+    		}
+    		else if (response.data.records == "0") {
+//    			console.log(response.data.records);
+    			//no records found
+    		}
+    		else {
+
+    	    }
+        });
+//        console.log("getRelativeMarksEnds");
+    };
 	$scope.getRelativeMarks = function (semId, subjectCode){
-        console.log("getRelativeMarks");
+//        console.log("getRelativeMarks");
     	var relativeMarksData = {
     		"semId": semId,
     		"subjectCode": subjectCode
     	};
-    	console.log(relativeMarksData);
+//    	console.log(relativeMarksData);
 
     	var relativeMarksRequest = $http({
     	    method: "POST",
@@ -21,23 +80,24 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
     	});
 
     	relativeMarksRequest.then( function(response) {
-    		console.log("response received");
+//    		console.log("response received");
     		if (response.data.records != "0") {
-    			console.log(response.data.records);
-    			$scope.relativeMarksList = response.data.records;
+    			$scope.normalizedRelativeMarksList = response.data.records;
+    			$scope.getSubjectWeightages(semId, subjectCode);
     		}
     		else if (response.data.records == "0") {
-    			console.log(response.data.records);
+//    			console.log(response.data.records);
     			//no records found
     		}
     		else {
 
     	    }
         });
-        console.log("getRelativeMarksEnds");
+//        console.log("getRelativeMarksEnds");
     };
 	$scope.getEnrolledSubjects = function( sid, semId) {
-		console.log("getEnrolledSubjects");
+//		console.log("getEnrolledSubjects");
+
 		var enrolledSubjectData = {
 			"sid": sid,
 			"semId": semId
@@ -54,10 +114,12 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 		enrolledSubjectRequest.then( function(response) {
 //			console.log(response.data);
 			if (response.data.records != "0") {
-//				console.log(response.data.records);
 				$scope.enrolledSubjectList_profile = response.data.records;
-				$scope.enrolledSubjectList_relative = $scope.enrolledSubjectList_profile;
-				$scope.getRelativeMarks ($rootScope.currentSemId, $scope.enrolledSubjectList_relative[0]['subCode']);
+				if(initial == 0){
+				    $scope.enrolledSubjectList_relative = response.data.records;
+				    $scope.getRelativeMarks($rootScope.currentSemId, $scope.enrolledSubjectList_relative[0]['subCode']);
+				}
+				initial++;
 			}
 			else if (response.data.records == "0") {
 //				console.log(response.data.records);
@@ -67,11 +129,12 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 			else {
 				
 			}
+
 		});
-		console.log("getEnrolledSubjectsEnds");
+//		console.log("getEnrolledSubjectsEnds");
 	};
     $scope.updateSubjectList = function (sid, semId){
-        console.log("updateSubjectList");
+//        console.log("updateSubjectList");
 		var updateSubjectData = {
 			"sid": sid,
 			"semId": semId
@@ -87,13 +150,11 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 
 		updateSubjectRequest.then( function(response) {
 			if (response.data.records != "0") {
-//				console.log(response.data.records);
 				$scope.enrolledSubjectList_relative = response.data.records;
 //				$scope.getRelativeMarks ($rootScope.currentSemId, $scope.enrolledSubjectList[0]['subCode']);
 			}
 			else if (response.data.records == "0") {
 //				console.log(response.data.records);
-				$scope.notEnrolled = true;
 				$scope.enrolledSubjectList_relative = '';
 				//no records found
 			}
@@ -101,46 +162,48 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 
 			}
 		});
-		console.log("updateSubjectListEnds");
+//		console.log("updateSubjectListEnds");
     };
-    $scope.getSubjectWeightage = function (semId, subjectCode){
-            console.log("getSubjectWeightage");
-        	var subjectWeightageData = {
-        		"semId": semId,
-        		"subjectCode": subjectCode
-        	};
-        	console.log(subjectWeightageData);
+    $scope.setMyPerformance = function(sid, semCode) {
 
-        	var subjectWeightageRequest = $http({
-        	    method: "POST",
-        		url: "php/fetchSubjectWeightages.php",
-        		data: subjectWeightageData
-        	});
+		var myPerformanceData = {
+			"sid": sid,
+			"semCode": semCode
+		};
+//		console.log(myPerformanceData);
 
-        	subjectWeightageRequest.then( function(response) {
-        		console.log("response received");
-        		if (response.data.records != "0") {
-        			console.log(response.data.records);
+		var myPerformanceRequest = $http({
+			method: "POST",
+			url: "php/fetchStudentMarks.php",
+			data: myPerformanceData
+		});
+//      console.log(myPerformanceRequest);
 
-//        			$scope.relativeMarksList = response.data.records;
-        		}
-        		else if (response.data.records == "0") {
-        			console.log(response.data.records);
-        			//no records found
-        		}
-        		else {
+		myPerformanceRequest.then( function(response) {
+//			console.log(response.data);
+			if (response.data.records != "0") {
+			    $scope.studentPersonalMarks = response.data.records;
+			    $scope.getSubjectMarks(sid, semCode);
+			    var subNames = [];
+			    //var i=0;
+			    for(var item in $scope.studentPersonalMarks)
+			        subNames.push(item);
+			    for(var i=0;i<subNames.length;i++){
+			        $scope.studentPersonalMarks[subNames[i]].subName = subNames[i];
+			    }
+			    console.log($scope.studentPersonalMarks);
+			}
+			else if (response.data.records == "0") {
+				$scope.studentPersonalMarks = "";
+				//no records found
+			}
+			else {
 
-        	    }
-            });
-            console.log("getSubjectWeightageEnds");
-        };
+			}
+		});
+    };
 
-
-	$scope.getEnrolledSubjects ($rootScope.userId, $rootScope.currentSemId);
-
-	
-	$scope.setMyPerformance = function(semCode) {
-		
-	}
+    $scope.getEnrolledSubjects ($rootScope.userId, $rootScope.currentSemId);
+    $scope.setMyPerformance($rootScope.userId, $rootScope.currentSemId);
 
 }]);

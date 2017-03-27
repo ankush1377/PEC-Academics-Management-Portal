@@ -119,53 +119,59 @@
                 </div>
 
                 <div id="myPerformance" class="tab-pane fade">
-                    <div class="studentDropdown">
-                        <div class="form-group">
-                            <select class="form-control"  ng-model="selectedSem_personal" ng-options="semCode for semCode in semList">
-                                <option selected="true" disabled="disabled" label="Select semester"></option>
-                            </select>
+                    <div class="topSecion">
+                        <div class="studentDropdown">
+                            <div class="form-group">
+                                <select class="form-control"  ng-model="selectedSem_personal" ng-options="semCode for semCode in semList" >
+                                    <option selected="true" disabled="disabled" label="Select semester"></option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="fetchButton">
+                            <button type="button" class="btn"  ng-disabled="selectedSem_personal == undefined" ng-click="setMyPerformance(userId, selectedSem_personal)">Fetch Results</button>
                         </div>
                     </div>
                     <div class="studentPerformanceTable">
                         <table class="table table-bordered  table-hover">
-                            <thead>
-                                <tr>
-                                    <th>SUBJECTS</th>
-                                    <th>Quiz 1</th>
-                                    <th>Quiz 2</th>
-                                    <th>Quiz 3</th>
-                                    <th>Quiz 4</th>
-                                    <th>Assignment 1</th>
-                                    <th>Assignment 2</th>
-                                    <th>Assignment 3</th>
-                                    <th>Assignment 4</th>
-                                    <th>Assignment 5</th>
-                                    <th>Lab Evaluation 1</th>
-                                    <th>Lab Evaluation 2</th>
-                                    <th>Project Evaluation</th>
+                            <thead >
+                                <tr >
+                                    <th>Subject</th>
+                                    <th>Q1</th>
+                                    <th>Q2</th>
+                                    <th>Q3</th>
+                                    <th>Q4</th>
+                                    <th>A1</th>
+                                    <th>A2</th>
+                                    <th>A3</th>
+                                    <th>A4</th>
+                                    <th>A5</th>
+                                    <th>LE1</th>
+                                    <th>LE2</th>
+                                    <th>PE</th>
                                     <th>MST</th>
                                     <th>EST</th>
-                                    <th>GRADE</th>
+                                    <th>Grade</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
-                                    <td>DBMS</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>A</td>
+                                <tr ng-repeat="marks in studentPersonalMarks" >
+                                    <td>{{marks.subName}}</td>
+                                    <td>{{marks.quiz1}}</td>
+                                    <td>{{marks.quiz1}}</td>
+                                    <td>{{marks.quiz1}}</td>
+                                    <td>{{marks.quiz1}}</td>
+                                    <td>{{marks.assignment1}}</td>
+                                    <td>{{marks.assignment1}}</td>
+                                    <td>{{marks.assignment1}}</td>
+                                    <td>{{marks.assignment1}}</td>
+                                    <td>{{marks.assignment1}}</td>
+                                    <td>{{marks.lab1}}</td>
+                                    <td>{{marks.lab2}}</td>
+                                    <td>{{marks.project}}</td>
+                                    <td>{{marks.mst}}</td>
+                                    <td>{{marks.est}}</td>
+                                    <td>{{marks.grade}}</td>
                                 </tr>
                              </tbody>
                         </table>
@@ -184,7 +190,7 @@
                         </div>
                         <div class="studentDropdown">
                             <div class="form-group">
-                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ">
+                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined">
                                     <option selected="true" disabled="disabled" label="Select subject"></option>
                                 </select>
                             </div>
@@ -200,25 +206,25 @@
 								<tr>
                                     <th>SID</th>
 									<th>Name</th>
-									<th>Q1</th>
-									<th>Q2</th>
-									<th>Q3</th>
-									<th>Q4</th>
-									<th>A1</th>
-									<th>A2</th>
-									<th>A3</th>
-									<th>A4</th>
-                                    <th>A5</th>
-									<th>LE1</th>
-									<th>LE2</th>
-									<th>PE</th>
-									<th>MST</th>
-									<th>EST</th>
+									<th>Q1<br><div ng-show="subjectWeightages[0].quiz1">({{subjectWeightages[0].quiz1}})</div></th>
+									<th>Q2<br><div ng-show="subjectWeightages[0].quiz2">({{subjectWeightages[0].quiz2}})</div></th>
+									<th>Q3<br><div ng-show="subjectWeightages[0].quiz3">({{subjectWeightages[0].quiz3}})</div></th>
+									<th>Q4<br><div ng-show="subjectWeightages[0].quiz4">({{subjectWeightages[0].quiz4}})</div></th>
+									<th>A1<br><div ng-show="subjectWeightages[0].assignment1">({{subjectWeightages[0].assignment1}})</div></th>
+									<th>A2<br><div ng-show="subjectWeightages[0].assignment2">({{subjectWeightages[0].assignment2}})</div></th>
+									<th>A3<br><div ng-show="subjectWeightages[0].assignment3">({{subjectWeightages[0].assignment3}})</div></th>
+									<th>A4<br><div ng-show="subjectWeightages[0].assignment4">({{subjectWeightages[0].assignment4}})</div></th>
+                                    <th>A5<br><div ng-show="subjectWeightages[0].assignment5">({{subjectWeightages[0].assignment5}})</div></th>
+									<th>LE1<br><div ng-show="subjectWeightages[0].lab1">({{subjectWeightages[0].lab1}})</div></th>
+									<th>LE2<br><div ng-show="subjectWeightages[0].lab2">({{subjectWeightages[0].lab2}})</div></th>
+									<th>PE<br><div ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</div></th>
+									<th>MST<br><div ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</div></th>
+									<th>EST<br><div ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</div></th>
 									<th>Grade</th>
 								</tr>
                             </thead>
                             <tbody>
-								<tr ng-repeat="studentMarks in relativeMarksList">
+								<tr ng-repeat="studentMarks in normalizedRelativeMarksList">
                                     <td>{{studentMarks.sid}}</td>
                                     <td>{{studentMarks.name}}</td>
 									<td>{{studentMarks.quiz1}}</td>
@@ -240,6 +246,7 @@
                             </tbody>
                         </table>
                     </div>
+<!--
                     <div class="gradeRangeTable">
                         <table class="table table-bordered">
                             <thead>
@@ -270,6 +277,7 @@
 							</tbody>
                         </table>
                     </div>
+-->
                 </div>
              </div>
         </div>

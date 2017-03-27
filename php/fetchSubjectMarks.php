@@ -13,12 +13,12 @@
 
 	$postdata = file_get_contents("php://input");
    	$request = json_decode($postdata);
-   	$semId = $request->semId;
+	$semId = $request->semId;
     $subCode = $request->subjectCode;
 	$outp = "";
 
 
-	$subjectWeightageSql = "SELECT * FROM subject_weightage WHERE sem_id = '$semId' AND subject_code = '$subCode' ";
+	$subjectWeightageSql = "SELECT * FROM subject_marks WHERE sem_id = '$semId' AND subject_code = '$subCode' ";
 	$subjectWeightageResult = $conn->query($subjectWeightageSql);
 
 
