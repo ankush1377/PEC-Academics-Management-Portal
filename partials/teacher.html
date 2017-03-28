@@ -8,7 +8,7 @@
         </div>
         <div class="rightCredentialsContainer">
             <div class="credentialsTabField ">
-                <a href="javascript:void(0)" ng-click="">Logout</a>
+                <a href="javascript:void(0)" ng-click="logout()">Logout</a>
             </div>
         </div>
     </div>
@@ -92,17 +92,11 @@
                             <div  class="list-group-item">
                                 <h4 class="list-group-item-heading">Assigned Subjects (for semester 1617-2)</h4>
                             </div>
-                            <div  class="list-group-item">
-                                <div class="list-group-item-heading">Operating systems</div>
+                            <div  class="list-group-item" ng-repeat="assignedSubject in assignedSubjectList_profile" ng-cloak>
+                                <div class="list-group-item-heading">{{assignedSubject.subName}}</div>
                             </div>
-                            <div  class="list-group-item">
-                                <div class="list-group-item-heading">Database Management Systems</div>
-                            </div>
-                            <div  class="list-group-item">
-                                <div class="list-group-item-heading">Computer Networks</div>
-                            </div>
-                            <div  class="list-group-item">
-                                <div class="list-group-item-heading">Engineering Analysis and Design</div>
+                            <div class="alert alert-danger no-records" ng-show="assignedSubjectList_profile == '0'">
+                                You haven't been enrolled for any subjects yet.
                             </div>
                       </div>
                     </div>
@@ -122,14 +116,10 @@
                 <div id="planSemester" class="tab-pane fade">
 
                     <div class="studentDropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Subject<span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)">OS</a></li>
-                                <li><a href="javascript:void(0)">DBMS</a></li>
-                                <li><a href="javascript:void(0)">CN</a></li>
-                                <li><a href="javascript:void(0)">EAD</a></li>
-                            </ul>
+                        <div class="form-group">
+                            <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_plan" ng-model="selectedSubject" ng-disabled="selectedSem_plan == undefined">
+                                <option selected="true" disabled="disabled" label="Select subject"></option>
+                            </select>
                         </div>
                     </div>
 

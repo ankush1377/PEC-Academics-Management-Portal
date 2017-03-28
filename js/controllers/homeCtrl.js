@@ -48,7 +48,6 @@ pamp.controller('homeCtrl',['$scope','$rootScope','$location','$route','$window'
 				$rootScope.userData = response.data.records;
 				$rootScope.userId = $scope.username;
 				$rootScope.userAccess = $scope.access;
-				console.log($rootScope.userData.dep_name);
 				$location.path("/"+$scope.access.toLowerCase());
 			}
 			else if(response.data.records == "0"){
