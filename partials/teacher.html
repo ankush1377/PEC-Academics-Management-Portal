@@ -117,7 +117,7 @@
 
                     <div class="studentDropdown">
                         <div class="form-group">
-                            <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_plan" ng-model="selectedSubject" ng-disabled="selectedSem_plan == undefined">
+                            <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_plan" ng-model="selectedSubject" >
                                 <option selected="true" disabled="disabled" label="Select subject"></option>
                             </select>
                         </div>
@@ -129,25 +129,12 @@
                 </div>
 
                 <div id="assignMarks" class="tab-pane fade">
+
                     <div class="studentDropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Semester<span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" ng-repeat="semCode in semList" ng-click="">{{semCode}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="studentDropdown">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Subject<span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)">DBMS</a></li>
-                                <li><a href="javascript:void(0)">OS</a></li>
-                                <li><a href="javascript:void(0)">EAD</a></li>
-                                <li><a href="javascript:void(0)">CN</a></li>
-                                <li><a href="javascript:void(0)">MP</a></li>
-                                <li><a href="javascript:void(0)">ED</a></li>
-                            </ul>
+                        <div class="form-group">
+                            <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_assign" ng-model="selectedSubject" >
+                                <option selected="true" disabled="disabled" label="Select subject"></option>
+                            </select>
                         </div>
                     </div>
                     <div class="studentPerformanceTable">
