@@ -1,10 +1,266 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="admin">
+    <div class="credentialsContainer">
+        <div class="leftCredentialsContainer">
+            <div class="welcomeField">
+                <span class="welcomeMessage" style="font-size:14px;">Welcome, </span>
+                <span class="name">{{userData.name}}</span>
+            </div>
+        </div>
+        <div class="rightCredentialsContainer">
+            <div class="credentialsTabField ">
+                <a href="javascript:void(0)" ng-click="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
 
-</body>
-</html>
+    <div class="container">
+
+        <div class="tabsContainer">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="pill" href="javascript:void(0)" data-target="#myProfile">My Profile</a></li>
+                <li><a data-toggle="pill" href="javascript:void(0)" data-target="#manageStudents">Manage Students</a></li>
+                <li><a data-toggle="pill" href="javascript:void(0)" data-target="#manageTeachers">Manage Teachers</a></li>
+            </ul>
+
+            <div class="tab-content" ng-cloak>
+                <div id="myProfile" class="tab-pane fade in active">
+                    <div class="personalInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Personal Information</h4>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.name}}</div>
+                                    <p class="list-group-item-text">Name</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userId}}</div>
+                                    <p class="list-group-item-text">Teacher ID</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.dob}}</div>
+                                    <p class="list-group-item-text">Date of Birth</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading" >{{userData.dep_name}}</div>
+                                    <p class="list-group-item-text">Department</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.gender}}</div>
+                                    <p class="list-group-item-text">Gender</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userAccess}}</div>
+                                    <p class="list-group-item-text">Access</p>
+                                </div>
+
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="list-group-item-heading">{{userData.father_name}}</div>
+                                <p class="list-group-item-text">Father's Name</p>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="list-group-item-heading">{{userData.mother_name}}</div>
+                                <p class="list-group-item-text">Mother's Name</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contactInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Contact Details</h4>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.phone_no}}</div>
+                                    <p class="list-group-item-text">Phone Number</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userData.email_id}}</div>
+                                    <p class="list-group-item-text">Email address</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<form>
+                              <div class="form-group">
+                                  <label for="contactNumber">Contact Number</label>
+                                  <input type="tel" class="form-control" id="contactNumber">
+                              </div>
+                              <div class="form-group">
+                                  <label for="emailAddress">Email address</label>
+                                  <input type="email" class="form-control" id="emailAddress">
+                              </div>
+                              <button type="submit" class="btn btn-default">Submit</button>
+                          </form>-->
+                </div>
+
+                <div id="manageStudents" class="tab-pane fade">
+                    <div class="topSecion">
+                        <div class="studentDropdown">
+                            <div class="form-group">
+                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined">
+                                    <option selected="true" disabled="disabled" label="Select subject"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="studentPerformanceTable">
+                        <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
+                            <thead >
+                            <tr >
+                                <th>Subject</th>
+                                <th>Q1</th>
+                                <th>Q2</th>
+                                <th>Q3</th>
+                                <th>Q4</th>
+                                <th>A1</th>
+                                <th>A2</th>
+                                <th>A3</th>
+                                <th>A4</th>
+                                <th>A5</th>
+                                <th>LE1</th>
+                                <th>LE2</th>
+                                <th>PE</th>
+                                <th>MST</th>
+                                <th>EST</th>
+                                <th>Grade</th>
+                            </tr>
+                            </thead>
+                            <tbody ng-show="myPerformanceList != '0'">
+                            <tr ng-repeat="row in myPerformanceList" >
+                                <td>{{row.subName}}</td>
+                                <td><div ng-show="row.studentSubjectMarks['quiz1']">{{row.studentSubjectMarks['quiz1']}} / {{row.subjectMarks['quiz1']}}</div><div ng-show="!row.studentSubjectMarks['quiz1']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['quiz2']">{{row.studentSubjectMarks['quiz2']}} / {{row.subjectMarks['quiz2']}}</div><div ng-show="!row.studentSubjectMarks['quiz2']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['quiz3']">{{row.studentSubjectMarks['quiz3']}} / {{row.subjectMarks['quiz3']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['quiz4']">{{row.studentSubjectMarks['quiz4']}} / {{row.subjectMarks['quiz4']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['assignment1']">{{row.studentSubjectMarks['assignment1']}} / {{row.subjectMarks['assignment1']}}</div><div ng-show="!row.studentSubjectMarks['assignment1']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['assignment2']">{{row.studentSubjectMarks['assignment2']}} / {{row.subjectMarks['assignment2']}}</div><div ng-show="!row.studentSubjectMarks['assignment2']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['assignment3']">{{row.studentSubjectMarks['assignment3']}} / {{row.subjectMarks['assignment3']}}</div><div ng-show="!row.studentSubjectMarks['assignment3']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['assignment4']">{{row.studentSubjectMarks['assignment4']}} / {{row.subjectMarks['assignment4']}}</div><div ng-show="!row.studentSubjectMarks['assignment4']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['assignment5']">{{row.studentSubjectMarks['assignment5']}} / {{row.subjectMarks['assignment5']}}</div><div ng-show="!row.studentSubjectMarks['assignment5']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['lab1']">{{row.studentSubjectMarks['lab1']}} / {{row.subjectMarks['lab1']}}</div><div ng-show="!row.studentSubjectMarks['lab1']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['lab2']">{{row.studentSubjectMarks['lab2']}} / {{row.subjectMarks['lab2']}}</div><div ng-show="!row.studentSubjectMarks['lab2']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
+                                <td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="myPerformanceList == '0'" class="alert alert-danger no-records">No records found</div>
+                    </div>
+                </div>
+
+
+                <div id="manageTeachers" class="tab-pane fade">
+                    <div class="topSecion">
+                        <div class="studentDropdown">
+                            <div class="form-group">
+                                <select class="form-control"  ng-model="selectedSem_relative" ng-options="semCode for semCode in semList" ng-change="updateSubjectList(userId, selectedSem_relative)">
+                                    <option selected="true" disabled="disabled" label="Select semester"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="studentDropdown">
+                            <div class="form-group">
+                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined">
+                                    <option selected="true" disabled="disabled" label="Select subject"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="fetchButton">
+                            <button type="button" class="btn" ng-click="getRelativeMarks(selectedSem_relative, selectedSubject.subCode)" ng-disabled="selectedSem_relative == undefined || selectedSubject == undefined">Fetch Results</button>
+                        </div>
+                    </div>
+                    <!--<div class="messageText">Marks list for semester {{selectedSem}}:-</div>-->
+                    <div class="studentPerformanceTable">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>SID</th>
+                                <th>Name</th>
+                                <th>Q1<br><div ng-show="subjectWeightages[0].quiz1">({{subjectWeightages[0].quiz1}})</div></th>
+                                <th>Q2<br><div ng-show="subjectWeightages[0].quiz2">({{subjectWeightages[0].quiz2}})</div></th>
+                                <th>Q3<br><div ng-show="subjectWeightages[0].quiz3">({{subjectWeightages[0].quiz3}})</div></th>
+                                <th>Q4<br><div ng-show="subjectWeightages[0].quiz4">({{subjectWeightages[0].quiz4}})</div></th>
+                                <th>A1<br><div ng-show="subjectWeightages[0].assignment1">({{subjectWeightages[0].assignment1}})</div></th>
+                                <th>A2<br><div ng-show="subjectWeightages[0].assignment2">({{subjectWeightages[0].assignment2}})</div></th>
+                                <th>A3<br><div ng-show="subjectWeightages[0].assignment3">({{subjectWeightages[0].assignment3}})</div></th>
+                                <th>A4<br><div ng-show="subjectWeightages[0].assignment4">({{subjectWeightages[0].assignment4}})</div></th>
+                                <th>A5<br><div ng-show="subjectWeightages[0].assignment5">({{subjectWeightages[0].assignment5}})</div></th>
+                                <th>LE1<br><div ng-show="subjectWeightages[0].lab1">({{subjectWeightages[0].lab1}})</div></th>
+                                <th>LE2<br><div ng-show="subjectWeightages[0].lab2">({{subjectWeightages[0].lab2}})</div></th>
+                                <th>PE<br><div ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</div></th>
+                                <th>MST<br><div ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</div></th>
+                                <th>EST<br><div ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</div></th>
+                                <th>Grade</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="studentMarks in normalizedRelativeMarksList">
+                                <td>{{studentMarks.sid}}</td>
+                                <td>{{studentMarks.name}}</td>
+                                <td>{{studentMarks.quiz1}}</td>
+                                <td>{{studentMarks.quiz1}}</td>
+                                <td>{{studentMarks.quiz1}}</td>
+                                <td>{{studentMarks.quiz1}}</td>
+                                <td>{{studentMarks.assignment1}}</td>
+                                <td>{{studentMarks.assignment2}}</td>
+                                <td>{{studentMarks.assignment3}}</td>
+                                <td>{{studentMarks.assignment4}}</td>
+                                <td>{{studentMarks.assignment5}}</td>
+                                <td>{{studentMarks.lab1}}</td>
+                                <td>{{studentMarks.lab2}}</td>
+                                <td>{{studentMarks.project}}</td>
+                                <td>{{studentMarks.mst}}</td>
+                                <td>{{studentMarks.est}}</td>
+                                <td>{{studentMarks.grade}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="normalizedRelativeMarksList == '0'" class="alert alert-danger no-records">No records found</div>
+                    </div>
+                    <!--
+                                        <div class="gradeRangeTable">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Grade</th>
+                                                        <td>A+</td>
+                                                        <td>A</td>
+                                                        <td>B+</td>
+                                                        <td>B</td>
+                                                        <td>C+</td>
+                                                        <td>C</td>
+                                                        <td>D</td>
+                                                        <td>F</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Cut-off Marks</th>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

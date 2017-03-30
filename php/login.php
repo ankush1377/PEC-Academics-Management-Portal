@@ -52,6 +52,7 @@
 			$outp .= '"gender":"' . $row["gender"] . '",';
 			$outp .= '"father_name":"' . $row["father_name"] . '",';
 			$outp .= '"mother_name":"' . $row["mother_name"] . '",';
+			$outp .= '"dep_code":"' . $depCode . '",';
 			$outp .= '"dep_name":"' . $depName . '",';
 			if ($access == "Student"){
 				$outp .= '"batch":"' . $row["batch"] . '",';}

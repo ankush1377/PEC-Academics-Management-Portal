@@ -96,7 +96,7 @@
                                 <div class="list-group-item-heading">{{assignedSubject.subName}}</div>
                             </div>
                             <div class="alert alert-danger no-records" ng-show="assignedSubjectList_profile == '0'">
-                                You haven't been enrolled for any subjects yet.
+                                You haven't been assigned any subjects yet.
                             </div>
                       </div>
                     </div>
@@ -117,11 +117,7 @@
 
                     <div class="studentDropdown">
                         <div class="form-group">
-<<<<<<< HEAD
                             <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_plan" ng-model="selectedSubject" >
-=======
-                            <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_plan" ng-model="selectedSubject" ng-change="">
->>>>>>> origin/master
                                 <option selected="true" disabled="disabled" label="Select subject"></option>
                             </select>
                         </div>
@@ -157,17 +153,11 @@
                 </div>
 
                 <div id="assignMarks" class="tab-pane fade">
-<<<<<<< HEAD
-
-                    <div class="studentDropdown">
-                        <div class="form-group">
-                            <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_assign" ng-model="selectedSubject" >
-=======
                     
                     <div class="studentDropdown">
                         <div class="form-group">
                             <select class="form-control" ng-options="assignedSubject.subName for assignedSubject in assignedSubjectList_plan" ng-model="selectedSubject" ng-change="">
->>>>>>> origin/master
+
                                 <option selected="true" disabled="disabled" label="Select subject"></option>
                             </select>
                         </div>
