@@ -179,6 +179,7 @@
                                         <table class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th style="width: 1px;">Select</th>
                                                     <th style="width: 115px;">SID</th>
                                                     <th>Name</th>
                                                     <th>Date of Birth</th>
@@ -187,11 +188,15 @@
                                                     <th>Mother's Name</th>
                                                     <th style="width: 130px;">Batch</th>
                                                     <th></th>
-                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="student in studentList | filter:studentFilter">
+                                                    <td>
+                                                        <div class="checkbox table-checkbox">
+                                                            <label><input type="checkbox" ng-model="selectedStudents[$index]" ></label>
+                                                        </div>
+                                                    </td>
                                                     <td>{{student.sid}}</td>
                                                     <td><div ng-show="studentView[$index]">{{student.name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.name"></div></td>
                                                     <td><div ng-show="studentView[$index]">{{student.dob}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.dob"></div></td>
@@ -224,15 +229,20 @@
                                                             <button type="button" class="btn edit-row" ng-click="saveStudent(student, $index)" >Save</button>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="editButton" ng-show="studentView[$index]">
-                                                            <button type="button" class="btn edit-row" ng-click="editStudent($index)" >Assign subjects</button>
-                                                        </div>
-                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div ng-show="studentList == '0'" class="alert alert-danger no-records">No records found</div>
+                                    </div>
+                                    <form style="float: left;">
+                                        <div class="form-group" >
+                                            <label for="selectedSubjects">Select subjects (hold shift to select more than one):</label>
+                                            <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="sub" style="min-height: 66px;    max-height: 110px;">
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <div class="editButton" style="float:right;">
+                                        <button type="button" class="btn edit-row" ng-click="assignSubjects()" >Assign Subjects</button>
                                     </div>
                                 </div>
                             </div>

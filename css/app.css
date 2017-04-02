@@ -243,4 +243,11 @@
     width: 100%;
 }
 
+.table-checkbox{
+    text-align: center;
+    margin-bottom: -1px;
+    margin-top: 5px;
+    margin-left: 4px;
+}
+
 
