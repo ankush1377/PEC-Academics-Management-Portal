@@ -187,6 +187,7 @@
                                                     <th>Mother's Name</th>
                                                     <th style="width: 130px;">Batch</th>
                                                     <th></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -221,6 +222,11 @@
                                                         </div>
                                                         <div class="saveButton" ng-hide="studentView[$index]">
                                                             <button type="button" class="btn edit-row" ng-click="saveStudent(student, $index)" >Save</button>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="editButton" ng-show="studentView[$index]">
+                                                            <button type="button" class="btn edit-row" ng-click="editStudent($index)" >Assign subjects</button>
                                                         </div>
                                                     </td>
                                                 </tr>
