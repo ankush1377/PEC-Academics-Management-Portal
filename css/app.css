@@ -221,4 +221,26 @@
     margin-bottom: 10px;
 }
 
+/****************ADMIN**************/
+
+.add-row{
+    float: right;
+    margin-top: 8px;
+    width: 130px;
+    margin-bottom: -6px;
+}
+
+.incomplete{
+    float: left;
+    font-size: 15px;
+    background: none;
+    border: none;
+    margin-left: -14px;
+    margin-bottom: -16px;
+}
+
+.edit-row{
+    width: 100%;
+}
+
 

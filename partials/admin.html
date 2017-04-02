@@ -102,60 +102,149 @@
                 </div>
 
                 <div id="manageStudents" class="tab-pane fade">
-                    <div class="topSecion">
-                        <div class="studentDropdown">
-                            <div class="form-group">
-                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined">
-                                    <option selected="true" disabled="disabled" label="Select subject"></option>
-                                </select>
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" data-target="#addStudent" href="javascript:void(0">Add a student</a>
+                                </h4>
+                            </div>
+                            <div id="addStudent" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="studentPerformanceTable">
+                                        <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
+                                            <thead >
+                                                <tr>
+                                                    <th style="width: 115px;">SID</th>
+                                                    <th>Name</th>
+                                                    <th>Date of Birth</th>
+                                                    <th style="width: 100px;">Gender</th>
+                                                    <th>Father's Name</th>
+                                                    <th>Mother's Name</th>
+                                                    <th style="width: 130px;">Batch</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody >
+                                                <tr>
+                                                    <td><input type="text" class="form-control" ng-model="sid"></td>
+                                                    <td><input type="text" class="form-control" ng-model="sName"></td>
+                                                    <td><input type="date" class="form-control" ng-model="sDob"></td>
+                                                    <td>
+                                                        <div class="radio">
+                                                            <label><input type="radio" ng-model="sGender" value="Male">Male</label>
+                                                        </div>
+                                                        <div class="radio">
+                                                            <label><input type="radio" ng-model="sGender" value="Female">Female</label>
+                                                        </div>
+                                                    </td>
+                                                    <td><input type="text" class="form-control" ng-model="sFatherName"></td>
+                                                    <td><input type="text" class="form-control" ng-model="sMotherName"></td>
+                                                    <td>
+                                                        <div class="studentDropdown">
+                                                            <div class="form-group">
+                                                                <select class="form-control" ng-options="batch for batch in batchList" ng-model="sBatch">
+                                                                    <option selected="true" disabled="disabled" label="Batch"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="alert alert-danger incomplete" ng-show="incomplete">
+                                        Please fill out all fields first.
+                                    </div>
+                                    <div class="addButton">
+                                        <button type="button" class="btn add-row" ng-click="addStudent()" >Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" data-target="#editInfo" href="javascript:void(0">View/Edit info</a>
+                                </h4>
+                            </div>
+                            <div id="editInfo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="studentFilter">Apply filter : </label>
+                                            <input type="text" class="form-control" id="studentFilter" ng-model="studentFilter">
+                                        </div>
+                                    </form>
+                                    <div class="studentPerformanceTable" style="margin-top:15px;">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 115px;">SID</th>
+                                                    <th>Name</th>
+                                                    <th>Date of Birth</th>
+                                                    <th style="width: 100px;">Gender</th>
+                                                    <th>Father's Name</th>
+                                                    <th>Mother's Name</th>
+                                                    <th style="width: 130px;">Batch</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="student in studentList | filter:studentFilter">
+                                                    <td>{{student.sid}}</td>
+                                                    <td><div ng-show="studentView[$index]">{{student.name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.name"></div></td>
+                                                    <td><div ng-show="studentView[$index]">{{student.dob}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.dob"></div></td>
+                                                    <td><div ng-show="studentView[$index]">{{student.gender}}</div>
+                                                        <div ng-hide="studentView[$index]">
+                                                            <div class="radio">
+                                                                <label><input type="radio" ng-model="student.gender" value="Male">Male</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" ng-model="student.gender" value="Female">Female</label>
+                                                            </div>
+                                                         </div>
+                                                    </td>
+                                                    <td><div ng-show="studentView[$index]">{{student.father_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.father_name"></div></td>
+                                                    <td><div ng-show="studentView[$index]">{{student.mother_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.mother_name"></div></td>
+                                                    <td><div ng-show="studentView[$index]">{{student.batch}}</div><div ng-hide="studentView[$index]">
+                                                        <div class="studentDropdown">
+                                                            <div class="form-group">
+                                                                <select class="form-control" ng-options="batch for batch in batchList" ng-model="student.batch">
+                                                                    <option selected="true" disabled="disabled" label="Batch"></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div></td>
+                                                    <td>
+                                                        <div class="editButton" ng-show="studentView[$index]">
+                                                            <button type="button" class="btn edit-row" ng-click="editStudent($index)" >Edit</button>
+                                                        </div>
+                                                        <div class="saveButton" ng-hide="studentView[$index]">
+                                                            <button type="button" class="btn edit-row" ng-click="saveStudent(student, $index)" >Save</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="studentList == '0'" class="alert alert-danger no-records">No records found</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" data-target="#assignSubjects" href="javascript:void(0">Assign Subjects</a>
+                                </h4>
+                            </div>
+                            <div id="assignSubjects" class="panel-collapse collapse">
+                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
                             </div>
                         </div>
                     </div>
-                    <div class="studentPerformanceTable">
-                        <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
-                            <thead >
-                            <tr >
-                                <th>Subject</th>
-                                <th>Q1</th>
-                                <th>Q2</th>
-                                <th>Q3</th>
-                                <th>Q4</th>
-                                <th>A1</th>
-                                <th>A2</th>
-                                <th>A3</th>
-                                <th>A4</th>
-                                <th>A5</th>
-                                <th>LE1</th>
-                                <th>LE2</th>
-                                <th>PE</th>
-                                <th>MST</th>
-                                <th>EST</th>
-                                <th>Grade</th>
-                            </tr>
-                            </thead>
-                            <tbody ng-show="myPerformanceList != '0'">
-                            <tr ng-repeat="row in myPerformanceList" >
-                                <td>{{row.subName}}</td>
-                                <td><div ng-show="row.studentSubjectMarks['quiz1']">{{row.studentSubjectMarks['quiz1']}} / {{row.subjectMarks['quiz1']}}</div><div ng-show="!row.studentSubjectMarks['quiz1']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['quiz2']">{{row.studentSubjectMarks['quiz2']}} / {{row.subjectMarks['quiz2']}}</div><div ng-show="!row.studentSubjectMarks['quiz2']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['quiz3']">{{row.studentSubjectMarks['quiz3']}} / {{row.subjectMarks['quiz3']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['quiz4']">{{row.studentSubjectMarks['quiz4']}} / {{row.subjectMarks['quiz4']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['assignment1']">{{row.studentSubjectMarks['assignment1']}} / {{row.subjectMarks['assignment1']}}</div><div ng-show="!row.studentSubjectMarks['assignment1']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['assignment2']">{{row.studentSubjectMarks['assignment2']}} / {{row.subjectMarks['assignment2']}}</div><div ng-show="!row.studentSubjectMarks['assignment2']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['assignment3']">{{row.studentSubjectMarks['assignment3']}} / {{row.subjectMarks['assignment3']}}</div><div ng-show="!row.studentSubjectMarks['assignment3']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['assignment4']">{{row.studentSubjectMarks['assignment4']}} / {{row.subjectMarks['assignment4']}}</div><div ng-show="!row.studentSubjectMarks['assignment4']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['assignment5']">{{row.studentSubjectMarks['assignment5']}} / {{row.subjectMarks['assignment5']}}</div><div ng-show="!row.studentSubjectMarks['assignment5']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['lab1']">{{row.studentSubjectMarks['lab1']}} / {{row.subjectMarks['lab1']}}</div><div ng-show="!row.studentSubjectMarks['lab1']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['lab2']">{{row.studentSubjectMarks['lab2']}} / {{row.subjectMarks['lab2']}}</div><div ng-show="!row.studentSubjectMarks['lab2']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
-                                <td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div ng-show="myPerformanceList == '0'" class="alert alert-danger no-records">No records found</div>
-                    </div>
+
                 </div>
 
 
