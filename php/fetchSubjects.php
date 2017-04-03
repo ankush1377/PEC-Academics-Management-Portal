@@ -17,7 +17,7 @@
 	$outp = "";
 
 
-	$subjectListSql = "SELECT * FROM subject_info WHERE dep_code = '$dep_code' ";
+	$subjectListSql = "SELECT * FROM subject_info";
 	$subjectListResult = $conn->query($subjectListSql);
 
 

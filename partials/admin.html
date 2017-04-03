@@ -22,7 +22,7 @@
                 <li><a data-toggle="pill" href="javascript:void(0)" data-target="#manageTeachers">Manage Teachers</a></li>
             </ul>
 
-            <div class="tab-content" ng-cloak>
+            <div class="tab-content" >
                 <div id="myProfile" class="tab-pane fade in active">
                     <div class="personalInfo">
                         <div class="list-group">
@@ -102,16 +102,10 @@
                 </div>
 
                 <div id="manageStudents" class="tab-pane fade">
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" data-target="#addStudent" href="javascript:void(0">Add a student</a>
-                                </h4>
-                            </div>
-                            <div id="addStudent" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    <div class="studentPerformanceTable">
+					<div class="panel panel-default">
+						<div class="panel-heading">Add a student</div>
+						<div class="panel-body">
+				             <div class="studentPerformanceTable">
                                         <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
                                             <thead >
                                                 <tr>
@@ -122,6 +116,7 @@
                                                     <th>Father's Name</th>
                                                     <th>Mother's Name</th>
                                                     <th style="width: 130px;">Batch</th>
+                                                    <th style="width: 77px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody >
@@ -148,6 +143,11 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        <div class="addButton">
+                                                            <button type="button" class="btn add-row" ng-click="addStudent()" >Add</button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -155,21 +155,10 @@
                                     <div class="alert alert-danger incomplete" ng-show="incomplete">
                                         Please fill out all fields first.
                                     </div>
-                                    <div class="addButton">
-                                        <button type="button" class="btn add-row" ng-click="addStudent()" >Add</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" data-target="#editInfo" href="javascript:void(0">View/Edit info</a>
-                                </h4>
-                            </div>
-                            <div id="editInfo" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <form class="form-inline">
+						</div>
+					</div>
+					<div class="editInfo">
+									<form class="form-inline">
                                         <div class="form-group">
                                             <label for="studentFilter">Apply filter : </label>
                                             <input type="text" class="form-control" id="studentFilter" ng-model="studentFilter">
@@ -242,25 +231,12 @@
                                         </div>
                                     </form>
                                     <div class="editButton" style="float:right;">
-                                        <button type="button" class="btn edit-row" ng-click="assignSubjects()" ng-disabled="assignmentSubjects.length == '0'">Assign Subjects</button>
+                                        <button type="button" class="btn edit-row" ng-click="assignSubjects()" >Assign Subjects</button>
                                     </div>
-                                </div>
-                            </div>
+                        <div class="alert alert-danger incomplete" ng-show="cannotAssign">
+                            Please select both students and subjects to be assigned.
                         </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" data-target="#assignSubjects" href="javascript:void(0">Assign Subjects</a>
-                                </h4>
-                            </div>
-                            <div id="assignSubjects" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                            </div>
-                        </div>
-                    </div>
-
+					</div>
                 </div>
 
 

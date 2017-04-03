@@ -4,7 +4,9 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
     $scope.incomplete = false;
     $scope.studentView = [];
+    $scope.cannotAssign = false;
     $scope.selectedStudents = [];
+    $scope.assignmentSubjects = [];
     $scope.getBatches = function (){
 
     	var batchesRequest = $http({
@@ -124,12 +126,25 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
             },
             header: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
+
+        $scope.getStudents();
+        $scope.clearStudentData();
     };
 
     $scope.editStudent = function(index){
 
         $scope.studentView[index] = false;
 //        console.log($scope.studentEdit);
+    };
+
+    $scope.clearStudentData = function(){
+        $scope.sid = undefined;
+        $scope.sName = undefined;
+        $scope.sDob = undefined;
+        $scope.sFatherName = undefined;
+        $scope.sMotherName = undefined;
+        $scope.sGender = undefined;
+        $scope.sBatch = undefined;
     };
 
     $scope.saveStudent = function(studentData, index){
@@ -157,10 +172,16 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
     $scope.assignSubjects = function(){
 
-        var subjectSid = [];
+        if($scope.selectedStudents.length == 0 || $scope.assignmentSubjects.length == 0){
+            $scope.cannotAssign = true;
+            return;
+        }
+
+        $scope.cannotAssign = false;
+        $scope.subjectSid = [];
         for(var i=0;i<$scope.selectedStudents.length;i++){
             if($scope.selectedStudents[i] == true){
-                subjectSid.push($scope.studentList[i].sid);
+                $scope.subjectSid.push($scope.studentList[i].sid);
             }
         }
 
@@ -171,17 +192,18 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
             assignmentSubjectCodes.push($scope.assignmentSubjects[i].subject_code);
         }
 
-        console.log(assignmentSubjectCodes);
          var assignStudentSubjectsRequest = $http({
             method: "POST",
             url: "php/assignStudentSubjects.php",
             data: {
                 "semId": $rootScope.currentSemId,
-                "sidList" : subjectSid,
+                "sidList" : $scope.subjectSid,
                 "subjectList": assignmentSubjectCodes
             },
             header: { 'Content-Type': 'application/x-www-form-urlencoded' }
          });
+
+         $scope.assignmentSubjects.length = 0;
     };
 
 

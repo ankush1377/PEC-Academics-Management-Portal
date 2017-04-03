@@ -224,10 +224,9 @@
 /****************ADMIN**************/
 
 .add-row{
-    float: right;
-    margin-top: 8px;
-    width: 130px;
-    margin-bottom: -6px;
+    width: 100%;
+        margin-bottom: -5px;
+        margin-top: -3px;
 }
 
 .incomplete{
