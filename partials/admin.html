@@ -237,12 +237,12 @@
                                     <form style="float: left;">
                                         <div class="form-group" >
                                             <label for="selectedSubjects">Select subjects (hold shift to select more than one):</label>
-                                            <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="sub" style="min-height: 66px;    max-height: 110px;">
+                                            <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="assignmentSubjects" style="min-height: 66px;    max-height: 110px;">
                                             </select>
                                         </div>
                                     </form>
                                     <div class="editButton" style="float:right;">
-                                        <button type="button" class="btn edit-row" ng-click="assignSubjects()" >Assign Subjects</button>
+                                        <button type="button" class="btn edit-row" ng-click="assignSubjects()" ng-disabled="assignmentSubjects.length == '0'">Assign Subjects</button>
                                     </div>
                                 </div>
                             </div>

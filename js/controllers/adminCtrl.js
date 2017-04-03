@@ -163,18 +163,25 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 subjectSid.push($scope.studentList[i].sid);
             }
         }
-//        console.log(subjectSid);
+
+        var assignmentSubjectCodes = [];
+        var empty = true;
+        for(var i=0;i<$scope.assignmentSubjects.length;i++){
+            empty = false;
+            assignmentSubjectCodes.push($scope.assignmentSubjects[i].subject_code);
+        }
+
+        console.log(assignmentSubjectCodes);
          var assignStudentSubjectsRequest = $http({
             method: "POST",
             url: "php/assignStudentSubjects.php",
             data: {
-                "sidList" : subjectSid
+                "semId": $rootScope.currentSemId,
+                "sidList" : subjectSid,
+                "subjectList": assignmentSubjectCodes
             },
             header: { 'Content-Type': 'application/x-www-form-urlencoded' }
          });
-
-
-
     };
 
 
