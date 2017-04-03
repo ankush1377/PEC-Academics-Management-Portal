@@ -127,8 +127,10 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
             header: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
 
-        $scope.getStudents();
-        $scope.clearStudentData();
+        addStudentRequest.then( function(response) {
+            $scope.getStudents();
+            $scope.clearStudentData();
+        });
     };
 
     $scope.editStudent = function(index){
@@ -206,7 +208,4 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
          $scope.assignmentSubjects.length = 0;
     };
 
-
-
 }]);
-
