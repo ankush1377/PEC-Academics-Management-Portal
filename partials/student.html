@@ -151,6 +151,7 @@
                                     <th>PE</th>
                                     <th>MST</th>
                                     <th>EST</th>
+                                    <th>Total</th>
                                     <th>Grade</th>
                                 </tr>
                             </thead>
@@ -171,7 +172,8 @@
 									<td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
 									<td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
 									<td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
+                                    <td><div ng-show="row.studentSubjectMarks['total']">{{row.studentSubjectMarks['total']}} / {{row.subjectMarks['total']}}</div><div ng-show="!row.studentSubjectMarks['total']">N/A</div></td>
+                                    <td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
                                 </tr>
                              </tbody>
                         </table>
@@ -202,7 +204,7 @@
                     </div>
                     <!--<div class="messageText">Marks list for semester {{selectedSem}}:-</div>-->
                     <div class="studentPerformanceTable">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover" >
                             <thead>
 								<tr>
                                     <th>SID</th>
@@ -246,7 +248,7 @@
 								</tr>
                             </tbody>
                         </table>
-                        <div ng-show="normalizedRelativeMarksList == '0'" class="alert alert-danger no-records">No records found</div>
+                        <div ng-show="normalizedRelativeMarksList == 0" class="alert alert-danger no-records">No records found</div>
                     </div>
 <!--
                     <div class="gradeRangeTable">
