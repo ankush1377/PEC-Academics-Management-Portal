@@ -151,7 +151,6 @@
                                     <th>PE</th>
                                     <th>MST</th>
                                     <th>EST</th>
-                                    <th>Total</th>
                                     <th>Grade</th>
                                 </tr>
                             </thead>
@@ -172,7 +171,6 @@
 									<td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
 									<td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
 									<td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
-                                    <td><div ng-show="row.studentSubjectMarks['total']">{{row.studentSubjectMarks['total']}} / {{row.subjectMarks['total']}}</div><div ng-show="!row.studentSubjectMarks['total']">N/A</div></td>
                                     <td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
                                 </tr>
                              </tbody>
@@ -223,10 +221,11 @@
 									<th>PE<br><div ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</div></th>
 									<th>MST<br><div ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</div></th>
 									<th>EST<br><div ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</div></th>
-									<th>Grade</th>
+									<th>Total<br>(100)</th>
+                                    <th>Grade</th>
 								</tr>
                             </thead>
-                            <tbody>
+                            <tbody ng-show="normalizedRelativeMarksList != '0'">
 								<tr ng-repeat="studentMarks in normalizedRelativeMarksList">
                                     <td>{{studentMarks.sid}}</td>
                                     <td>{{studentMarks.name}}</td>
@@ -244,11 +243,12 @@
 									<td>{{studentMarks.project}}</td>
 									<td>{{studentMarks.mst}}</td>
 									<td>{{studentMarks.est}}</td>
+                                    <td>{{studentMarks.total}}</td>
                                     <td>{{studentMarks.grade}}</td>
 								</tr>
                             </tbody>
                         </table>
-                        <div ng-show="normalizedRelativeMarksList == 0" class="alert alert-danger no-records">No records found</div>
+                        <div ng-show="normalizedRelativeMarksList == '0'" class="alert alert-danger no-records">No records found</div>
                     </div>
 <!--
                     <div class="gradeRangeTable">
