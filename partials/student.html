@@ -171,7 +171,7 @@
 									<td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
 									<td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
 									<td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
+                                    <td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
                                 </tr>
                              </tbody>
                         </table>
@@ -202,7 +202,7 @@
                     </div>
                     <!--<div class="messageText">Marks list for semester {{selectedSem}}:-</div>-->
                     <div class="studentPerformanceTable">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover" >
                             <thead>
 								<tr>
                                     <th>SID</th>
@@ -221,10 +221,11 @@
 									<th>PE<br><div ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</div></th>
 									<th>MST<br><div ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</div></th>
 									<th>EST<br><div ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</div></th>
-									<th>Grade</th>
+									<th>Total<br>(100)</th>
+                                    <th>Grade</th>
 								</tr>
                             </thead>
-                            <tbody>
+                            <tbody ng-show="normalizedRelativeMarksList != '0'">
 								<tr ng-repeat="studentMarks in normalizedRelativeMarksList">
                                     <td>{{studentMarks.sid}}</td>
                                     <td>{{studentMarks.name}}</td>
@@ -242,6 +243,7 @@
 									<td>{{studentMarks.project}}</td>
 									<td>{{studentMarks.mst}}</td>
 									<td>{{studentMarks.est}}</td>
+                                    <td>{{studentMarks.total}}</td>
                                     <td>{{studentMarks.grade}}</td>
 								</tr>
                             </tbody>

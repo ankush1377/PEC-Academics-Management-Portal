@@ -13,10 +13,10 @@
 	
 	$postdata = file_get_contents("php://input");
    	$request = json_decode($postdata);
-//	$semId = $request->semId;
-//	$subCode = $request->subjectCode;
-	$semId = '1617-2';
-	$subCode = 'CSN302';
+	$semId = $request->semId;
+	$subCode = $request->subjectCode;
+//	$semId = '1617-2';
+//	$subCode = 'CSN302';
 	$outp = "";
 	
 	

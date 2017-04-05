@@ -2,6 +2,8 @@
 
 pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',function($scope,$rootScope,$location,$route,$http){
 
+
+    /***************MANAGE STUDENTS************/
     $scope.incomplete = false;
     $scope.studentView = [];
     $scope.cannotAssign = false;
@@ -31,7 +33,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
     $scope.getStudents = function (){
 
         var studentData ={
-            "depCode": $rootScope.userData.dep_code
+            "depCode": $rootScope.userData['dep_code']
         };
 
     	var studentsRequest = $http({
@@ -74,7 +76,6 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         	subjectRequest.then( function(response) {
         		if (response.data.records != "0") {
         			$scope.subjectList = response.data.records;
-
     //    			console.log($scope.batchList);
         		}
         		else if (response.data.records == "0") {
@@ -120,15 +121,17 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 gender: $scope.sGender,
                 fatherName: $scope.sFatherName,
                 motherName: $scope.sMotherName,
-                batchId: $scope.sBatch + "_" + $rootScope.userData.dep_code,
-                depCode: $rootScope.userData.dep_code,
+                batchId: $scope.sBatch + "_" + $rootScope.userData['dep_code'],
+                depCode: $rootScope.userData['dep_code'],
                 password: pw
             },
             header: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
 
-        $scope.getStudents();
-        $scope.clearStudentData();
+        addStudentRequest.then( function(response) {
+            $scope.getStudents();
+            $scope.clearStudentData();
+        });
     };
 
     $scope.editStudent = function(index){
@@ -163,7 +166,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                     fatherName: studentData.father_name,
                     motherName: studentData.mother_name,
                     batchId: studentData.batch_id,
-                    depCode: $rootScope.userData.dep_code,
+                    depCode: $rootScope.userData['dep_code'],
                     password: studentData.password
                 },
                 header: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -207,6 +210,179 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
     };
 
 
+    /***************MANAGE TEACHERS************/
+
+    $scope.incomplete_t = false;
+    $scope.teacherView = [];
+    $scope.cannotAssign_t = false;
+    $scope.selectedTeachers = [];
+    $scope.assignmentSubjects_t = [];
+    $scope.getTeachers = function (){
+
+        var teacherData ={
+            "depCode": $rootScope.userData['dep_code']
+        };
+
+    	var teachersRequest = $http({
+    	    method: "POST",
+    		url: "php/fetchTeachers.php",
+    		data: teacherData
+    	});
+
+    	teachersRequest.then( function(response) {
+    		if (response.data.records != "0") {
+    			$scope.teacherList = response.data.records;
+                for(var i=0;i<$scope.teacherList.length;i++){
+                    $scope.teacherView.push(true);
+                    $scope.selectedTeachers.push(false);
+                    $scope.teacherList[i].batch = $scope.teacherList[i].batch_id.slice(0, $scope.teacherList[i].batch_id.indexOf('_'));
+                }
+//    			console.log($scope.batchList);
+    		}
+    		else if (response.data.records == "0") {
+//    			console.log(response.data.records);
+    			//no records found
+    		}
+    		else {
+
+    	    }
+        });
+    };
+    $scope.getDepSubjects = function (){
+
+            var subjectData ={
+                "depCode": $rootScope.userData.dep_code
+            };
+
+        	var subjectRequest = $http({
+        	    method: "POST",
+        		url: "php/fetchSubjects.php",
+        		data: subjectData
+        	});
+
+        	subjectRequest.then( function(response) {
+        		if (response.data.records != "0") {
+        			$scope.depSubjectList = response.data.records;
+    //    			console.log($scope.batchList);
+        		}
+        		else if (response.data.records == "0") {
+    //    			console.log(response.data.records);
+        			//no records found
+        		}
+        		else {
+
+        	    }
+            });
+        };
+
+
+    $scope.getTeachers();
+    $scope.getDepSubjects();
+
+    $scope.addTeacher = function(){
+
+        if( $scope.tid == undefined || $scope.tName == undefined || $scope.tDob == undefined || $scope.tFatherName == undefined || $scope.tGender == undefined ||$scope.tMotherName == undefined ){
+            $scope.incomplete_t = true;
+            return;
+        }
+
+        $scope.incomplete_t = false;
+        var pw = randomPassword(8);
+        var addTeacherRequest = $http({
+            method: "POST",
+            url: "php/addTeacher.php",
+            data: {
+                tid: $scope.tid,
+                name: $scope.tName,
+                dob: $scope.tDob,
+                gender: $scope.tGender,
+                fatherName: $scope.tFatherName,
+                motherName: $scope.tMotherName,
+                depCode: $rootScope.userData['dep_code'],
+                password: pw
+            },
+            header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+
+        addTeacherRequest.then( function(response) {
+            $scope.getTeachers();
+            $scope.clearTeacherData();
+        });
+    };
+
+    $scope.editTeacher = function(index){
+
+        $scope.teacherView[index] = false;
+//        console.log($scope.studentEdit);
+    };
+
+    $scope.clearTeacherData = function(){
+        $scope.tid = undefined;
+        $scope.tName = undefined;
+        $scope.tDob = undefined;
+        $scope.tFatherName = undefined;
+        $scope.tMotherName = undefined;
+        $scope.tGender = undefined;
+        $scope.tBatch = undefined;
+    };
+
+    $scope.saveTeacher = function(teacherData, index){
+
+//        console.log(studentData);
+        $scope.teacherView[index] = true;
+        var updateTeacherRequest = $http({
+                method: "POST",
+                url: "php/updateTeacherInfo.php",
+                data: {
+                    sid: teacherData.sid,
+                    name: teacherData.name,
+                    dob: teacherData.dob,
+                    gender: teacherData.gender,
+                    fatherName: teacherData.father_name,
+                    motherName: teacherData.mother_name,
+                    batchId: teacherData.batch_id,
+                    depCode: $rootScope.userData['dep_code'],
+                    password: teacherData.password
+                },
+                header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+    };
+
+    $scope.assignSubjects_t = function(){
+
+        if($scope.selectedTeacher.length == 0 || $scope.assignmentSubjects_t.length == 0){
+            $scope.cannotAssign_t = true;
+            return;
+        }
+
+        $scope.cannotAssign_t = false;
+        $scope.subjectTid = [];
+        for(var i=0;i<$scope.selectedTeachers.length;i++){
+            if($scope.selectedTeachers[i] == true){
+                $scope.subjectTid.push($scope.teacherList[i].sid);
+            }
+        }
+
+        var assignmentSubjectCodes_t = [];
+        var empty_t = true;
+        for(var i=0;i<$scope.assignmentSubjects_t.length;i++){
+            empty = false;
+            assignmentSubjectCodes.push($scope.assignmentSubjects[i].subject_code);
+        }
+
+         var assignStudentSubjectsRequest = $http({
+            method: "POST",
+            url: "php/assignStudentSubjects.php",
+            data: {
+                "semId": $rootScope.currentSemId,
+                "sidList" : $scope.subjectSid,
+                "subjectList": assignmentSubjectCodes
+            },
+            header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+         });
+
+         $scope.assignmentSubjects.length = 0;
+    };
+
 
 }]);
-

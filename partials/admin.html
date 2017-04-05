@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="right">
                                     <div class="list-group-item-heading">{{userId}}</div>
-                                    <p class="list-group-item-text">Teacher ID</p>
+                                    <p class="list-group-item-text">Admin ID</p>
                                 </div>
                             </div>
                             <div  class="list-group-item">
@@ -101,51 +101,41 @@
                           </form>-->
                 </div>
 
-                <div id="manageStudents" class="tab-pane fade">
+                <div id="manageTeachers" class="tab-pane fade">
 					<div class="panel panel-default">
-						<div class="panel-heading">Add a student</div>
+						<div class="panel-heading">Add a teacher</div>
 						<div class="panel-body">
 				             <div class="studentPerformanceTable">
                                         <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
                                             <thead >
                                                 <tr>
-                                                    <th style="width: 115px;">SID</th>
+                                                    <th style="width: 115px;">TID</th>
                                                     <th>Name</th>
                                                     <th>Date of Birth</th>
                                                     <th style="width: 100px;">Gender</th>
                                                     <th>Father's Name</th>
                                                     <th>Mother's Name</th>
-                                                    <th style="width: 130px;">Batch</th>
                                                     <th style="width: 77px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody >
                                                 <tr>
-                                                    <td><input type="text" class="form-control" ng-model="sid"></td>
-                                                    <td><input type="text" class="form-control" ng-model="sName"></td>
-                                                    <td><input type="date" class="form-control" ng-model="sDob"></td>
+                                                    <td><input type="text" class="form-control" ng-model="tid"></td>
+                                                    <td><input type="text" class="form-control" ng-model="tName"></td>
+                                                    <td><input type="date" class="form-control" ng-model="tDob"></td>
                                                     <td>
                                                         <div class="radio">
-                                                            <label><input type="radio" ng-model="sGender" value="Male">Male</label>
+                                                            <label><input type="radio" ng-model="tGender" value="Male">Male</label>
                                                         </div>
                                                         <div class="radio">
-                                                            <label><input type="radio" ng-model="sGender" value="Female">Female</label>
+                                                            <label><input type="radio" ng-model="tGender" value="Female">Female</label>
                                                         </div>
                                                     </td>
-                                                    <td><input type="text" class="form-control" ng-model="sFatherName"></td>
-                                                    <td><input type="text" class="form-control" ng-model="sMotherName"></td>
-                                                    <td>
-                                                        <div class="studentDropdown">
-                                                            <div class="form-group">
-                                                                <select class="form-control" ng-options="batch for batch in batchList" ng-model="sBatch">
-                                                                    <option selected="true" disabled="disabled" label="Batch"></option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                    <td><input type="text" class="form-control" ng-model="tFatherName"></td>
+                                                    <td><input type="text" class="form-control" ng-model="tMotherName"></td>
                                                     <td>
                                                         <div class="addButton">
-                                                            <button type="button" class="btn add-row" ng-click="addStudent()" >Add</button>
+                                                            <button type="button" class="btn add-row" ng-click="addTeacher()" >Add</button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -160,186 +150,212 @@
 					<div class="editInfo">
 									<form class="form-inline">
                                         <div class="form-group">
-                                            <label for="studentFilter">Apply filter : </label>
-                                            <input type="text" class="form-control" id="studentFilter" ng-model="studentFilter">
+                                            <label for="teacherFilter">Apply filter : </label>
+                                            <input type="text" class="form-control" id="teacherFilter" ng-model="teacherFilter">
                                         </div>
                                     </form>
                                     <div class="studentPerformanceTable" style="margin-top:15px;">
-                                        <table class="table table-bordered table-hover">
+                                        <table class="table table-bordered table-hover" style="    margin-bottom: 0px;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 1px;">Select</th>
-                                                    <th style="width: 115px;">SID</th>
+                                                    <th style="width: 115px;">TID</th>
                                                     <th>Name</th>
                                                     <th>Date of Birth</th>
                                                     <th style="width: 100px;">Gender</th>
                                                     <th>Father's Name</th>
                                                     <th>Mother's Name</th>
-                                                    <th style="width: 130px;">Batch</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="student in studentList | filter:studentFilter">
+                                                <tr ng-repeat="teacher in teacherList | filter:teacherFilter">
                                                     <td>
                                                         <div class="checkbox table-checkbox">
-                                                            <label><input type="checkbox" ng-model="selectedStudents[$index]" ></label>
+                                                            <label><input type="checkbox" ng-model="selectedTeachers[$index]" ></label>
                                                         </div>
                                                     </td>
-                                                    <td>{{student.sid}}</td>
-                                                    <td><div ng-show="studentView[$index]">{{student.name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.name"></div></td>
-                                                    <td><div ng-show="studentView[$index]">{{student.dob}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.dob"></div></td>
-                                                    <td><div ng-show="studentView[$index]">{{student.gender}}</div>
-                                                        <div ng-hide="studentView[$index]">
+                                                    <td>{{teacher.sid}}</td>
+                                                    <td><div ng-show="teacherView[$index]">{{teacher.name}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.name"></div></td>
+                                                    <td><div ng-show="teacherView[$index]">{{teacher.dob}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.dob"></div></td>
+                                                    <td><div ng-show="teacherView[$index]">{{teacher.gender}}</div>
+                                                        <div ng-hide="teacherView[$index]">
                                                             <div class="radio">
-                                                                <label><input type="radio" ng-model="student.gender" value="Male">Male</label>
+                                                                <label><input type="radio" ng-model="teacher.gender" value="Male">Male</label>
                                                             </div>
                                                             <div class="radio">
-                                                                <label><input type="radio" ng-model="student.gender" value="Female">Female</label>
+                                                                <label><input type="radio" ng-model="teacher.gender" value="Female">Female</label>
                                                             </div>
                                                          </div>
                                                     </td>
-                                                    <td><div ng-show="studentView[$index]">{{student.father_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.father_name"></div></td>
-                                                    <td><div ng-show="studentView[$index]">{{student.mother_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.mother_name"></div></td>
-                                                    <td><div ng-show="studentView[$index]">{{student.batch}}</div><div ng-hide="studentView[$index]">
-                                                        <div class="studentDropdown">
-                                                            <div class="form-group">
-                                                                <select class="form-control" ng-options="batch for batch in batchList" ng-model="student.batch">
-                                                                    <option selected="true" disabled="disabled" label="Batch"></option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div></td>
+                                                    <td><div ng-show="teacherView[$index]">{{teacher.father_name}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.father_name"></div></td>
+                                                    <td><div ng-show="teacherView[$index]">{{teacher.mother_name}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.mother_name"></div></td>
                                                     <td>
-                                                        <div class="editButton" ng-show="studentView[$index]">
-                                                            <button type="button" class="btn edit-row" ng-click="editStudent($index)" >Edit</button>
+                                                        <div class="editButton" ng-show="teacherView[$index]">
+                                                            <button type="button" class="btn edit-row" ng-click="editTeacher($index)" >Edit</button>
                                                         </div>
-                                                        <div class="saveButton" ng-hide="studentView[$index]">
-                                                            <button type="button" class="btn edit-row" ng-click="saveStudent(student, $index)" >Save</button>
+                                                        <div class="saveButton" ng-hide="teacherView[$index]">
+                                                            <button type="button" class="btn edit-row" ng-click="saveTeacher(teacher, $index)" >Save</button>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div ng-show="studentList == '0'" class="alert alert-danger no-records">No records found</div>
+                                        <div ng-show="teacherList == '0'" class="alert alert-danger no-records">No records found</div>
                                     </div>
                                     <form style="float: left;">
                                         <div class="form-group" >
-                                            <label for="selectedSubjects">Select subjects (hold shift to select more than one):</label>
-                                            <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="assignmentSubjects" style="min-height: 66px;    max-height: 110px;">
+                                            <label for="selectedDepSubjects">Select subjects (hold shift to select more than one):</label>
+                                            <select multiple class="form-control" id="selectedDepSubjects" ng-options="subject.name for subject in depSubjectList" ng-model="teacherAssignmentSubjects" style="min-height: 66px;    max-height: 110px;">
                                             </select>
                                         </div>
                                     </form>
                                     <div class="editButton" style="float:right;">
-                                        <button type="button" class="btn edit-row" ng-click="assignSubjects()" >Assign Subjects</button>
+                                        <button type="button" class="btn assign" ng-click="teacherAssignSubjects()" >Assign Subjects</button>
                                     </div>
                         <div class="alert alert-danger incomplete" ng-show="cannotAssign">
-                            Please select both students and subjects to be assigned.
+                            Please select both teachers and subjects to be assigned.
                         </div>
 					</div>
                 </div>
 
 
-                <div id="manageTeachers" class="tab-pane fade">
-                    <div class="topSecion">
-                        <div class="studentDropdown">
-                            <div class="form-group">
-                                <select class="form-control"  ng-model="selectedSem_relative" ng-options="semCode for semCode in semList" ng-change="updateSubjectList(userId, selectedSem_relative)">
-                                    <option selected="true" disabled="disabled" label="Select semester"></option>
-                                </select>
+                <div id="manageStudents" class="tab-pane fade">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Add a student</div>
+                        <div class="panel-body">
+                            <div class="studentPerformanceTable">
+                                <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
+                                    <thead >
+                                    <tr>
+                                        <th style="width: 115px;">SID</th>
+                                        <th>Name</th>
+                                        <th>Date of Birth</th>
+                                        <th style="width: 100px;">Gender</th>
+                                        <th>Father's Name</th>
+                                        <th>Mother's Name</th>
+                                        <th style="width: 130px;">Batch</th>
+                                        <th style="width: 77px;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    <tr>
+                                        <td><input type="text" class="form-control" ng-model="sid"></td>
+                                        <td><input type="text" class="form-control" ng-model="sName"></td>
+                                        <td><input type="date" class="form-control" ng-model="sDob"></td>
+                                        <td>
+                                            <div class="radio">
+                                                <label><input type="radio" ng-model="sGender" value="Male">Male</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" ng-model="sGender" value="Female">Female</label>
+                                            </div>
+                                        </td>
+                                        <td><input type="text" class="form-control" ng-model="sFatherName"></td>
+                                        <td><input type="text" class="form-control" ng-model="sMotherName"></td>
+                                        <td>
+                                            <div class="studentDropdown">
+                                                <div class="form-group">
+                                                    <select class="form-control" ng-options="batch for batch in batchList" ng-model="sBatch">
+                                                        <option selected="true" disabled="disabled" label="Batch"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="addButton">
+                                                <button type="button" class="btn add-row" ng-click="addStudent()" >Add</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-danger incomplete" ng-show="incomplete">
+                                Please fill out all fields first.
                             </div>
                         </div>
-                        <div class="studentDropdown">
+                    </div>
+                    <div class="editInfo">
+                        <form class="form-inline">
                             <div class="form-group">
-                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined">
-                                    <option selected="true" disabled="disabled" label="Select subject"></option>
-                                </select>
+                                <label for="studentFilter">Apply filter : </label>
+                                <input type="text" class="form-control" id="studentFilter" ng-model="studentFilter">
                             </div>
-                        </div>
-                        <div class="fetchButton">
-                            <button type="button" class="btn" ng-click="getRelativeMarks(selectedSem_relative, selectedSubject.subCode)" ng-disabled="selectedSem_relative == undefined || selectedSubject == undefined">Fetch Results</button>
-                        </div>
-                    </div>
-                    <!--<div class="messageText">Marks list for semester {{selectedSem}}:-</div>-->
-                    <div class="studentPerformanceTable">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>SID</th>
-                                <th>Name</th>
-                                <th>Q1<br><div ng-show="subjectWeightages[0].quiz1">({{subjectWeightages[0].quiz1}})</div></th>
-                                <th>Q2<br><div ng-show="subjectWeightages[0].quiz2">({{subjectWeightages[0].quiz2}})</div></th>
-                                <th>Q3<br><div ng-show="subjectWeightages[0].quiz3">({{subjectWeightages[0].quiz3}})</div></th>
-                                <th>Q4<br><div ng-show="subjectWeightages[0].quiz4">({{subjectWeightages[0].quiz4}})</div></th>
-                                <th>A1<br><div ng-show="subjectWeightages[0].assignment1">({{subjectWeightages[0].assignment1}})</div></th>
-                                <th>A2<br><div ng-show="subjectWeightages[0].assignment2">({{subjectWeightages[0].assignment2}})</div></th>
-                                <th>A3<br><div ng-show="subjectWeightages[0].assignment3">({{subjectWeightages[0].assignment3}})</div></th>
-                                <th>A4<br><div ng-show="subjectWeightages[0].assignment4">({{subjectWeightages[0].assignment4}})</div></th>
-                                <th>A5<br><div ng-show="subjectWeightages[0].assignment5">({{subjectWeightages[0].assignment5}})</div></th>
-                                <th>LE1<br><div ng-show="subjectWeightages[0].lab1">({{subjectWeightages[0].lab1}})</div></th>
-                                <th>LE2<br><div ng-show="subjectWeightages[0].lab2">({{subjectWeightages[0].lab2}})</div></th>
-                                <th>PE<br><div ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</div></th>
-                                <th>MST<br><div ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</div></th>
-                                <th>EST<br><div ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</div></th>
-                                <th>Grade</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="studentMarks in normalizedRelativeMarksList">
-                                <td>{{studentMarks.sid}}</td>
-                                <td>{{studentMarks.name}}</td>
-                                <td>{{studentMarks.quiz1}}</td>
-                                <td>{{studentMarks.quiz1}}</td>
-                                <td>{{studentMarks.quiz1}}</td>
-                                <td>{{studentMarks.quiz1}}</td>
-                                <td>{{studentMarks.assignment1}}</td>
-                                <td>{{studentMarks.assignment2}}</td>
-                                <td>{{studentMarks.assignment3}}</td>
-                                <td>{{studentMarks.assignment4}}</td>
-                                <td>{{studentMarks.assignment5}}</td>
-                                <td>{{studentMarks.lab1}}</td>
-                                <td>{{studentMarks.lab2}}</td>
-                                <td>{{studentMarks.project}}</td>
-                                <td>{{studentMarks.mst}}</td>
-                                <td>{{studentMarks.est}}</td>
-                                <td>{{studentMarks.grade}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div ng-show="normalizedRelativeMarksList == '0'" class="alert alert-danger no-records">No records found</div>
-                    </div>
-                    <!--
-                                        <div class="gradeRangeTable">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Grade</th>
-                                                        <td>A+</td>
-                                                        <td>A</td>
-                                                        <td>B+</td>
-                                                        <td>B</td>
-                                                        <td>C+</td>
-                                                        <td>C</td>
-                                                        <td>D</td>
-                                                        <td>F</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Cut-off Marks</th>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                        </form>
+                        <div class="studentPerformanceTable" style="margin-top:15px;">
+                            <table class="table table-bordered table-hover" style="    margin-bottom: 0px;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1px;">Select</th>
+                                    <th style="width: 115px;">SID</th>
+                                    <th>Name</th>
+                                    <th>Date of Birth</th>
+                                    <th style="width: 100px;">Gender</th>
+                                    <th>Father's Name</th>
+                                    <th>Mother's Name</th>
+                                    <th style="width: 130px;">Batch</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="student in studentList | filter:studentFilter">
+                                    <td>
+                                        <div class="checkbox table-checkbox">
+                                            <label><input type="checkbox" ng-model="selectedStudents[$index]" ></label>
                                         </div>
-                    -->
+                                    </td>
+                                    <td>{{student.sid}}</td>
+                                    <td><div ng-show="studentView[$index]">{{student.name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.name"></div></td>
+                                    <td><div ng-show="studentView[$index]">{{student.dob}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.dob"></div></td>
+                                    <td><div ng-show="studentView[$index]">{{student.gender}}</div>
+                                        <div ng-hide="studentView[$index]">
+                                            <div class="radio">
+                                                <label><input type="radio" ng-model="student.gender" value="Male">Male</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" ng-model="student.gender" value="Female">Female</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><div ng-show="studentView[$index]">{{student.father_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.father_name"></div></td>
+                                    <td><div ng-show="studentView[$index]">{{student.mother_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.mother_name"></div></td>
+                                    <td><div ng-show="studentView[$index]">{{student.batch}}</div><div ng-hide="studentView[$index]">
+                                        <div class="studentDropdown">
+                                            <div class="form-group">
+                                                <select class="form-control" ng-options="batch for batch in batchList" ng-model="student.batch">
+                                                    <option selected="true" disabled="disabled" label="Batch"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div></td>
+                                    <td>
+                                        <div class="editButton" ng-show="studentView[$index]">
+                                            <button type="button" class="btn edit-row" ng-click="editStudent($index)" >Edit</button>
+                                        </div>
+                                        <div class="saveButton" ng-hide="studentView[$index]">
+                                            <button type="button" class="btn edit-row" ng-click="saveStudent(student, $index)" >Save</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div ng-show="studentList == '0'" class="alert alert-danger no-records">No records found</div>
+                        </div>
+                        <form style="float: left;">
+                            <div class="form-group" >
+                                <label for="selectedSubjects">Select subjects (hold shift to select more than one):</label>
+                                <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="assignmentSubjects" style="min-height: 66px;    max-height: 110px;">
+                                </select>
+                            </div>
+                        </form>
+                        <div class="editButton" style="float:right;">
+                            <button type="button" class="btn edit-row" ng-click="assignSubjects()" >Assign Subjects</button>
+                        </div>
+                        <div class="alert alert-danger incomplete" ng-show="cannotAssign">
+                            Please select both students and subjects to be assigned.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -33,8 +33,9 @@ pamp.config(function($routeProvider) {
 
 pamp.run(['$location', '$rootScope', '$http', function ($location, $rootScope, $http) {
   
-  $rootScope.semList=["1617-2","1718-1"];
+  $rootScope.semList = ["1617-2","1718-1"];
   $rootScope.currentSemId = "1617-2";
+
   $rootScope.logout = function (){
     $rootScope.userId = "";
     $rootScope.userData = "";
