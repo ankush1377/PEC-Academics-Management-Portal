@@ -386,3 +386,4 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
 
 }]);
+}]);
