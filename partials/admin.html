@@ -105,7 +105,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Add a teacher</div>
 						<div class="panel-body">
-				             <div class="studentPerformanceTable">
+				             <div class="addTeacherTable">
                                         <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
                                             <thead >
                                                 <tr>
@@ -170,12 +170,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="teacher in teacherList | filter:teacherFilter">
-                                                    <td>
-                                                        <div class="checkbox table-checkbox">
-                                                            <label><input type="checkbox" ng-model="selectedTeachers[$index]" ></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>{{teacher.sid}}</td>
+                                                    <td>{{teacher.tid}}</td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.name}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.name"></div></td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.dob}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.dob"></div></td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.gender}}</div>
@@ -206,14 +201,14 @@
                                     <form style="float: left;">
                                         <div class="form-group" >
                                             <label for="selectedDepSubjects">Select subjects (hold shift to select more than one):</label>
-                                            <select multiple class="form-control" id="selectedDepSubjects" ng-options="subject.name for subject in depSubjectList" ng-model="teacherAssignmentSubjects" style="min-height: 66px;    max-height: 110px;">
+                                            <select multiple class="form-control" id="selectedDepSubjects" ng-options="subject.name for subject in depSubjectList" ng-model="assignmentSubjects_t" style="min-height: 66px;    max-height: 110px;">
                                             </select>
                                         </div>
                                     </form>
                                     <div class="editButton" style="float:right;">
-                                        <button type="button" class="btn assign" ng-click="teacherAssignSubjects()" >Assign Subjects</button>
+                                        <button type="button" class="btn assign" ng-click="assignSubjects_t()" >Assign Subjects</button>
                                     </div>
-                        <div class="alert alert-danger incomplete" ng-show="cannotAssign">
+                        <div class="alert alert-danger incomplete" ng-show="cannotAssign_t">
                             Please select both teachers and subjects to be assigned.
                         </div>
 					</div>
@@ -342,14 +337,14 @@
                             </table>
                             <div ng-show="studentList == '0'" class="alert alert-danger no-records">No records found</div>
                         </div>
-                        <form style="float: left;">
+                        <form style="float: left; margin-top:20px;">
                             <div class="form-group" >
                                 <label for="selectedSubjects">Select subjects (hold shift to select more than one):</label>
                                 <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="assignmentSubjects" style="min-height: 66px;    max-height: 110px;">
                                 </select>
                             </div>
                         </form>
-                        <div class="editButton" style="float:right;">
+                        <div class="editButton" style="float:right; margin-top:20px;">
                             <button type="button" class="btn edit-row" ng-click="assignSubjects()" >Assign Subjects</button>
                         </div>
                         <div class="alert alert-danger incomplete" ng-show="cannotAssign">

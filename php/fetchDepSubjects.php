@@ -10,10 +10,14 @@
 
 	// Create connection
    	$conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+	$postdata = file_get_contents("php://input");
+   	$request = json_decode($postdata);
+	$dep_code = $request->depCode;
 	$outp = "";
 
 
-	$subjectListSql = "SELECT * FROM subject_info";
+	$subjectListSql = "SELECT * FROM subject_info WHERE dep_code = '$dep_code'";
 	$subjectListResult = $conn->query($subjectListSql);
 
 

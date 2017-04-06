@@ -63,14 +63,9 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
     };
     $scope.getSubjects = function (){
 
-            var subjectData ={
-                "depCode": $rootScope.userData.dep_code
-            };
-
         	var subjectRequest = $http({
         	    method: "POST",
-        		url: "php/fetchSubjects.php",
-        		data: subjectData
+        		url: "php/fetchSubjects.php"
         	});
 
         	subjectRequest.then( function(response) {
@@ -235,7 +230,6 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 for(var i=0;i<$scope.teacherList.length;i++){
                     $scope.teacherView.push(true);
                     $scope.selectedTeachers.push(false);
-                    $scope.teacherList[i].batch = $scope.teacherList[i].batch_id.slice(0, $scope.teacherList[i].batch_id.indexOf('_'));
                 }
 //    			console.log($scope.batchList);
     		}
@@ -256,7 +250,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
         	var subjectRequest = $http({
         	    method: "POST",
-        		url: "php/fetchSubjects.php",
+        		url: "php/fetchDepSubjects.php",
         		data: subjectData
         	});
 
@@ -323,7 +317,6 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         $scope.tFatherName = undefined;
         $scope.tMotherName = undefined;
         $scope.tGender = undefined;
-        $scope.tBatch = undefined;
     };
 
     $scope.saveTeacher = function(teacherData, index){
@@ -334,13 +327,12 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 method: "POST",
                 url: "php/updateTeacherInfo.php",
                 data: {
-                    sid: teacherData.sid,
+                    tid: teacherData.tid,
                     name: teacherData.name,
                     dob: teacherData.dob,
                     gender: teacherData.gender,
                     fatherName: teacherData.father_name,
                     motherName: teacherData.mother_name,
-                    batchId: teacherData.batch_id,
                     depCode: $rootScope.userData['dep_code'],
                     password: teacherData.password
                 },
@@ -350,7 +342,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
     $scope.assignSubjects_t = function(){
 
-        if($scope.selectedTeacher.length == 0 || $scope.assignmentSubjects_t.length == 0){
+        if($scope.selectedTeachers.length == 0 || $scope.assignmentSubjects_t.length == 0){
             $scope.cannotAssign_t = true;
             return;
         }
@@ -359,31 +351,30 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         $scope.subjectTid = [];
         for(var i=0;i<$scope.selectedTeachers.length;i++){
             if($scope.selectedTeachers[i] == true){
-                $scope.subjectTid.push($scope.teacherList[i].sid);
+                $scope.subjectTid.push($scope.teacherList[i].tid);
             }
         }
 
         var assignmentSubjectCodes_t = [];
         var empty_t = true;
         for(var i=0;i<$scope.assignmentSubjects_t.length;i++){
-            empty = false;
-            assignmentSubjectCodes.push($scope.assignmentSubjects[i].subject_code);
+            empty_t = false;
+            assignmentSubjectCodes_t.push($scope.assignmentSubjects_t[i].subject_code);
         }
 
-         var assignStudentSubjectsRequest = $http({
+         var assignTeacherSubjectsRequest = $http({
             method: "POST",
-            url: "php/assignStudentSubjects.php",
+            url: "php/assignTeacherSubjects.php",
             data: {
                 "semId": $rootScope.currentSemId,
-                "sidList" : $scope.subjectSid,
-                "subjectList": assignmentSubjectCodes
+                "tidList" : $scope.subjectTid,
+                "subjectList": assignmentSubjectCodes_t
             },
             header: { 'Content-Type': 'application/x-www-form-urlencoded' }
          });
 
-         $scope.assignmentSubjects.length = 0;
+         $scope.assignmentSubjects_t.length = 0;
     };
 
 
-}]);
 }]);
