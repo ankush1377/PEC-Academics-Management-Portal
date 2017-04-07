@@ -158,14 +158,14 @@
                                         <table class="table table-bordered table-hover" style="    margin-bottom: 0px;">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 1px;">Select</th>
                                                     <th style="width: 115px;">TID</th>
                                                     <th>Name</th>
                                                     <th>Date of Birth</th>
                                                     <th style="width: 100px;">Gender</th>
                                                     <th>Father's Name</th>
                                                     <th>Mother's Name</th>
-                                                    <th></th>
+                                                    <th style="    width: 143px;"></th>
+                                                    <th style="width: 143px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -193,24 +193,16 @@
                                                             <button type="button" class="btn edit-row" ng-click="saveTeacher(teacher, $index)" >Save</button>
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        <div class="assignButton" >
+                                                            <button type="button" class="btn assign" data-toggle="modal" data-target="#assignSubjects">Assign Subjects</button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div ng-show="teacherList == '0'" class="alert alert-danger no-records">No records found</div>
                                     </div>
-                                    <form style="float: left;">
-                                        <div class="form-group" >
-                                            <label for="selectedDepSubjects">Select subjects (hold shift to select more than one):</label>
-                                            <select multiple class="form-control" id="selectedDepSubjects" ng-options="subject.name for subject in depSubjectList" ng-model="assignmentSubjects_t" style="min-height: 66px;    max-height: 110px;">
-                                            </select>
-                                        </div>
-                                    </form>
-                                    <div class="editButton" style="float:right;">
-                                        <button type="button" class="btn assign" ng-click="assignSubjects_t()" >Assign Subjects</button>
-                                    </div>
-                        <div class="alert alert-danger incomplete" ng-show="cannotAssign_t">
-                            Please select both teachers and subjects to be assigned.
-                        </div>
 					</div>
                 </div>
 
@@ -351,6 +343,42 @@
                             Please select both students and subjects to be assigned.
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="assignSubjects" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Assign Subjects</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="studentDropdown">
+                        <div class="form-group">
+                            <select class="form-control" ng-options="subject.name for subject in depSubjectList" ng-model="assignmentSubject_t">
+                                <option selected="true" disabled="disabled" label="Select Subject"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="studentDropdown">
+                        <div class="form-group">
+                            <select class="form-control" ng-options="batch for batch in batchList" ng-model="assignmentBatch_t">
+                                <option selected="true" disabled="disabled" label="Select Batch"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="assignButton">
+                        <button type="button" class="btn assign" ng-click="">Assign</button>
+                    </div>
+                    <div class="addButton">
+                        <button type="button" class="btn add" ng-click="">Add another</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
