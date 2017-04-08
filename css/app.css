@@ -257,3 +257,26 @@
 }
 
 
+.modalDropdown{
+    float: left;
+    margin: 0px 5px;
+}
+
+.modalDropdownList{
+    float: left;
+    width: 100%;
+}
+
+.modalButtonList{
+    float: left;
+    width: 100%;
+}
+
+.modalButton{
+    width: 15%;
+    float: left;
+    margin: 0px 10px;
+}
+
+
+

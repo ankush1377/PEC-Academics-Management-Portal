@@ -207,11 +207,14 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
     /***************MANAGE TEACHERS************/
 
+    var currentTeacher;
+    $scope.count = 0;
     $scope.incomplete_t = false;
     $scope.teacherView = [];
     $scope.cannotAssign_t = false;
     $scope.selectedTeachers = [];
     $scope.assignmentSubjects_t = [];
+    $scope.assignmentBatches_t = [];
     $scope.getTeachers = function (){
 
         var teacherData ={
@@ -340,41 +343,41 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
             });
     };
 
+    $scope.selectedSubject_t = function(subject, index){
+        $scope.assignmentSubjects_t[index] = subject.subject_code;
+//        console.log($scope.assignmentSubjects_t);
+    };
+
+    $scope.selectedBatch_t = function(batch, index){
+            $scope.assignmentBatches_t[index] = batch + "_" + $rootScope.userData.dep_code;
+//            console.log($scope.assignmentBatches_t);
+        };
+
+     $scope.setTeacherId = function(tid){
+            currentTeacher = tid;
+            console.log(currentTeacher);
+        };
+
     $scope.assignSubjects_t = function(){
 
-        if($scope.selectedTeachers.length == 0 || $scope.assignmentSubjects_t.length == 0){
-            $scope.cannotAssign_t = true;
-            return;
-        }
+        console.log(currentTeacher);
+        console.log($rootScope.currentSemId);
+        console.log($scope.assignmentBatches_t);
+        console.log($scope.assignmentSubjects_t);
 
-        $scope.cannotAssign_t = false;
-        $scope.subjectTid = [];
-        for(var i=0;i<$scope.selectedTeachers.length;i++){
-            if($scope.selectedTeachers[i] == true){
-                $scope.subjectTid.push($scope.teacherList[i].tid);
-            }
-        }
-
-        var assignmentSubjectCodes_t = [];
-        var empty_t = true;
-        for(var i=0;i<$scope.assignmentSubjects_t.length;i++){
-            empty_t = false;
-            assignmentSubjectCodes_t.push($scope.assignmentSubjects_t[i].subject_code);
-        }
-
-         var assignTeacherSubjectsRequest = $http({
-            method: "POST",
-            url: "php/assignTeacherSubjects.php",
-            data: {
-                "semId": $rootScope.currentSemId,
-                "tidList" : $scope.subjectTid,
-                "subjectList": assignmentSubjectCodes_t
-            },
-            header: { 'Content-Type': 'application/x-www-form-urlencoded' }
-         });
-
-         $scope.assignmentSubjects_t.length = 0;
+        var assignTeacherSubjectsRequest = $http({
+                method: "POST",
+                url: "php/assignTeacherSubjects.php",
+                data: {
+                        "tid": currentTeacher,
+                        "semId": $rootScope.currentSemId,
+                        "batchList" : $scope.assignmentBatches_t,
+                        "subjectList": $scope.assignmentSubjects_t
+                },
+                header: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
     };
+
 
 
 }]);

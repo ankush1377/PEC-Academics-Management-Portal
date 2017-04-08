@@ -195,7 +195,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="assignButton" >
-                                                            <button type="button" class="btn assign" data-toggle="modal" data-target="#assignSubjects">Assign Subjects</button>
+                                                            <button type="button" class="btn assign" data-toggle="modal" data-target="#assignSubjects" ng-click="setTeacherId(teacher.tid)">Assign Subjects</button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -347,39 +347,46 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="assignSubjects" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Assign Subjects</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="studentDropdown">
+<div class="modal fade" id="assignSubjects" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="    float: left;
+    width: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Assign Subjects</h4>
+            </div>
+            <div class="modal-body" style="    float: left;
+    width: 100%;">
+                <div class="modalDropdownList">
+                    <div class="modalDropdown">
                         <div class="form-group">
-                            <select class="form-control" ng-options="subject.name for subject in depSubjectList" ng-model="assignmentSubject_t">
+                            <select class="form-control" ng-options="subject.name for subject in depSubjectList" ng-model="s" ng-change="selectedSubject_t(s,0)">
                                 <option selected="true" disabled="disabled" label="Select Subject"></option>
                             </select>
                         </div>
                     </div>
-                    <div class="studentDropdown">
+                    <div class="modalDropdown">
                         <div class="form-group">
-                            <select class="form-control" ng-options="batch for batch in batchList" ng-model="assignmentBatch_t">
+                            <select class="form-control" ng-options="batch for batch in batchList" ng-model="b" ng-change="selectedBatch_t(b,0)">
                                 <option selected="true" disabled="disabled" label="Select Batch"></option>
                             </select>
                         </div>
                     </div>
-                    <div class="assignButton">
-                        <button type="button" class="btn assign" ng-click="">Assign</button>
+                </div>
+                <div id="space-for-dropdowns"></div>
+                <div class="modalButtonList" style="margin-top:5px;">
+                    <div>
+                        <button addassignsubjectsfield type="button" class="btn modalButton" >Add another</button>
                     </div>
-                    <div class="addButton">
-                        <button type="button" class="btn add" ng-click="">Add another</button>
+                    <div>
+                        <button type="button" class="btn modalButton" ng-click="assignSubjects_t()">Assign</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer" style="float:left; width:100%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
