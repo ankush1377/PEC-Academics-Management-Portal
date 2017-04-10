@@ -24,50 +24,14 @@
 
 	if ($subjectListResult->num_rows > 0) {
 		while($row = $subjectListResult->fetch_array(MYSQLI_ASSOC)) {
-
-			$code = $row["subject1"];
+			$code = $row["subject_code"];
 			$subjectSql = "Select * FROM subject_info WHERE subject_code = '$code' ";
 			$subjectResult = $conn->query($subjectSql);
 			if ($subjectResult->num_rows > 0) {
 				$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
 				if ($outp != "") {$outp .= ",";}
 				$outp .= '{"subCode":"' . $subjectInfo["subject_code"] . '",';
-				$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
-			}
-			$code = $row["subject2"];
-			$subjectSql = "Select * FROM subject_info WHERE subject_code = '$code' ";
-			$subjectResult = $conn->query($subjectSql);
-			if ($subjectResult->num_rows > 0) {
-				$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
-				if ($outp != "") {$outp .= ",";}
-				$outp .= '{"subCode":"' . $subjectInfo["subject_code"] . '",';
-				$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
-			}
-			$code = $row["subject3"];
-			$subjectSql = "Select * FROM subject_info WHERE subject_code = '$code' ";
-			$subjectResult = $conn->query($subjectSql);
-			if ($subjectResult->num_rows > 0) {
-				$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
-				if ($outp != "") {$outp .= ",";}
-				$outp .= '{"subCode":"' . $subjectInfo["subject_code"] . '",';
-				$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
-			}
-			$code = $row["subject4"];
-			$subjectSql = "Select * FROM subject_info WHERE subject_code = '$code' ";
-			$subjectResult = $conn->query($subjectSql);
-			if ($subjectResult->num_rows > 0) {
-				$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
-				if ($outp != "") {$outp .= ",";}
-				$outp .= '{"subCode":"' . $subjectInfo["subject_code"] . '",';
-				$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
-			}
-			$code = $row["subject5"];
-			$subjectSql = "Select * FROM subject_info WHERE subject_code = '$code' ";
-			$subjectResult = $conn->query($subjectSql);
-			if ($subjectResult->num_rows > 0) {
-				$subjectInfo = $subjectResult->fetch_array(MYSQLI_ASSOC);
-				if ($outp != "") {$outp .= ",";}
-				$outp .= '{"subCode":"' . $subjectInfo["subject_code"] . '",';
+				$outp .= '"batchId":"' . substr($row["batch_id"], 0, strpos($row["batch_id"], '_')) . '",';
 				$outp .= ' "subName":"' . $subjectInfo["name"] . '"}';
 			}
 	    }

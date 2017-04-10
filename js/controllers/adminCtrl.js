@@ -345,25 +345,25 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
     $scope.selectedSubject_t = function(subject, index){
         $scope.assignmentSubjects_t[index] = subject.subject_code;
-//        console.log($scope.assignmentSubjects_t);
+        console.log($scope.assignmentSubjects_t);
     };
 
     $scope.selectedBatch_t = function(batch, index){
-            $scope.assignmentBatches_t[index] = batch + "_" + $rootScope.userData.dep_code;
+        $scope.assignmentBatches_t[index] = batch + "_" + $rootScope.userData.dep_code;
 //            console.log($scope.assignmentBatches_t);
-        };
+    };
 
      $scope.setTeacherId = function(tid){
-            currentTeacher = tid;
-            console.log(currentTeacher);
-        };
+        currentTeacher = tid;
+//        console.log(currentTeacher);
+     };
 
     $scope.assignSubjects_t = function(){
 
-        console.log(currentTeacher);
-        console.log($rootScope.currentSemId);
-        console.log($scope.assignmentBatches_t);
-        console.log($scope.assignmentSubjects_t);
+//        console.log(currentTeacher);
+//        console.log($rootScope.currentSemId);
+//        console.log($scope.assignmentBatches_t);
+//        console.log($scope.assignmentSubjects_t);
 
         var assignTeacherSubjectsRequest = $http({
                 method: "POST",
