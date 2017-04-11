@@ -186,23 +186,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Deepika</td>
-                                    <td>15103065</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>A</td>
+                                <tr ng-repeat="student in studentMarksList">
+                                    <td>{{student.studentMarks.sid}}</td>
+                                    <td>{{student.name}}</td>
+                                    <td>{{student.studentMarks.quiz1}}</td>
+                                    <td>{{student.studentMarks.quiz2}}</td>
+                                    <td>{{student.studentMarks.quiz3}}</td>
+                                    <td>{{student.studentMarks.quiz4}}</td>
+                                    <td>{{student.studentMarks.assignment1}}</td>
+                                    <td>{{student.studentMarks.assignment2}}</td>
+                                    <td>{{student.studentMarks.assignment3}}</td>
+                                    <td>{{student.studentMarks.assignment4}}</td>
+                                    <td>{{student.studentMarks.assignment5}}</td>
+                                    <td>{{student.studentMarks.lab1}}</td>
+                                    <td>{{student.studentMarks.lab2}}</td>
+                                    <td>{{student.studentMarks.project}}</td>
+                                    <td>{{student.studentMarks.mst}}</td>
+                                    <td>{{student.studentMarks.est}}</td>
+                                    <td>{{student.studentMarks.grade}}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -21,7 +21,12 @@
    	$access = 'Teacher';
 
    	$addTeacherSql = "INSERT INTO teacher_info (tid, name, dob, gender, father_name, mother_name, dep_code, access, password) VALUES ('$tid','$name','$dob','$gender','$father_name','$mother_name','$dep_code','$access','$password')";
-    $conn->query($addTeacherSql);
+
+    if ($conn->query($addTeacherSql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $addTeacherSql . "<br>" . $conn->error;
+    }
 
     $conn->close();
 ?>

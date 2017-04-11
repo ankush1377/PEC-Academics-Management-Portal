@@ -22,7 +22,12 @@
    	$access = 'Student';
 
    	$addStudentSql = "INSERT INTO student_info (sid, name, dob, gender, father_name, mother_name, dep_code, batch_id, access, password) VALUES ('$sid','$name','$dob','$gender','$father_name','$mother_name','$dep_code','$batch_id','$access','$password')";
-    $conn->query($addStudentSql);
+
+    if ($conn->query($addStudentSql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $addStudentSql . "<br>" . $conn->error;
+        }
 
     $conn->close();
 ?>

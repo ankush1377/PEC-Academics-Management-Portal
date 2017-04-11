@@ -23,6 +23,7 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 				$scope.assignedSubjectList_assign = response.data.records;
 //				console.log($scope.assignedSubjectList_assign);
 				$scope.getSubjectMarks($rootScope.currentSemId, $scope.assignedSubjectList_assign[0].subCode);
+				$scope.setAssignMarks($scope.assignedSubjectList_assign[0]);
 //				console.log($scope.assignedSubjectList_profile);
 			}
 			else if (response.data.records == "0") {
@@ -52,7 +53,7 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
         	subjectMarksRequest.then( function(response) {
         		if (response.data.records != "0") {
         			$scope.subjectMarks = response.data.records;
-        			console.log($scope.subjectMarks);
+//        			console.log($scope.subjectMarks);
         		}
         		else if (response.data.records == "0") {
         		    $scope.subjectMarks = response.data.records;
@@ -69,15 +70,15 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 
     $scope.setAssignMarks = function(selectedSubject){
 
-        $scope.getSubjectMarks($rootScope.currentSemId, subCode);
+        $scope.getSubjectMarks($rootScope.currentSemId, selectedSubject.subCode);
 
         var assignMarksData = {
     			"subCode": selectedSubject.subCode,
     			"semCode": $rootScope.currentSemId,
-    			"batchId": selectedSubject.batchId
+    			"batchId": selectedSubject.batchId + "_" + $rootScope.userData.dep_code
     		};
 
-    		console.log(assignMarksData);
+//    		console.log(assignMarksData);
 
     		var assignMarksRequest = $http({
     			method: "POST",
@@ -88,7 +89,7 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
     		assignMarksRequest.then( function(response) {
     			if (response.data.records != "0") {
     			    $scope.studentMarksList = response.data.records;
-    //			    console.log($scope.myPerformanceList);
+//    			    console.log($scope.studentMarksList);
     			}
     			else if (response.data.records == "0") {
     				$scope.studentMarksList = response.data.records;
@@ -98,7 +99,6 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 
     			}
     		});
-
     };
 
 }]);

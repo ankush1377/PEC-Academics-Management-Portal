@@ -16,6 +16,14 @@
 	$subject_code = $request->subCode;
 	$sem_id = $request->semCode;
 	$batch_id = $request->batchId;
+
+
+/*
+	$subject_code = 'CSN301';
+    $sem_id = '1617-2';
+    $batch_id = '2014-18_3';
+*/
+
 	$outp = "";
 
 
@@ -24,31 +32,20 @@
 
 
 	if ($marksListResult->num_rows > 0) {
-
 		while($row = $marksListResult->fetch_array(MYSQLI_ASSOC)){
+		    $sid = $row['sid'];
+            $studentInfoSql = "SELECT * FROM student_info WHERE sid = '$sid'";
+            $studentInfoResult = $conn->query($studentInfoSql);
+            if($studentInfoResult->num_rows > 0){
+                $studentInfoRow = $studentInfoResult->fetch_array(MYSQLI_ASSOC);
+                if($studentInfoRow['batch_id'] == $batch_id){
 
-
-
+                    if ($outp != "") {$outp .= ",";}
+                    $outp .= '{"name":"' . $studentInfoRow["name"] . '",';
+                    $outp .= '"studentMarks": ' . (string)json_encode($row) . ' }';
+                }
+            }
 		}
-
-
-		$subject = $row["subject1"];
-		$studentSubjectMarksSql = "SELECT * FROM student_marks WHERE sem_id = '$semId' AND subject_code = '$subject' AND sid = '$sid' ";
-        $subjectNameSql = "SELECT * FROM subject_info WHERE subject_code = '$subject' ";
-		$subjectMarksSql = "SELECT * FROM subject_marks WHERE sem_id = '$semId' AND subject_code = '$subject' ";
-		$subjectMarksResult = $conn->query($subjectMarksSql);
-        $studentSubjectMarksResult = $conn->query($studentSubjectMarksSql);
-        $subjectNameResult = $conn->query($subjectNameSql);
-        if ($subjectMarksResult->num_rows > 0 && $studentSubjectMarksResult->num_rows > 0 && $subjectNameResult->num_rows > 0) {
-            $subjectMarksRow = $subjectMarksResult->fetch_array(MYSQLI_ASSOC);
-            $subjectNameRow = $subjectNameResult->fetch_array(MYSQLI_ASSOC);
-			$studentSubjectMarksRow = $studentSubjectMarksResult->fetch_array(MYSQLI_ASSOC);
-            if ($outp != "") {$outp .= ",";}
-			$outp .= '{"subName":"' . $subjectNameRow["name"] . '",';
-			$outp .= '"studentSubjectMarks": ' . (string)json_encode($studentSubjectMarksRow) . ' ,';
-			$outp .= '"subjectMarks": ' . (string)json_encode($subjectMarksRow) . ' }';
-        }
-
 		$outp ='{ "records" : [' . $outp . '] }';
 	}
 	else {
