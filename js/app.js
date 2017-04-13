@@ -34,6 +34,9 @@ pamp.config(function($routeProvider) {
 pamp.run(['$location', '$rootScope', '$http', function ($location, $rootScope, $http) {
   
   $rootScope.semList = ["1617-2","1718-1"];
+  $rootScope.batchList_ug = ["2014-18","2015-19","2016-20","2017-21"];
+  $rootScope.batchList_pg = ["2014-16","2015-17","2016-18","2017-19",];
+  $rootScope.programmeList = ["Undergraduate","Postgraduate"];
   $rootScope.currentSemId = "1617-2";
 
   $rootScope.logout = function (){

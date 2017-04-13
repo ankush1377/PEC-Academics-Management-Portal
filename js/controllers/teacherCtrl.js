@@ -78,7 +78,6 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
     			"batchId": selectedSubject.batchId + "_" + $rootScope.userData.dep_code
     		};
 
-//    		console.log(assignMarksData);
 
     		var assignMarksRequest = $http({
     			method: "POST",
@@ -99,6 +98,37 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 
     			}
     		});
+    };
+
+    $scope.saveMarks = function(){
+
+        var sidList = [];
+        var marksList = [];
+        console.log($scope.studentMarksList);
+        for(var i=0;i<$scope.studentMarksList.length;i++){
+            sidList.push(marksList[i].studentMarks.sid);
+            marksList.push(marksList[i].studentMarks);
+        }
+
+        var saveMarksData ={
+            "sid": sidList,
+            "marksList": marksList
+        };
+
+        console.log(saveMarksData);
+        var saveMarksRequest = $http({
+        	    method: "POST",
+        		url: "php/assignStudentMarks.php",
+        		data: saveMarksData
+        	});
+
+        saveMarksRequest.then( function(response) {
+    		if (response.data.records != "0") {
+    		    console.log(response.data);
+    		}
+    		else {
+    		}
+    	});
     };
 
 }]);

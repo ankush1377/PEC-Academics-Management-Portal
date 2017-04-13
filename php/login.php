@@ -55,7 +55,9 @@
 			$outp .= '"dep_code":"' . $depCode . '",';
 			$outp .= '"dep_name":"' . $depName . '",';
 			if ($access == "Student"){
-				$outp .= '"batch":"' . substr($row["batch_id"], 0, strpos($row["batch_id"], '_')) . '",';}
+				$outp .= '"batch":"' . substr($row["batch_id"], 0, strpos($row["batch_id"], '_')) . '",';
+				$outp .= '"programme":"' . $row["programme"] . '",';
+		    }
 			$outp .= '"phone_no":"'. $row["phone_no"] . '",';
 			$outp .= '"email_id":"'. $row["email_id"] . '"}';
 		}		

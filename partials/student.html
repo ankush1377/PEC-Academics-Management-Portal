@@ -41,7 +41,7 @@
                             </div>
                             <div  class="list-group-item">
                                 <div class="left">
-                                    <div class="list-group-item-heading">{{userData.dob}}</div>
+                                    <div class="list-group-item-heading">{{userData.dob | date:"longDate"}}</div>
                                     <p class="list-group-item-text">Date of Birth</p>
                                 </div>
                                 <div class="right">
@@ -55,8 +55,8 @@
                                     <p class="list-group-item-text">Gender</p>
                                 </div>
                                 <div class="right">
-                                    <div class="list-group-item-heading">{{userData.batch}}</div>
-                                    <p class="list-group-item-text">Batch</p>
+                                    <div class="list-group-item-heading">{{userData.programme}}</div>
+                                    <p class="list-group-item-text">Programme</p>
                                 </div>
                             </div>
                             <div  class="list-group-item">
@@ -65,13 +65,19 @@
                                     <p class="list-group-item-text">Father's Name</p>
                                 </div>
                                 <div class="right">
-                                    <div class="list-group-item-heading">{{userAccess}}</div>
-                                    <p class="list-group-item-text">Access</p>
+                                    <div class="list-group-item-heading">{{userData.batch}}</div>
+                                    <p class="list-group-item-text">Batch</p>
                                 </div>
                             </div>
                             <div  class="list-group-item">
-                                <div class="list-group-item-heading">{{userData.mother_name}}</div>
-                                <p class="list-group-item-text">Mother's Name</p>
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.mother_name}}</div>
+                                    <p class="list-group-item-text">Mother's Name</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userAccess}}</div>
+                                    <p class="list-group-item-text">Access</p>
+                                </div>
                             </div>
                          </div>
                     </div>
@@ -122,14 +128,11 @@
                     <div class="topSecion">
                         <div class="studentDropdown">
                             <div class="form-group">
-                                <select class="form-control"  ng-model="selectedSem_personal" ng-options="semCode for semCode in semList" >
+                                <select class="form-control"  ng-model="selectedSem_personal" ng-options="semCode for semCode in semList" ng-change="setMyPerformance(userId, selectedSem_personal)">
                                     <option selected="true" disabled="disabled" label="Select semester"></option>
                                 </select>
 
                             </div>
-                        </div>
-                        <div class="fetchButton">
-                            <button type="button" class="btn"  ng-disabled="selectedSem_personal == undefined" ng-click="setMyPerformance(userId, selectedSem_personal)">Fetch Results</button>
                         </div>
                     </div>
                     <div class="studentPerformanceTable">
@@ -157,20 +160,20 @@
                             <tbody ng-show="myPerformanceList != '0'">
                                 <tr ng-repeat="row in myPerformanceList" >
                                     <td>{{row.subName}}</td>
-                                    <td><div ng-show="row.studentSubjectMarks['quiz1']">{{row.studentSubjectMarks['quiz1']}} / {{row.subjectMarks['quiz1']}}</div><div ng-show="!row.studentSubjectMarks['quiz1']">N/A</div></td>
-                                    <td><div ng-show="row.studentSubjectMarks['quiz2']">{{row.studentSubjectMarks['quiz2']}} / {{row.subjectMarks['quiz2']}}</div><div ng-show="!row.studentSubjectMarks['quiz2']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['quiz3']">{{row.studentSubjectMarks['quiz3']}} / {{row.subjectMarks['quiz3']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['quiz4']">{{row.studentSubjectMarks['quiz4']}} / {{row.subjectMarks['quiz4']}}</div><div ng-show="!row.studentSubjectMarks['quiz3']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['assignment1']">{{row.studentSubjectMarks['assignment1']}} / {{row.subjectMarks['assignment1']}}</div><div ng-show="!row.studentSubjectMarks['assignment1']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['assignment2']">{{row.studentSubjectMarks['assignment2']}} / {{row.subjectMarks['assignment2']}}</div><div ng-show="!row.studentSubjectMarks['assignment2']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['assignment3']">{{row.studentSubjectMarks['assignment3']}} / {{row.subjectMarks['assignment3']}}</div><div ng-show="!row.studentSubjectMarks['assignment3']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['assignment4']">{{row.studentSubjectMarks['assignment4']}} / {{row.subjectMarks['assignment4']}}</div><div ng-show="!row.studentSubjectMarks['assignment4']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['assignment5']">{{row.studentSubjectMarks['assignment5']}} / {{row.subjectMarks['assignment5']}}</div><div ng-show="!row.studentSubjectMarks['assignment5']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['lab1']">{{row.studentSubjectMarks['lab1']}} / {{row.subjectMarks['lab1']}}</div><div ng-show="!row.studentSubjectMarks['lab1']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['lab2']">{{row.studentSubjectMarks['lab2']}} / {{row.subjectMarks['lab2']}}</div><div ng-show="!row.studentSubjectMarks['lab2']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div ng-show="!row.studentSubjectMarks['project']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div ng-show="!row.studentSubjectMarks['mst']">N/A</div></td>
-									<td><div ng-show="row.studentSubjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div ng-show="!row.studentSubjectMarks['est']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['quiz1']}"><div  ng-show="row.studentSubjectMarks['quiz1'] && row.subjectMarks['quiz1']">{{row.studentSubjectMarks['quiz1']}} / {{row.subjectMarks['quiz1']}}</div><div  ng-show="!row.studentSubjectMarks['quiz1'] && row.subjectMarks['quiz1']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['quiz2']}"><div  ng-show="row.studentSubjectMarks['quiz2'] && row.subjectMarks['quiz2']">{{row.studentSubjectMarks['quiz2']}} / {{row.subjectMarks['quiz2']}}</div><div  ng-show="!row.studentSubjectMarks['quiz2'] && row.subjectMarks['quiz2']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['quiz3']}"><div  ng-show="row.studentSubjectMarks['quiz3'] && row.subjectMarks['quiz3']">{{row.studentSubjectMarks['quiz3']}} / {{row.subjectMarks['quiz3']}}</div><div  ng-show="!row.studentSubjectMarks['quiz3'] && row.subjectMarks['quiz3']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['quiz4']}"><div  ng-show="row.studentSubjectMarks['quiz4'] && row.subjectMarks['quiz4']">{{row.studentSubjectMarks['quiz4']}} / {{row.subjectMarks['quiz4']}}</div><div  ng-show="!row.studentSubjectMarks['quiz4'] && row.subjectMarks['quiz4']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['assignment1']}"><div  ng-show="row.studentSubjectMarks['assignment1'] && row.subjectMarks['assignment1']">{{row.studentSubjectMarks['assignment1']}} / {{row.subjectMarks['assignment1']}}</div><div  ng-show="!row.studentSubjectMarks['assignment1'] && row.subjectMarks['assignment1']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['assignment2']}"><div  ng-show="row.studentSubjectMarks['assignment2'] && row.subjectMarks['assignment2']">{{row.studentSubjectMarks['assignment2']}} / {{row.subjectMarks['assignment2']}}</div><div  ng-show="!row.studentSubjectMarks['assignment2'] && row.subjectMarks['assignment2']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['assignment3']}"><div  ng-show="row.studentSubjectMarks['assignment3'] && row.subjectMarks['assignment3']">{{row.studentSubjectMarks['assignment3']}} / {{row.subjectMarks['assignment3']}}</div><div  ng-show="!row.studentSubjectMarks['assignment3'] && row.subjectMarks['assignment3']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['assignment4']}"><div  ng-show="row.studentSubjectMarks['assignment4'] && row.subjectMarks['assignment4']">{{row.studentSubjectMarks['assignment4']}} / {{row.subjectMarks['assignment4']}}</div><div  ng-show="!row.studentSubjectMarks['assignment4'] && row.subjectMarks['assignment4']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['assignment5']}"><div  ng-show="row.studentSubjectMarks['assignment5'] && row.subjectMarks['assignment5']">{{row.studentSubjectMarks['assignment5']}} / {{row.subjectMarks['assignment5']}}</div><div  ng-show="!row.studentSubjectMarks['assignment5'] && row.subjectMarks['assignment5']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['lab1']}"><div  ng-show="row.studentSubjectMarks['lab1'] && row.subjectMarks['lab1']">{{row.studentSubjectMarks['lab1']}} / {{row.subjectMarks['lab1']}}</div><div  ng-show="!row.studentSubjectMarks['lab1'] && row.subjectMarks['lab1']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['lab2']}"><div  ng-show="row.studentSubjectMarks['lab2'] && row.subjectMarks['lab2']">{{row.studentSubjectMarks['lab2']}} / {{row.subjectMarks['lab2']}}</div><div  ng-show="!row.studentSubjectMarks['lab2'] && row.subjectMarks['lab2']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['project']}"><div  ng-show="row.studentSubjectMarks['project'] && row.subjectMarks['project']">{{row.studentSubjectMarks['project']}} / {{row.subjectMarks['project']}}</div><div  ng-show="!row.studentSubjectMarks['project'] && row.subjectMarks['project']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['mst']}"><div  ng-show="row.studentSubjectMarks['mst'] && row.subjectMarks['mst']">{{row.studentSubjectMarks['mst']}} / {{row.subjectMarks['mst']}}</div><div  ng-show="!row.studentSubjectMarks['mst'] && row.subjectMarks['mst']">N/A</div></td>
+                                    <td ng-class="{gray:!row.subjectMarks['est']}"><div  ng-show="row.studentSubjectMarks['est'] && row.subjectMarks['est']">{{row.studentSubjectMarks['est']}} / {{row.subjectMarks['est']}}</div><div  ng-show="!row.studentSubjectMarks['est'] && row.subjectMarks['est']">N/A</div></td>
                                     <td><div ng-show="row.studentSubjectMarks['grade']">{{row.studentSubjectMarks['grade']}}</div><div ng-show="!row.studentSubjectMarks['grade']">N/A</div></td>
                                 </tr>
                              </tbody>
@@ -191,13 +194,10 @@
                         </div>
                         <div class="studentDropdown">
                             <div class="form-group">
-                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined">
+                                <select class="form-control" ng-options="enrolledSubject.subName for enrolledSubject in enrolledSubjectList_relative" ng-model="selectedSubject" ng-disabled="selectedSem_relative == undefined" ng-change="getRelativeMarks(selectedSem_relative, selectedSubject.subCode)">
                                     <option selected="true" disabled="disabled" label="Select subject"></option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="fetchButton">
-                            <button type="button" class="btn" ng-click="getRelativeMarks(selectedSem_relative, selectedSubject.subCode)" ng-disabled="selectedSem_relative == undefined || selectedSubject == undefined">Fetch Results</button>
                         </div>
                     </div>
                     <!--<div class="messageText">Marks list for semester {{selectedSem}}:-</div>-->
@@ -207,21 +207,21 @@
 								<tr>
                                     <th>SID</th>
 									<th>Name</th>
-									<th>Q1<span ng-show="subjectWeightages[0].quiz1">({{subjectWeightages[0].quiz1}})</span></th>
-									<th>Q2<span ng-show="subjectWeightages[0].quiz2">({{subjectWeightages[0].quiz2}})</span></th>
-									<th>Q3<span ng-show="subjectWeightages[0].quiz3">({{subjectWeightages[0].quiz3}})</span></th>
-									<th>Q4<span ng-show="subjectWeightages[0].quiz4">({{subjectWeightages[0].quiz4}})</span></th>
-									<th>A1<span ng-show="subjectWeightages[0].assignment1">({{subjectWeightages[0].assignment1}})</span></th>
-									<th>A2<span ng-show="subjectWeightages[0].assignment2">({{subjectWeightages[0].assignment2}})</span></th>
-									<th>A3<span ng-show="subjectWeightages[0].assignment3">({{subjectWeightages[0].assignment3}})</span></th>
-									<th>A4<span ng-show="subjectWeightages[0].assignment4">({{subjectWeightages[0].assignment4}})</span></th>
-                                    <th>A5<span ng-show="subjectWeightages[0].assignment5">({{subjectWeightages[0].assignment5}})</span></th>
-									<th>LE1<span ng-show="subjectWeightages[0].lab1">({{subjectWeightages[0].lab1}})</span></th>
-									<th>LE2<span ng-show="subjectWeightages[0].lab2">({{subjectWeightages[0].lab2}})</span></th>
-									<th>PE<span ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</span></th>
-									<th>MST<span ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</span></th>
-									<th>EST<span ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</span></th>
-									<th>Total(100)</th>
+									<th ng-class="{gray:!subjectWeightages[0].quiz1}">Q1<span ng-show="subjectWeightages[0].quiz1">({{subjectWeightages[0].quiz1}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].quiz2}">Q2<span ng-show="subjectWeightages[0].quiz2">({{subjectWeightages[0].quiz2}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].quiz3}">Q3<span ng-show="subjectWeightages[0].quiz3">({{subjectWeightages[0].quiz3}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].quiz4}">Q4<span ng-show="subjectWeightages[0].quiz4">({{subjectWeightages[0].quiz4}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].assignment1}">A1<span ng-show="subjectWeightages[0].assignment1">({{subjectWeightages[0].assignment1}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].assignment2}">A2<span ng-show="subjectWeightages[0].assignment2">({{subjectWeightages[0].assignment2}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].assignment3}">A3<span ng-show="subjectWeightages[0].assignment3">({{subjectWeightages[0].assignment3}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].assignment4}">A4<span ng-show="subjectWeightages[0].assignment4">({{subjectWeightages[0].assignment4}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].assignment5}">A5<span ng-show="subjectWeightages[0].assignment5">({{subjectWeightages[0].assignment5}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].lab1}">LE1<span ng-show="subjectWeightages[0].lab1">({{subjectWeightages[0].lab1}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].lab2}">LE2<span ng-show="subjectWeightages[0].lab2">({{subjectWeightages[0].lab2}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].project}">PE<span ng-show="subjectWeightages[0].project">({{subjectWeightages[0].project}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].mst}">MST<span ng-show="subjectWeightages[0].mst">({{subjectWeightages[0].mst}})</span></th>
+                                    <th ng-class="{gray:!subjectWeightages[0].est}">EST<span ng-show="subjectWeightages[0].est">({{subjectWeightages[0].est}})</span></th>
+									<th>Total<span ng-show="normalizedRelativeMarksList[0].outOf != 0">({{normalizedRelativeMarksList[0].outOf}})</span></th>
                                     <th>Grade</th>
 								</tr>
                             </thead>
@@ -229,22 +229,22 @@
 								<tr ng-repeat="studentMarks in normalizedRelativeMarksList">
                                     <td>{{studentMarks.sid}}</td>
                                     <td>{{studentMarks.name}}</td>
-									<td>{{studentMarks.quiz1}}</td>
-									<td>{{studentMarks.quiz2}}</td>
-									<td>{{studentMarks.quiz3}}</td>
-									<td>{{studentMarks.quiz4}}</td>
-									<td>{{studentMarks.assignment1}}</td>
-									<td>{{studentMarks.assignment2}}</td>
-									<td>{{studentMarks.assignment3}}</td>
-									<td>{{studentMarks.assignment4}}</td>
-									<td>{{studentMarks.assignment5}}</td>
-									<td>{{studentMarks.lab1}}</td>
-									<td>{{studentMarks.lab2}}</td>
-									<td>{{studentMarks.project}}</td>
-									<td>{{studentMarks.mst}}</td>
-									<td>{{studentMarks.est}}</td>
-                                    <td>{{studentMarks.total}}</td>
-                                    <td>{{studentMarks.grade}}</td>
+									<td ng-class="{gray:!subjectWeightages[0].quiz1}"><div ng-show="studentMarks.quiz1 && subjectWeightages[0].quiz1">{{studentMarks.quiz1}}</div><div ng-show="!studentMarks.quiz1 && subjectWeightages[0].quiz1">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].quiz2}"><div ng-if="studentMarks.quiz2">{{studentMarks.quiz2}}</div><div ng-if="!studentMarks.quiz2 && subjectWeightages[0].quiz2">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].quiz3}"><div ng-if="studentMarks.quiz3">{{studentMarks.quiz3}}</div><div ng-if="!studentMarks.quiz3 && subjectWeightages[0].quiz3">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].quiz4}"><div ng-if="studentMarks.quiz4">{{studentMarks.quiz4}}</div><div ng-if="!studentMarks.quiz4 && subjectWeightages[0].quiz4">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].assignment1}"><div ng-if="studentMarks.assignment1">{{studentMarks.assignment1}}</div><div ng-if="!studentMarks.assignment1 && subjectWeightages[0].assignment1">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].assignment2}"><div ng-if="studentMarks.assignment2">{{studentMarks.assignment2}}</div><div ng-if="!studentMarks.assignment2 && subjectWeightages[0].assignment2">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].assignment3}"><div ng-if="studentMarks.assignment3">{{studentMarks.assignment3}}</div><div ng-if="!studentMarks.assignment3 && subjectWeightages[0].assignment3">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].assignment4}"><div ng-if="studentMarks.assignment4">{{studentMarks.assignment4}}</div><div ng-if="!studentMarks.assignment4 && subjectWeightages[0].assignment4">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].assignment5}"><div ng-if="studentMarks.assignment5">{{studentMarks.assignment5}}</div><div ng-if="!studentMarks.assignment5 && subjectWeightages[0].assignment5">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].lab1}"><div ng-if="studentMarks.lab1">{{studentMarks.lab1}}</div><div ng-if="!studentMarks.lab1 && subjectWeightages[0].lab1">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].lab2}"><div ng-if="studentMarks.lab2">{{studentMarks.lab2}}</div><div ng-if="!studentMarks.lab2 && subjectWeightages[0].lab2">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].project}"><div ng-if="studentMarks.project">{{studentMarks.project}}</div><div ng-if="!studentMarks.project && subjectWeightages[0].project">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].mst}"><div ng-if="studentMarks.qumstiz1">{{studentMarks.mst}}</div><div ng-if="!studentMarks.mst && subjectWeightages[0].mst">N/A</div></td>
+									<td ng-class="{gray:!subjectWeightages[0].est}"><div ng-if="studentMarks.est">{{studentMarks.est}}</div><div ng-if="!studentMarks.est && subjectWeightages[0].est">N/A</div></td>
+                                    <td><span ng-show="studentMarks.total != 0">{{studentMarks.total}}</span><span ng-show = "studentMarks.total == 0">N/A</span></td>
+                                    <td><span ng-show="studentMarks.grade">{{studentMarks.grade}}</span><span ng-show = "!studentMarks.grade">N/A</span></td>
 								</tr>
                             </tbody>
                         </table>

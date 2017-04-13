@@ -51,10 +51,32 @@
         if ($studentInfoResult->num_rows > 0) {
             $updateStudentSubjectsSql = "UPDATE student_subjects SET subject1='$subject1', subject2='$subject2', subject3='$subject3', subject4='$subject4', subject5='$subject5', subject6='$subject6', subject7='$subject7' WHERE sid='$sid' AND sem_id='$sem_id'";
             $conn->query($updateStudentSubjectsSql);
+            $studentMarksDeleteSql = "DELETE FROM student_marks WHERE sid = '$sid' AND sem_id = '$sem_id'";
+            $conn->query($studentMarksDeleteSql);
+            for($y = 0; $y<$n; $y++){
+                $subject = $subjectList[$y];
+                $checkStudentMarksSql = "SELECT * FROM student_marks WHERE sid = '$sid' AND sem_id = '$sem_id' AND subject_code = '$subject'";
+                $checkStudentMarksResult = $conn->query($checkStudentMarksSql);
+                if ($checkStudentMarksResult->num_rows == 0) {
+                    $addStudentMarksSql = "INSERT INTO student_marks (sem_id, subject_code, sid) VALUES ('$sem_id', '$subject', '$sid')";
+                    $conn->query($addStudentMarksSql);
+                }
+            }
         }
         else{
             $addStudentSubjectsSql = "INSERT INTO student_subjects (sem_id, sid, subject1, subject2, subject3, subject4, subject5, subject6, subject7 ) VALUES ('$sem_id', '$sid', '$subject1', '$subject2', '$subject3', '$subject4', '$subject5', '$subject6', '$subject7')";
             $conn->query($addStudentSubjectsSql);
+            $studentMarksDeleteSql = "DELETE FROM student_marks WHERE sid = '$sid' AND sem_id = '$sem_id'";
+            $conn->query($studentMarksDeleteSql);
+            for($y = 0; $y<$n; $y++){
+                $subject = $subjectList[$y];
+                $checkStudentMarksSql = "SELECT * FROM student_marks WHERE sid = '$sid' AND sem_id = '$sem_id' AND subject_code = '$subject'";
+                $checkStudentMarksResult = $conn->query($checkStudentMarksSql);
+                if ($checkStudentMarksResult->num_rows == 0) {
+                    $addStudentMarksSql = "INSERT INTO student_marks (sem_id, subject_code, sid) VALUES ('$sem_id', '$subject', '$sid')";
+                    $conn->query($addStudentMarksSql);
+                }
+            }
         }
     }
 

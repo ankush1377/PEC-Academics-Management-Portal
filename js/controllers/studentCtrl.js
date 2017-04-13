@@ -46,6 +46,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
     	relativeMarksRequest.then( function(response) {
    		if (response.data.records != "0") {
     			$scope.normalizedRelativeMarksList = response.data.records;
+    			console.log($scope.normalizedRelativeMarksList);
     			$scope.getSubjectWeightages(semId, subjectCode);
     		}
     		else if (response.data.records == "0") {
@@ -109,7 +110,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 			}
 			else if (response.data.records == "0") {
 //				console.log(response.data.records);
-				$scope.enrolledSubjectList_relative = '';
+				$scope.enrolledSubjectList_relative = [];
 				//no records found
 			}
 			else {
@@ -133,7 +134,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
 		myPerformanceRequest.then( function(response) {
 			if (response.data.records != "0") {
 			    $scope.myPerformanceList = response.data.records;
-//			    console.log($scope.myPerformanceList);
+			    console.log($scope.myPerformanceList);
 			}
 			else if (response.data.records == "0") {
 				$scope.myPerformanceList = response.data.records;

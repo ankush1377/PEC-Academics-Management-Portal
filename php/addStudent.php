@@ -18,10 +18,11 @@
    	$mother_name = $request->motherName;
    	$batch_id = $request->batchId;
    	$dep_code = $request->depCode;
+   	$programme = $request->programme;
    	$password = $request->password;
    	$access = 'Student';
 
-   	$addStudentSql = "INSERT INTO student_info (sid, name, dob, gender, father_name, mother_name, dep_code, batch_id, access, password) VALUES ('$sid','$name','$dob','$gender','$father_name','$mother_name','$dep_code','$batch_id','$access','$password')";
+   	$addStudentSql = "INSERT INTO student_info(sid, name, dob, gender, father_name, mother_name, dep_code, programme, batch_id, access, password) VALUES ('$sid','$name','$dob','$gender','$father_name','$mother_name','$dep_code','$programme','$batch_id','$access','$password')";
 
     if ($conn->query($addStudentSql) === TRUE) {
             echo "New record created successfully";
@@ -31,5 +32,3 @@
 
     $conn->close();
 ?>
-
-

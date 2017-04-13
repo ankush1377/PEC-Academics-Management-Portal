@@ -4,32 +4,14 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
 
     /***************MANAGE STUDENTS************/
-    $scope.incomplete = false;
+    $scope.incomplete_s = false;
     $scope.studentView = [];
     $scope.cannotAssign = false;
     $scope.selectedStudents = [];
     $scope.assignmentSubjects = [];
-    $scope.getBatches = function (){
+    $scope.batchList_add = [];
+    $scope.batchList_edit = [];
 
-    	var batchesRequest = $http({
-    	    method: "POST",
-    		url: "php/fetchBatches.php"
-    	});
-
-    	batchesRequest.then( function(response) {
-    		if (response.data.records != "0") {
-    			$scope.batchList = response.data.records;
-//    			console.log($scope.batchList);
-    		}
-    		else if (response.data.records == "0") {
-//    			console.log(response.data.records);
-    			//no records found
-    		}
-    		else {
-
-    	    }
-        });
-    };
     $scope.getStudents = function (){
 
         var studentData ={
@@ -53,6 +35,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 //    			console.log($scope.batchList);
     		}
     		else if (response.data.records == "0") {
+    		    $scope.studentList = response.data.records;
 //    			console.log(response.data.records);
     			//no records found
     		}
@@ -93,30 +76,33 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         return pass;
     }
 
-    $scope.getBatches();
     $scope.getStudents();
     $scope.getSubjects();
 
     $scope.addStudent = function(){
 
-        if( $scope.sid == undefined || $scope.sName == undefined || $scope.sDob == undefined || $scope.sFatherName == undefined || $scope.sGender == undefined ||$scope.sMotherName == undefined || $scope.sBatch == undefined ){
-            $scope.incomplete = true;
+        if( $scope.sid == undefined || $scope.sName == undefined || $scope.sDob == undefined || $scope.sFatherName == undefined || $scope.sGender == undefined ||$scope.sMotherName == undefined || $scope.sBatch == undefined || $scope.sProgramme == undefined ){
+            $scope.incomplete_s = true;
             return;
         }
 
-        $scope.incomplete = false;
+        $scope.incomplete_s = false;
         var pw = randomPassword(8);
+        var date = new Date($scope.sDob);
+        date.setMinutes( date.getMinutes() + 480 );
+        console.log(date);
         var addStudentRequest = $http({
             method: "POST",
             url: "php/addStudent.php",
             data: {
                 sid: $scope.sid,
                 name: $scope.sName,
-                dob: $scope.sDob,
+                dob: date,
                 gender: $scope.sGender,
                 fatherName: $scope.sFatherName,
                 motherName: $scope.sMotherName,
                 batchId: $scope.sBatch + "_" + $rootScope.userData['dep_code'],
+                programme: $scope.sProgramme,
                 depCode: $rootScope.userData['dep_code'],
                 password: pw
             },
@@ -142,7 +128,9 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         $scope.sFatherName = undefined;
         $scope.sMotherName = undefined;
         $scope.sGender = undefined;
+        $scope.sProgramme = undefined;
         $scope.sBatch = undefined;
+        $scope.batchList_add = [];
     };
 
     $scope.saveStudent = function(studentData, index){
@@ -156,12 +144,13 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 data: {
                     sid: studentData.sid,
                     name: studentData.name,
-                    dob: studentData.dob,
+                    dob: new Date(studentData.dob),
                     gender: studentData.gender,
                     fatherName: studentData.father_name,
                     motherName: studentData.mother_name,
                     batchId: studentData.batch_id,
                     depCode: $rootScope.userData['dep_code'],
+                    programme: studentData.programme,
                     password: studentData.password
                 },
                 header: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -203,6 +192,24 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
          $scope.assignmentSubjects.length = 0;
     };
+
+    $scope.setBatches_add = function(programme){
+        if(programme == 'Undergraduate'){
+            $scope.batchList_add = $rootScope.batchList_ug;
+        }
+        else if(programme == 'Postgraduate'){
+            $scope.batchList_add = $rootScope.batchList_pg;
+        }
+    };
+
+    $scope.setBatches_edit = function(programme){
+            if(programme == 'Undergraduate'){
+                $scope.batchList_edit = $rootScope.batchList_ug;
+            }
+            else if(programme == 'Postgraduate'){
+                $scope.batchList_edit = $rootScope.batchList_pg;
+            }
+        };
 
 
     /***************MANAGE TEACHERS************/

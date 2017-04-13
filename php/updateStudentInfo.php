@@ -17,9 +17,10 @@
    	$father_name = $request->fatherName;
    	$mother_name = $request->motherName;
    	$batch_id = $request->batchId;
+   	$programme = $request->programme;
 
 
-   	$updateStudentSql = "UPDATE student_info SET  name='$name', dob='$dob', gender='$gender', father_name='$father_name', mother_name='$mother_name', batch_id='$batch_id' WHERE sid='$sid'";
+   	$updateStudentSql = "UPDATE student_info SET  name='$name', dob='$dob', gender='$gender', father_name='$father_name', mother_name='$mother_name', batch_id='$batch_id', programme='$programme' WHERE sid='$sid'";
     $conn->query($updateStudentSql);
 
     $conn->close();

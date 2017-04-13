@@ -41,7 +41,7 @@
                             </div>
                             <div  class="list-group-item">
                                 <div class="left">
-                                    <div class="list-group-item-heading">{{userData.dob}}</div>
+                                    <div class="list-group-item-heading">{{userData.dob | date:"longDate"}}</div>
                                     <p class="list-group-item-text">Date of Birth</p>
                                 </div>
                                 <div class="right">
@@ -168,20 +168,20 @@
                                 <tr>
                                     <th>SID</th>
                                     <th>Name</th>
-                                    <th>Q1<span ng-show="subjectMarks.quiz1">({{subjectMarks.quiz1}})</span></th>
-                                    <th>Q2<span ng-show="subjectMarks.quiz2">({{subjectMarks.quiz2}})</span></th>
-                                    <th>Q3<span ng-show="subjectMarks.quiz3">({{subjectMarks.quiz3}})</span></th>
-                                    <th>Q4<span ng-show="subjectMarks.quiz4">({{subjectMarks.quiz4}})</span></th>
-                                    <th>A1<span ng-show="subjectMarks.assignment1">({{subjectMarks.assignment1}})</span></th>
-                                    <th>A2<span ng-show="subjectMarks.assignment2">({{subjectMarks.assignment2}})</span></th>
-                                    <th>A3<span ng-show="subjectMarks.assignment3">({{subjectMarks.assignment3}})</span></th>
-                                    <th>A4<span ng-show="subjectMarks.assignment4">({{subjectMarks.assignment4}})</span></th>
-                                    <th>A5<span ng-show="subjectMarks.assignment5">({{subjectMarks.assignment5}})</span></th>
-                                    <th>LE1<span ng-show="subjectMarks.lab1">({{subjectMarks.lab1}})</span></th>
-                                    <th>LE2<span ng-show="subjectMarks.lab2">({{subjectMarks.lab2}})</span></th>
-                                    <th>PE<span ng-show="subjectMarks.project">({{subjectMarks.project}})</span></th>
-                                    <th>MST<span ng-show="subjectMarks.mst">({{subjectMarks.mst}})</span></th>
-                                    <th>EST<span ng-show="subjectMarks.est">({{subjectMarks.est}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.quiz1}">Q1<span ng-show="subjectMarks.quiz1">({{subjectMarks.quiz1}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.quiz2}">Q2<span ng-show="subjectMarks.quiz2">({{subjectMarks.quiz2}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.quiz3}">Q3<span ng-show="subjectMarks.quiz3">({{subjectMarks.quiz3}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.quiz4}">Q4<span ng-show="subjectMarks.quiz4">({{subjectMarks.quiz4}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.assignment1}">A1<span ng-show="subjectMarks.assignment1">({{subjectMarks.assignment1}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.assignment2}">A2<span ng-show="subjectMarks.assignment2">({{subjectMarks.assignment2}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.assignment3}">A3<span ng-show="subjectMarks.assignment3">({{subjectMarks.assignment3}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.assignment4}">A4<span ng-show="subjectMarks.assignment4">({{subjectMarks.assignment4}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.assignment5}">A5<span ng-show="subjectMarks.assignment5">({{subjectMarks.assignment5}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.lab1}">LE1<span ng-show="subjectMarks.lab1">({{subjectMarks.lab1}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.lab2}">LE2<span ng-show="subjectMarks.lab2">({{subjectMarks.lab2}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.project}">PE<span ng-show="subjectMarks.project">({{subjectMarks.project}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.mst}">MST<span ng-show="subjectMarks.mst">({{subjectMarks.mst}})</span></th>
+                                    <th ng-class="{gray:!subjectMarks.est}">EST<span ng-show="subjectMarks.est">({{subjectMarks.est}})</span></th>
                                     <th>Grade</th>
                                 </tr>
                             </thead>
@@ -189,26 +189,30 @@
                                 <tr ng-repeat="student in studentMarksList">
                                     <td>{{student.studentMarks.sid}}</td>
                                     <td>{{student.name}}</td>
-                                    <td>{{student.studentMarks.quiz1}}</td>
-                                    <td>{{student.studentMarks.quiz2}}</td>
-                                    <td>{{student.studentMarks.quiz3}}</td>
-                                    <td>{{student.studentMarks.quiz4}}</td>
-                                    <td>{{student.studentMarks.assignment1}}</td>
-                                    <td>{{student.studentMarks.assignment2}}</td>
-                                    <td>{{student.studentMarks.assignment3}}</td>
-                                    <td>{{student.studentMarks.assignment4}}</td>
-                                    <td>{{student.studentMarks.assignment5}}</td>
-                                    <td>{{student.studentMarks.lab1}}</td>
-                                    <td>{{student.studentMarks.lab2}}</td>
-                                    <td>{{student.studentMarks.project}}</td>
-                                    <td>{{student.studentMarks.mst}}</td>
-                                    <td>{{student.studentMarks.est}}</td>
-                                    <td>{{student.studentMarks.grade}}</td>
+                                    <td ng-class="{gray:!subjectMarks.quiz1}"><span ng-show="subjectMarks.quiz1"><input type="text" class="form-control" ng-model="student.studentMarks.quiz1"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.quiz2}"><span ng-show="subjectMarks.quiz2"><input type="text" class="form-control" ng-model="student.studentMarks.quiz2"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.quiz3}"><span ng-show="subjectMarks.quiz3"><input type="text" class="form-control" ng-model="student.studentMarks.quiz3"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.quiz4}"><span ng-show="subjectMarks.quiz4"><input type="text" class="form-control" ng-model="student.studentMarks.quiz4"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.assignment1}"><span ng-show="subjectMarks.assignment1"><input type="text" class="form-control" ng-model="student.studentMarks.assignment1"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.assignment2}"><span ng-show="subjectMarks.assignment2"><input type="text" class="form-control" ng-model="student.studentMarks.assignment2"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.assignment3}"><span ng-show="subjectMarks.assignment3"><input type="text" class="form-control" ng-model="student.studentMarks.assignment3"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.assignment4}"><span ng-show="subjectMarks.assignment4"><input type="text" class="form-control" ng-model="student.studentMarks.assignment4"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.assignment5}"><span ng-show="subjectMarks.assignment5"><input type="text" class="form-control" ng-model="student.studentMarks.assignment5"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.lab1}"><span ng-show="subjectMarks.lab1"><input type="text" class="form-control" ng-model="student.studentMarks.lab1"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.lab2}"><span ng-show="subjectMarks.lab2"><input type="text" class="form-control" ng-model="student.studentMarks.lab2"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.project}"><span ng-show="subjectMarks.project"><input type="text" class="form-control" ng-model="student.studentMarks.project"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.mst}"><span ng-show="subjectMarks.mst"><input type="text" class="form-control" ng-model="student.studentMarks.mst"></span></td>
+                                    <td ng-class="{gray:!subjectMarks.est}"><span ng-show="subjectMarks.est"><input type="text" class="form-control" ng-model="student.studentMarks.est"></span></td>
+                                    <td><input type="text" class="form-control" ng-model="student.studentMarks.grade"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="gradeRangeTable">
+                    <div class="editButton" style="float:right; margin-top:20px;">
+                        <button type="button" class="btn edit-row" ng-click="saveMarks(studentMarksList)" >Save Marks</button>
+                    </div>
+
+<!--                <div class="gradeRangeTable">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -237,7 +241,7 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

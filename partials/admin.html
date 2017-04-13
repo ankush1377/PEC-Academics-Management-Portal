@@ -41,7 +41,7 @@
                             </div>
                             <div  class="list-group-item">
                                 <div class="left">
-                                    <div class="list-group-item-heading">{{userData.dob}}</div>
+                                    <div class="list-group-item-heading">{{userData.dob | date:"longDate"}}</div>
                                     <p class="list-group-item-text">Date of Birth</p>
                                 </div>
                                 <div class="right">
@@ -142,7 +142,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="alert alert-danger incomplete" ng-show="incomplete">
+                                    <div class="alert alert-danger incomplete" ng-show="incomplete_t">
                                         Please fill out all fields first.
                                     </div>
 						</div>
@@ -172,7 +172,7 @@
                                                 <tr ng-repeat="teacher in teacherList | filter:teacherFilter">
                                                     <td>{{teacher.tid}}</td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.name}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.name"></div></td>
-                                                    <td><div ng-show="teacherView[$index]">{{teacher.dob}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.dob"></div></td>
+                                                    <td><div ng-show="teacherView[$index]">{{teacher.dob | date:"yyyy/MM/dd"}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.dob"></div></td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.gender}}</div>
                                                         <div ng-hide="teacherView[$index]">
                                                             <div class="radio">
@@ -210,26 +210,27 @@
                 <div id="manageStudents" class="tab-pane fade">
                     <div class="panel panel-default">
                         <div class="panel-heading">Add a student</div>
-                        <div class="panel-body">
+                        <div class="panel-body"     style="padding: 0px;">
                             <div class="studentPerformanceTable">
                                 <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
                                     <thead >
                                     <tr>
-                                        <th style="width: 115px;">SID</th>
+                                        <th style="width: 111px;">SID</th>
                                         <th>Name</th>
-                                        <th>Date of Birth</th>
-                                        <th style="width: 100px;">Gender</th>
+                                        <th style="width: 100px;">Date of Birth</th>
+                                        <th style="width: 75px;">Gender</th>
                                         <th>Father's Name</th>
                                         <th>Mother's Name</th>
-                                        <th style="width: 130px;">Batch</th>
-                                        <th style="width: 77px;"></th>
+                                        <th style="width: 171px;">Programme</th>
+                                        <th style="width: 128px;">Batch</th>
+                                        <th style="width: 50px;"></th>
                                     </tr>
                                     </thead>
                                     <tbody >
                                     <tr>
                                         <td><input type="text" class="form-control" ng-model="sid"></td>
                                         <td><input type="text" class="form-control" ng-model="sName"></td>
-                                        <td><input type="date" class="form-control" ng-model="sDob"></td>
+                                        <td><input type="date" class="form-control" ng-model="sDob" style="    width: 155px;"></td>
                                         <td>
                                             <div class="radio">
                                                 <label><input type="radio" ng-model="sGender" value="Male">Male</label>
@@ -243,7 +244,16 @@
                                         <td>
                                             <div class="studentDropdown">
                                                 <div class="form-group">
-                                                    <select class="form-control" ng-options="batch for batch in batchList" ng-model="sBatch">
+                                                    <select class="form-control" ng-options="programme for programme in programmeList" ng-model="sProgramme" ng-change="setBatches_add(sProgramme)">
+                                                        <option selected="true" disabled="disabled" label="Programme"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="studentDropdown">
+                                                <div class="form-group">
+                                                    <select class="form-control" ng-options="batch for batch in batchList_add" ng-model="sBatch">
                                                         <option selected="true" disabled="disabled" label="Batch"></option>
                                                     </select>
                                                 </div>
@@ -258,7 +268,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="alert alert-danger incomplete" ng-show="incomplete">
+                            <div class="alert alert-danger incomplete" ng-show="incomplete_s">
                                 Please fill out all fields first.
                             </div>
                         </div>
@@ -275,17 +285,18 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 1px;">Select</th>
-                                    <th style="width: 115px;">SID</th>
+                                    <th style="width: 87px;">SID</th>
                                     <th>Name</th>
                                     <th>Date of Birth</th>
-                                    <th style="width: 100px;">Gender</th>
+                                    <th style="width: 80px;">Gender</th>
                                     <th>Father's Name</th>
                                     <th>Mother's Name</th>
-                                    <th style="width: 130px;">Batch</th>
+                                    <th style="width: 171px;">Programme</th>
+                                    <th style="width: 127px;">Batch</th>
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-hide="studentList == 0">
                                 <tr ng-repeat="student in studentList | filter:studentFilter">
                                     <td>
                                         <div class="checkbox table-checkbox">
@@ -294,7 +305,7 @@
                                     </td>
                                     <td>{{student.sid}}</td>
                                     <td><div ng-show="studentView[$index]">{{student.name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.name"></div></td>
-                                    <td><div ng-show="studentView[$index]">{{student.dob}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.dob"></div></td>
+                                    <td><div ng-show="studentView[$index]">{{student.dob | date:"yyyy/MM/dd"}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.dob"></div></td>
                                     <td><div ng-show="studentView[$index]">{{student.gender}}</div>
                                         <div ng-hide="studentView[$index]">
                                             <div class="radio">
@@ -307,10 +318,19 @@
                                     </td>
                                     <td><div ng-show="studentView[$index]">{{student.father_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.father_name"></div></td>
                                     <td><div ng-show="studentView[$index]">{{student.mother_name}}</div><div ng-hide="studentView[$index]"><input type="text" class="form-control" ng-model="student.mother_name"></div></td>
+                                    <td><div ng-show="studentView[$index]">{{student.programme}}</div><div ng-hide="studentView[$index]">
+                                        <div class="studentDropdown">
+                                            <div class="form-group">
+                                                <select class="form-control" ng-options="programme for programme in programmeList" ng-model="student.programme" ng-change="setBatches_edit(student.programme)">
+                                                    <option selected="true" disabled="disabled" label="Programme"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div></td>
                                     <td><div ng-show="studentView[$index]">{{student.batch}}</div><div ng-hide="studentView[$index]">
                                         <div class="studentDropdown">
                                             <div class="form-group">
-                                                <select class="form-control" ng-options="batch for batch in batchList" ng-model="student.batch">
+                                                <select class="form-control" ng-options="batch for batch in batchList_edit" ng-model="student.batch">
                                                     <option selected="true" disabled="disabled" label="Batch"></option>
                                                 </select>
                                             </div>
@@ -327,11 +347,11 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <div ng-show="studentList == '0'" class="alert alert-danger no-records">No records found</div>
+                            <div ng-show="studentList == 0" class="alert alert-danger no-records" style="margin: 0px;">No records found</div>
                         </div>
                         <form style="float: left; margin-top:20px;">
                             <div class="form-group" >
-                                <label for="selectedSubjects">Select subjects (hold shift to select more than one):</label>
+                                <label for="selectedSubjects">Select subjects (hold ctrl to select more than one):</label>
                                 <select multiple class="form-control" id="selectedSubjects" ng-options="subject.name for subject in subjectList" ng-model="assignmentSubjects" style="min-height: 66px;    max-height: 110px;">
                                 </select>
                             </div>
