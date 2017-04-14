@@ -36,7 +36,7 @@ pamp.controller('studentCtrl',['$scope','$rootScope','$location','$route','$http
     		"semId": semId,
     		"subjectCode": subjectCode
     	};
-
+        console.log(relativeMarksData);
     	var relativeMarksRequest = $http({
     	    method: "POST",
     		url: "php/fetchRelativeMarks.php",

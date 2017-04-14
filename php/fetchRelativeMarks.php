@@ -14,6 +14,7 @@
 	$postdata = file_get_contents("php://input");
    	$request = json_decode($postdata);
 
+
 	$semId = $request->semId;
 	$subCode = $request->subjectCode;
 
@@ -21,6 +22,7 @@
 	$semId = '1617-2';
 	$subCode = 'CSN302';
 */
+
 	$outp = "";
 	
 	
@@ -65,7 +67,7 @@
                     $outp .= '"quiz2":"' . $marksListRow['quiz2'] . '",';
                 if( (int)$marksListRow["quiz3"] != 0 && (int)$subjectMarksRow["quiz3"] != 0 ){
                     $total +=  round((int)$marksListRow["quiz3"]*(int)$subjectWeightageRow["quiz3"]/(int)$subjectMarksRow["quiz3"],2);
-                    $outp .= '"quiz3":"' . round((int)$marksListRow["q+uiz3"]*(int)$subjectWeightageRow["quiz3"]/(int)$subjectMarksRow["quiz3"],2) . '",';
+                    $outp .= '"quiz3":"' . round((int)$marksListRow["quiz3"]*(int)$subjectWeightageRow["quiz3"]/(int)$subjectMarksRow["quiz3"],2) . '",';
                     $outOf += (int)$subjectWeightageRow["quiz3"];
                 }else
                     $outp .= '"quiz3":"' . $marksListRow['quiz3'] . '",';

@@ -352,7 +352,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
     $scope.selectedSubject_t = function(subject, index){
         $scope.assignmentSubjects_t[index] = subject.subject_code;
-        console.log($scope.assignmentSubjects_t);
+//        console.log($scope.assignmentSubjects_t);
     };
 
     $scope.selectedBatch_t = function(batch, index){
