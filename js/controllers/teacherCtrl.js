@@ -22,8 +22,10 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 				$scope.assignedSubjectList_plan = response.data.records;
 				$scope.assignedSubjectList_assign = response.data.records;
 //				console.log($scope.assignedSubjectList_assign);
-				$scope.getSubjectMarks($rootScope.currentSemId, $scope.assignedSubjectList_assign[0].subCode);
+				$scope.getSubjectMarks($rootScope.currentSemId, $scope.assignedSubjectList_assign[0].subCode, 0);
+				$scope.getSubjectMarks($rootScope.currentSemId, $scope.assignedSubjectList_assign[0].subCode, 1);
 				$scope.setAssignMarks($scope.assignedSubjectList_assign[0]);
+				$scope.setPlanSemester($scope.assignedSubjectList_plan[0]);
 //				console.log($scope.assignedSubjectList_profile);
 			}
 			else if (response.data.records == "0") {
@@ -38,7 +40,7 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 		});
 	};
 
-	$scope.getSubjectMarks = function (semId, subjectCode){
+	$scope.getSubjectMarks = function (semId, subjectCode, flag){   // flag = 1 for assign, 0 for plan
         	var subjectMarksData = {
         		"semId": semId,
         		"subjectCode": subjectCode
@@ -52,11 +54,16 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 
         	subjectMarksRequest.then( function(response) {
         		if (response.data.records != "0") {
-        			$scope.subjectMarks = response.data.records;
+        		    if(flag == 0)
+        			    $scope.subjectMarks_plan = response.data.records;
+        		    else if(flag == 1)
+        			    $scope.subjectMarks_assign = response.data.records;
+                    //
 //        			console.log($scope.subjectMarks);
         		}
         		else if (response.data.records == "0") {
-        		    $scope.subjectMarks = response.data.records;
+        		    $scope.subjectMarks_plan = response.data.records;
+        		    $scope.subjectMarks_assign = response.data.records;
     //    			console.log(response.data.records);
         			//no records found
         		}
@@ -66,11 +73,38 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
             });
     };
 
+    $scope.getSubjectWeightages = function (semId, subjectCode){
+    	var subjectWeightagesData = {
+    		"semId": semId,
+    		"subjectCode": subjectCode
+    	};
+
+    	var subjectWeightagesRequest = $http({
+    	    method: "POST",
+    		url: "php/fetchSubjectWeightages.php",
+    		data: subjectWeightagesData
+    	});
+
+    	subjectWeightagesRequest.then( function(response) {
+    		if (response.data.records != "0") {
+    			$scope.subjectWeightages = response.data.records;
+//    			console.log($scope.subjectWeightages);
+    		}
+    		else if (response.data.records == "0") {
+//    			console.log(response.data.records);
+    			//no records found
+    		}
+    		else {
+
+    	    }
+        });
+    };
+
     $scope.getAssignedSubjects ($rootScope.userId, $rootScope.currentSemId);
 
     $scope.setAssignMarks = function(selectedSubject){
 
-        $scope.getSubjectMarks($rootScope.currentSemId, selectedSubject.subCode);
+        $scope.getSubjectMarks($rootScope.currentSemId, selectedSubject.subCode, 1);
 
         var assignMarksData = {
     			"subCode": selectedSubject.subCode,
@@ -102,34 +136,63 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
 
     $scope.saveMarks = function(){
 
-        var sidList = [];
-        var marksList = [];
-        console.log($scope.studentMarksList);
+        var dataList = [];
+//        console.log($scope.studentMarksList);
         for(var i=0;i<$scope.studentMarksList.length;i++){
-            sidList.push(marksList[i].studentMarks.sid);
-            marksList.push(marksList[i].studentMarks);
+            dataList.push($scope.studentMarksList[i].studentMarks);
         }
 
         var saveMarksData ={
-            "sid": sidList,
-            "marksList": marksList
+            "dataList": dataList
         };
 
-        console.log(saveMarksData);
+ //       console.log(saveMarksData);
         var saveMarksRequest = $http({
         	    method: "POST",
         		url: "php/assignStudentMarks.php",
         		data: saveMarksData
         	});
 
-        saveMarksRequest.then( function(response) {
+        /*saveMarksRequest.then( function(response) {
     		if (response.data.records != "0") {
     		    console.log(response.data);
     		}
     		else {
     		}
-    	});
+    	});*/
     };
+
+
+    $scope.setPlanSemester = function(selectedSubject){
+
+        $scope.getSubjectMarks($rootScope.currentSemId, selectedSubject.subCode, 0);
+        $scope.getSubjectWeightages($rootScope.currentSemId, selectedSubject.subCode);
+
+    };
+
+    $scope.saveSemesterPlan = function(){
+
+        var saveSemesterPlanData ={
+            "marksList": $scope.subjectMarks_plan,
+            "weightageList": $scope.subjectWeightages[0]
+        };
+
+        console.log(saveSemesterPlanData);
+        var saveSemesterPlanRequest = $http({
+        	    method: "POST",
+        		url: "php/assignSubjectPlan.php",
+        		data: saveSemesterPlanData
+        	});
+
+        saveSemesterPlanRequest.then( function(response) {
+    		if (response.data.records != "") {
+    		    console.log(response.data);
+    		}
+    	});
+        $scope.setAssignMarks($scope.assignedSubjectList_assign[0]);
+
+    };
+
 
 }]);
 
