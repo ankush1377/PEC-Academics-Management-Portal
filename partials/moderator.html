@@ -1,0 +1,154 @@
+<div class="moderator">
+    <div class="credentialsContainer">
+        <div class="leftCredentialsContainer">
+            <div class="welcomeField">
+                <span class="welcomeMessage" style="font-size:14px;">Welcome, </span>
+                <span class="name">{{userData.name}}</span>
+            </div>
+        </div>
+        <div class="rightCredentialsContainer">
+            <div class="credentialsTabField ">
+                <a href="javascript:void(0)" ng-click="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="tabsContainer">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="pill" href="javascript:void(0)" data-target="#myProfile">My Profile</a></li>
+                <li><a data-toggle="pill" href="javascript:void(0)" data-target="#moderationRequests">Moderation Requests</a></li>
+            </ul>
+
+            <div class="tab-content" >
+                <div id="myProfile" class="tab-pane fade in active">
+                    <div class="personalInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Personal Information</h4>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.name}}</div>
+                                    <p class="list-group-item-text">Name</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userId}}</div>
+                                    <p class="list-group-item-text">Moderator ID</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.dob | date:"longDate"}}</div>
+                                    <p class="list-group-item-text">Date of Birth</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userAccess}}</div>
+                                    <p class="list-group-item-text">Access</p>
+                                </div>
+                            </div>
+                            <div  class="list-group-item">
+                                    <div class="list-group-item-heading">{{userData.gender}}</div>
+                                    <p class="list-group-item-text">Gender</p>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="list-group-item-heading">{{userData.father_name}}</div>
+                                <p class="list-group-item-text">Father's Name</p>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="list-group-item-heading">{{userData.mother_name}}</div>
+                                <p class="list-group-item-text">Mother's Name</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contactInfo">
+                        <div class="list-group">
+                            <div  class="list-group-item">
+                                <h4 class="list-group-item-heading">Contact Details</h4>
+                            </div>
+                            <div  class="list-group-item">
+                                <div class="left">
+                                    <div class="list-group-item-heading">{{userData.phone_no}}</div>
+                                    <p class="list-group-item-text">Phone Number</p>
+                                </div>
+                                <div class="right">
+                                    <div class="list-group-item-heading">{{userData.email_id}}</div>
+                                    <p class="list-group-item-text">Email address</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<form>
+                              <div class="form-group">
+                                  <label for="contactNumber">Contact Number</label>
+                                  <input type="tel" class="form-control" id="contactNumber">
+                              </div>
+                              <div class="form-group">
+                                  <label for="emailAddress">Email address</label>
+                                  <input type="email" class="form-control" id="emailAddress">
+                              </div>
+                              <button type="submit" class="btn btn-default">Submit</button>
+                          </form>-->
+                </div>
+
+                <div id="moderationRequests" class="tab-pane fade">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="javascript:void(0)" data-target="#pending">
+                                        Pending</a>
+                                </h4>
+                            </div>
+                            <div id="pending" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="list-group" ng-show="!noPendingRequests">
+                                        <a href="javascript:void(0)" class="list-group-item" ng-repeat="request in pendingRequests">{{request.moderationInfo.subject_code}} ({{request.subName}}) from {{request.moderationInfo.tid}} ({{request.teacherName}})</a>
+                                    </div>
+                                    <div  ng-show="noPendingRequests" class="alert alert-danger no-records">No pending requests</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="javascript:void(0)" data-target="#approved">
+                                        Approved</a>
+                                </h4>
+                            </div>
+                            <div id="approved" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="javascript:void(0)" class="list-group-item" ng-repeat="request in approvedRequests">{{request.subject_code}}</a>
+                                    </div>
+                                    <div  ng-show="noApprovedRequests" class="alert alert-danger no-records">No requests to show</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="checkGrades" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="    float: left;
+    width: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="    float: left;
+    width: 100%;">
+
+            </div>
+            <div class="modal-footer" style="float:left; width:100%;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

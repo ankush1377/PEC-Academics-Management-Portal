@@ -123,7 +123,7 @@
                                                     <td><input type="text" class="form-control" ng-model="tid"></td>
                                                     <td><input type="text" class="form-control" ng-model="tName"></td>
                                                     <td><input type="date" class="form-control" ng-model="tDob"></td>
-                                                    <td>
+                                                    <td style="padding: 5px;">
                                                         <div class="radio">
                                                             <label><input type="radio" ng-model="tGender" value="Male">Male</label>
                                                         </div>
@@ -155,7 +155,7 @@
                                         </div>
                                     </form>
                                     <div class="studentPerformanceTable" style="margin-top:15px;">
-                                        <table class="table table-bordered table-hover" style="    margin-bottom: 0px;">
+                                        <table class="table table-bordered table-hover table-condensed" style="    margin-bottom: 0px;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 115px;">TID</th>
@@ -173,7 +173,7 @@
                                                     <td>{{teacher.tid}}</td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.name}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.name"></div></td>
                                                     <td><div ng-show="teacherView[$index]">{{teacher.dob | date:"yyyy/MM/dd"}}</div><div ng-hide="teacherView[$index]"><input type="text" class="form-control" ng-model="teacher.dob"></div></td>
-                                                    <td><div ng-show="teacherView[$index]">{{teacher.gender}}</div>
+                                                    <td style="padding: 5px;"><div ng-show="teacherView[$index]">{{teacher.gender}}</div>
                                                         <div ng-hide="teacherView[$index]">
                                                             <div class="radio">
                                                                 <label><input type="radio" ng-model="teacher.gender" value="Male">Male</label>
@@ -215,14 +215,14 @@
                                 <table class="table table-bordered  table-hover" style="    margin-bottom: 0px;">
                                     <thead >
                                     <tr>
-                                        <th style="width: 111px;">SID</th>
+                                        <th style="width: 93px;">SID</th>
                                         <th>Name</th>
                                         <th style="width: 100px;">Date of Birth</th>
                                         <th style="width: 75px;">Gender</th>
                                         <th>Father's Name</th>
                                         <th>Mother's Name</th>
-                                        <th style="width: 171px;">Programme</th>
-                                        <th style="width: 128px;">Batch</th>
+                                        <th style="width: 146px;">Programme</th>
+                                        <th style="width: 110px;">Batch</th>
                                         <th style="width: 50px;"></th>
                                     </tr>
                                     </thead>
@@ -281,18 +281,18 @@
                             </div>
                         </form>
                         <div class="studentPerformanceTable" style="margin-top:15px;">
-                            <table class="table table-bordered table-hover" style="    margin-bottom: 0px;">
+                            <table class="table table-bordered table-hover table-condensed" style="    margin-bottom: 0px;">
                                 <thead>
                                 <tr>
                                     <th style="width: 1px;">Select</th>
-                                    <th style="width: 87px;">SID</th>
+                                    <th style="width: 93px;">SID</th>
                                     <th>Name</th>
                                     <th>Date of Birth</th>
                                     <th style="width: 80px;">Gender</th>
                                     <th>Father's Name</th>
                                     <th>Mother's Name</th>
-                                    <th style="width: 171px;">Programme</th>
-                                    <th style="width: 127px;">Batch</th>
+                                    <th style="width: 146px;">Programme</th>
+                                    <th style="width: 110px;">Batch</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -338,7 +338,7 @@
                                     </div></td>
                                     <td>
                                         <div class="editButton" ng-show="studentView[$index]">
-                                            <button type="button" class="btn edit-row" ng-click="editStudent($index)" >Edit</button>
+                                            <button type="button" class="btn edit-row" ng-click="editStudent($index,student.programme)" >Edit</button>
                                         </div>
                                         <div class="saveButton" ng-hide="studentView[$index]">
                                             <button type="button" class="btn edit-row" ng-click="saveStudent(student, $index)" >Save</button>

@@ -194,5 +194,67 @@ pamp.controller('teacherCtrl',['$scope','$rootScope','$location','$route','$http
     };
 
 
+
+    $scope.requestModeration = function(selectedSubject){
+
+            var assignMarksData = {
+     			"subCode": selectedSubject.subCode,
+     			"semCode": $rootScope.currentSemId,
+     			"batchId": selectedSubject.batchId + "_" + $rootScope.userData.dep_code
+     		};
+
+
+     		var assignMarksRequest = $http({
+     			method: "POST",
+     			url: "php/fetchStudentMarksList.php",
+     			data: assignMarksData
+     		});
+
+     		assignMarksRequest.then( function(response) {
+     			if (response.data.records != "0") {
+     			    $scope.studentMarksList_moderation = response.data.records;
+
+     	            var allGradesAssigned = true;
+                    for(var i=0;i<$scope.studentMarksList_moderation.length;i++){
+                        console.log($scope.studentMarksList_moderation[i].studentMarks.grade)
+                        if($scope.studentMarksList_moderation[i].studentMarks.grade == null || $scope.studentMarksList_moderation[i].studentMarks.grade == ""){
+                            allGradesAssigned = false;
+                            break;
+                        }
+                    }
+
+                    if(allGradesAssigned){
+                            var moderationRequestData = {
+                     			"subCode": selectedSubject.subCode,
+                     			"semCode": $rootScope.currentSemId,
+                     			"tid": $rootScope.userId
+                     		};
+
+
+                     		var moderationRequest = $http({
+                     			method: "POST",
+                     			url: "php/setModerationRequest.php",
+                     			data: moderationRequestData
+                     		});
+
+                     		moderationRequest.then( function(response) {
+                     			if (response.data != "") {
+                                    console.log(response.data);
+                                }
+                            });
+ //    			    console.log($scope.studentMarksList);
+     			    }
+     			}
+     			else if (response.data.records == "0") {
+     				$scope.studentMarksList_moderation = response.data.records;
+     				//no records found
+     			}
+     			else {
+
+     			}
+     		});
+    };
+
+
 }]);
 

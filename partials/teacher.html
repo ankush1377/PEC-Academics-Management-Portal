@@ -227,6 +227,9 @@
                     <div class="editButton" style="float:right; margin-top:15px;">
                         <button type="button" class="btn edit-row" ng-click="saveMarks()" >Save Marks</button>
                     </div>
+                    <div class="editButton" style="float:right; margin-top:15px;    margin-right: 10px;">
+                        <button type="button" class="btn edit-row" ng-click="requestModeration(selectedSubject_assign)" ng-disabled="selectedSubject_assign == undefined">Request Moderation</button>
+                    </div>
 
 <!--                <div class="gradeRangeTable">
                         <table class="table table-bordered">

@@ -90,7 +90,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         var pw = randomPassword(8);
         var date = new Date($scope.sDob);
         date.setMinutes( date.getMinutes() + 480 );
-        console.log(date);
+//        console.log(date);
         var addStudentRequest = $http({
             method: "POST",
             url: "php/addStudent.php",
@@ -115,9 +115,16 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
         });
     };
 
-    $scope.editStudent = function(index){
+    $scope.editStudent = function(index,programme){
 
         $scope.studentView[index] = false;
+//        console.log();
+        if(programme == 'Undergraduate'){
+            $scope.batchList_edit = $rootScope.batchList_ug;
+        }
+        else if(programme == 'Postgraduate'){
+            $scope.batchList_edit = $rootScope.batchList_pg;
+        }
 //        console.log($scope.studentEdit);
     };
 
@@ -155,6 +162,8 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 },
                 header: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
+            $scope.getStudents();
+            $scope.batchList_edit = [];
     };
 
     $scope.assignSubjects = function(){
@@ -292,13 +301,15 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
 
         $scope.incomplete_t = false;
         var pw = randomPassword(8);
+        var date = new Date($scope.tDob);
+        date.setMinutes( date.getMinutes() + 480 );
         var addTeacherRequest = $http({
             method: "POST",
             url: "php/addTeacher.php",
             data: {
                 tid: $scope.tid,
                 name: $scope.tName,
-                dob: $scope.tDob,
+                dob: date,
                 gender: $scope.tGender,
                 fatherName: $scope.tFatherName,
                 motherName: $scope.tMotherName,
@@ -348,6 +359,7 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 },
                 header: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
+            $scope.getTeachers();
     };
 
     $scope.selectedSubject_t = function(subject, index){
@@ -383,6 +395,9 @@ pamp.controller('adminCtrl',['$scope','$rootScope','$location','$route','$http',
                 },
                 header: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
+
+        $scope.assignmentSubjects_t = [];
+        $scope.assignmentBatches_t = [];
     };
 
 

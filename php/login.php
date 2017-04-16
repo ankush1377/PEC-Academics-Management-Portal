@@ -41,10 +41,13 @@
 	if ($dataResult->num_rows > 0) {
 		
 		while($row = $dataResult->fetch_array(MYSQLI_ASSOC)) {
-			$depCode = $row["dep_code"];
-			$depSql = "SELECT * FROM department_info WHERE dep_code = '$depCode'";
-			$depResult = $conn->query($depSql);
-			$depName = $depResult->fetch_array(MYSQLI_ASSOC)["name"];
+
+		    if($access != "Moderator"){
+                $depCode = $row["dep_code"];
+                $depSql = "SELECT * FROM department_info WHERE dep_code = '$depCode'";
+                $depResult = $conn->query($depSql);
+                $depName = $depResult->fetch_array(MYSQLI_ASSOC)["name"];
+            }
 
 			if ($outp != "") {$outp .= ",";}
 			$outp .= '{"name":"' . $row["name"] . '",';
@@ -52,9 +55,11 @@
 			$outp .= '"gender":"' . $row["gender"] . '",';
 			$outp .= '"father_name":"' . $row["father_name"] . '",';
 			$outp .= '"mother_name":"' . $row["mother_name"] . '",';
-			$outp .= '"dep_code":"' . $depCode . '",';
-			$outp .= '"dep_name":"' . $depName . '",';
-			if ($access == "Student"){
+			if($access != "Moderator"){
+                $outp .= '"dep_code":"' . $depCode . '",';
+                $outp .= '"dep_name":"' . $depName . '",';
+            }
+            if ($access == "Student"){
 				$outp .= '"batch":"' . substr($row["batch_id"], 0, strpos($row["batch_id"], '_')) . '",';
 				$outp .= '"programme":"' . $row["programme"] . '",';
 		    }
