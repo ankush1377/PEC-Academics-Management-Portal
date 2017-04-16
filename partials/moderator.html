@@ -105,7 +105,7 @@
                             <div id="pending" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <div class="list-group" ng-show="!noPendingRequests">
-                                        <a href="javascript:void(0)" class="list-group-item" ng-repeat="request in pendingRequests">{{request.moderationInfo.subject_code}} ({{request.subName}}) from {{request.moderationInfo.tid}} ({{request.teacherName}})</a>
+                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#checkGrades" ng-click="setAssignMarks(request.moderationInfo.subject_code)" class="list-group-item" ng-repeat="request in pendingRequests">{{request.moderationInfo.subject_code}} ({{request.subName}}) from {{request.moderationInfo.tid}} ({{request.teacherName}})</a>
                                     </div>
                                     <div  ng-show="noPendingRequests" class="alert alert-danger no-records">No pending requests</div>
                                 </div>
@@ -121,7 +121,7 @@
                             <div id="approved" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="list-group">
-                                        <a href="javascript:void(0)" class="list-group-item" ng-repeat="request in approvedRequests">{{request.subject_code}}</a>
+                                        <a href="javascript:void(0)" class="list-group-item" ng-repeat="request in approvedRequests">{{request.moderationInfo.subject_code}} ({{request.subName}}) from {{request.moderationInfo.tid}} ({{request.teacherName}})</a>
                                     </div>
                                     <div  ng-show="noApprovedRequests" class="alert alert-danger no-records">No requests to show</div>
                                 </div>
@@ -136,15 +136,64 @@
 
 <div class="modal fade" id="checkGrades" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="    float: left;
-    width: 100%;">
+        <div class="modal-content" style="    float: left;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"></h4>
+                <h4 class="modal-title">Student Marks List</h4>
             </div>
             <div class="modal-body" style="    float: left;
     width: 100%;">
-
+                <div class="studentMarksTable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>SID</th>
+                            <th>Name</th>
+                            <th ng-class="{gray:!subjectMarks.quiz1}">Q1<span ng-show="subjectMarks.quiz1">({{subjectMarks.quiz1}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.quiz2}">Q2<span ng-show="subjectMarks.quiz2">({{subjectMarks.quiz2}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.quiz3}">Q3<span ng-show="subjectMarks.quiz3">({{subjectMarks.quiz3}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.quiz4}">Q4<span ng-show="subjectMarks.quiz4">({{subjectMarks.quiz4}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.assignment1}">A1<span ng-show="subjectMarks.assignment1">({{subjectMarks.assignment1}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.assignment2}">A2<span ng-show="subjectMarks.assignment2">({{subjectMarks.assignment2}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.assignment3}">A3<span ng-show="subjectMarks.assignment3">({{subjectMarks.assignment3}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.assignment4}">A4<span ng-show="subjectMarks.assignment4">({{subjectMarks.assignment4}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.assignment5}">A5<span ng-show="subjectMarks.assignment5">({{subjectMarks.assignment5}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.lab1}">LE1<span ng-show="subjectMarks.lab1">({{subjectMarks.lab1}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.lab2}">LE2<span ng-show="subjectMarks.lab2">({{subjectMarks.lab2}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.project}">PE<span ng-show="subjectMarks.project">({{subjectMarks.project}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.mst}">MST<span ng-show="subjectMarks.mst">({{subjectMarks.mst}})</span></th>
+                            <th ng-class="{gray:!subjectMarks.est}">EST<span ng-show="subjectMarks.est">({{subjectMarks.est}})</span></th>
+                            <th>Grade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="student in studentMarksList">
+                            <td>{{student.studentMarks.sid}}</td>
+                            <td>{{student.name}}</td>
+                            <td ng-class="{gray:!subjectMarks.quiz1}"><span ng-show="subjectMarks.quiz1"><input type="text" class="form-control" ng-model="student.studentMarks.quiz1" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.quiz2}"><span ng-show="subjectMarks.quiz2"><input type="text" class="form-control" ng-model="student.studentMarks.quiz2" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.quiz3}"><span ng-show="subjectMarks.quiz3"><input type="text" class="form-control" ng-model="student.studentMarks.quiz3" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.quiz4}"><span ng-show="subjectMarks.quiz4"><input type="text" class="form-control" ng-model="student.studentMarks.quiz4" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.assignment1}"><span ng-show="subjectMarks.assignment1"><input type="text" class="form-control" ng-model="student.studentMarks.assignment1" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.assignment2}"><span ng-show="subjectMarks.assignment2"><input type="text" class="form-control" ng-model="student.studentMarks.assignment2" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.assignment3}"><span ng-show="subjectMarks.assignment3"><input type="text" class="form-control" ng-model="student.studentMarks.assignment3" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.assignment4}"><span ng-show="subjectMarks.assignment4"><input type="text" class="form-control" ng-model="student.studentMarks.assignment4" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.assignment5}"><span ng-show="subjectMarks.assignment5"><input type="text" class="form-control" ng-model="student.studentMarks.assignment5" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.lab1}"><span ng-show="subjectMarks.lab1"><input type="text" class="form-control" ng-model="student.studentMarks.lab1" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.lab2}"><span ng-show="subjectMarks.lab2"><input type="text" class="form-control" ng-model="student.studentMarks.lab2" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.project}"><span ng-show="subjectMarks.project"><input type="text" class="form-control" ng-model="student.studentMarks.project" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.mst}"><span ng-show="subjectMarks.mst"><input type="text" class="form-control" ng-model="student.studentMarks.mst" ng-disabled="true"></span></td>
+                            <td ng-class="{gray:!subjectMarks.est}"><span ng-show="subjectMarks.est"><input type="text" class="form-control" ng-model="student.studentMarks.est" ng-disabled="true"></span></td>
+                            <td><input type="text" class="form-control" ng-model="student.studentMarks.grade"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modalButtonList" style="margin-top:5px;">
+                    <div>
+                        <button type="button" class="btn modalButton" ng-click="approve(subjectMarks.subject_code)">Approve</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer" style="float:left; width:100%;">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
